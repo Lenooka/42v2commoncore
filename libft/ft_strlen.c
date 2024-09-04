@@ -1,16 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strtrim.c                                       :+:      :+:    :+:   */
+/*   ft_strlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/04 11:27:04 by olena             #+#    #+#             */
-/*   Updated: 2024/09/04 13:48:48 by oltolmac         ###   ########.fr       */
+/*   Created: 2024/09/02 11:40:11 by oltolmac          #+#    #+#             */
+/*   Updated: 2024/09/02 11:44:31 by oltolmac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-char	*ft_strtrim(char const *s1, char const *set)
+#include "libft.h"
+
+size_t	ft_strlen(const char *s)
 {
-	
+	size_t i;
+
+	i = 0;
+	while(s[i])
+	{
+		i++;
+	}
+	return (i);
 }

@@ -1,16 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strtrim.c                                       :+:      :+:    :+:   */
+/*   ft_toupper.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/04 11:27:04 by olena             #+#    #+#             */
-/*   Updated: 2024/09/04 13:48:48 by oltolmac         ###   ########.fr       */
+/*   Created: 2024/09/04 15:04:28 by oltolmac          #+#    #+#             */
+/*   Updated: 2024/09/04 15:07:40 by oltolmac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-char	*ft_strtrim(char const *s1, char const *set)
+#include "libft.h"
+
+int	ft_toupper(int c)
 {
-	
+	if (c >= 'a' && c <= 'z')
+	{
+		c = c - 32;
+		return (c);
+	}
+	return (c);
 }

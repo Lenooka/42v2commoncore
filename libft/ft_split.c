@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: olena <olena@student.42.fr>                +#+  +:+       +#+        */
+/*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 19:31:36 by olena             #+#    #+#             */
-/*   Updated: 2024/09/03 22:19:32 by olena            ###   ########.fr       */
+/*   Updated: 2024/09/04 13:51:07 by oltolmac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,18 +50,18 @@ static char	*ft_strndup(const char *s, size_t n)
 	return (dest);
 }
 
-static char	**free_arr(char **str_tab, int i)
+static char	**free_arr(char **str, int i)
 {
-	int	j;
+	int	a;
 
-	j = 0;
-	while (j < i && str_tab[j] != 0)
+	a = 0;
+	while (i < a && str[a] != NULL)
 	{
-		free(str_tab[j]);
-		j++;
+		free(str[a]);
+		a++;
 	}
-	free(str_tab);
-	return (0);
+	free(str);
+	return (NULL);
 }
 
 char	**ft_split(const char *s, char c)
@@ -91,8 +91,8 @@ char	**ft_split(const char *s, char c)
 	res[i] = NULL;
 	return (res);
 }
-/*
-int    main(void)
+
+/*int    main(void)
 {
     char	**res;
     int		i;

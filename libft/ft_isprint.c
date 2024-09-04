@@ -1,16 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strtrim.c                                       :+:      :+:    :+:   */
+/*   ft_isprint.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/04 11:27:04 by olena             #+#    #+#             */
-/*   Updated: 2024/09/04 13:48:48 by oltolmac         ###   ########.fr       */
+/*   Created: 2024/09/04 14:57:54 by oltolmac          #+#    #+#             */
+/*   Updated: 2024/09/04 14:58:47 by oltolmac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-char	*ft_strtrim(char const *s1, char const *set)
+#include "libft.h"
+
+int	ft_isprint(int c)
 {
-	
+	if (c >= 32 && c <= 126)
+			return (1);
+	return (0);
 }

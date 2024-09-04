@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: olena <olena@student.42.fr>                +#+  +:+       +#+        */
+/*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 22:22:03 by olena             #+#    #+#             */
-/*   Updated: 2024/09/03 22:35:43 by olena            ###   ########.fr       */
+/*   Updated: 2024/09/04 13:45:31 by oltolmac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,8 @@ void    *ft_memcpy(void *dest, const void *src, size_t n)
     char buffer[20];
 
     ft_memcpy(buffer, str, 6);
-    printf("Using memcpy: %s\n", buffer);
-
+    printf("ftmemcpy: %s\n", buffer);
+    memcpy(buffer, str, 6);
+    printf("memcpy: %s\n", buffer);   
     return 0;
 }*/

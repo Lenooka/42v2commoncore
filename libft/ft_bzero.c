@@ -1,16 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strtrim.c                                       :+:      :+:    :+:   */
+/*   ft_bzero.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/04 11:27:04 by olena             #+#    #+#             */
-/*   Updated: 2024/09/04 13:48:48 by oltolmac         ###   ########.fr       */
+/*   Created: 2024/09/02 11:45:32 by oltolmac          #+#    #+#             */
+/*   Updated: 2024/09/02 11:49:51 by oltolmac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-char	*ft_strtrim(char const *s1, char const *set)
+#include "libft.h"
+
+void ft_bzero(void *s, size_t n)
 {
-	
+	unsigned char *mem;
+	size_t i;
+
+	i = 0;
+	mem = (unsigned char *)s;
+	while (n--)
+	{
+		mem[i] = '\0';
+		i++;	
+	}
 }
