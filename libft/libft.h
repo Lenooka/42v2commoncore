@@ -6,7 +6,7 @@
 /*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 11:43:51 by oltolmac          #+#    #+#             */
-/*   Updated: 2024/09/04 14:26:48 by oltolmac         ###   ########.fr       */
+/*   Updated: 2024/09/04 19:27:42 by oltolmac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,5 +21,7 @@
 
 size_t	ft_strlen(const char *s);
 char	*ft_strdup(const char *s);
+void ft_bzero(void *s, size_t n);
+size_t ft_strlcpy(char *dst, const char *src, size_t size);
 
 #endif

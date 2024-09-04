@@ -1,34 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlcpy.c                                       :+:      :+:    :+:   */
+/*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/04 14:13:27 by oltolmac          #+#    #+#             */
-/*   Updated: 2024/09/04 19:30:30 by oltolmac         ###   ########.fr       */
+/*   Created: 2024/09/04 19:23:19 by oltolmac          #+#    #+#             */
+/*   Updated: 2024/09/04 19:33:00 by oltolmac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-size_t ft_strlcpy(char *dst, const char *src, size_t size)
+char *ft_strjoin(char const *s1, char const *s2)
 {
-	unsigned int	i;
-	int				j;
-	int				len;
+	size_t olen;
+	size_t tlen;
+	char 	*join;
 
-	i = 0;
-	j = 0;
-	len = ft_strlen(src);
-	if (size <= 0)
-		return (len);
-	while (i < size - 1)
-	{
-		dst[j] = src[i];
-		i++;
-		j++;
-	}
-	dst[j] = '\0';
-	return (len);
+	olen = ft_strlen(s1);
+	tlen = ft_strlen(s2);
+	join = (char *)malloc(sizeof(char) * (olen + tlen + 1));
+	if (!join)
+		return (NULL);
+	ft_strlcpy(join, s1, olen + 1);
+	ft_strlcpy(join + olen, s2, tlen + 1);
+	return (join);
 }
+
+/*int	main(int argc, char **argv)
+{
+	if (argc)
+		printf("%s", ft_strjoin(argv[1], argv[2]));
+	return (0);
+}*/

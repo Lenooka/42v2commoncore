@@ -1,34 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlcpy.c                                       :+:      :+:    :+:   */
+/*   ft_substr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/04 14:13:27 by oltolmac          #+#    #+#             */
-/*   Updated: 2024/09/04 19:30:30 by oltolmac         ###   ########.fr       */
+/*   Created: 2024/09/04 19:12:01 by oltolmac          #+#    #+#             */
+/*   Updated: 2024/09/04 19:22:34 by oltolmac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-size_t ft_strlcpy(char *dst, const char *src, size_t size)
+char *ft_substr(char const *s, unsigned int start, size_t len)
 {
-	unsigned int	i;
-	int				j;
-	int				len;
+	char *sub;
+	int	i;
+	int x;
 
-	i = 0;
-	j = 0;
-	len = ft_strlen(src);
-	if (size <= 0)
-		return (len);
-	while (i < size - 1)
+	sub = (char *)malloc(sizeof(char) * len + 1);
+	if (!sub)
+		return (NULL);
+	i = start;
+	x = 0;
+	while (s[i] && x <= len)
 	{
-		dst[j] = src[i];
+		sub[x] = s[i]; 
+		x++;
 		i++;
-		j++;
 	}
-	dst[j] = '\0';
-	return (len);
+	sub[x] = '\0';
+	return (sub);
 }
+
+/*int	main()
+{
+	char str[] = "Hello, world!";
+	printf("%s\n", ft_substr(str, 0, 100));
+}*/

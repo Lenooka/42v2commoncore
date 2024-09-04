@@ -1,40 +1,52 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memchr.c                                        :+:      :+:    :+:   */
+/*   ft_strrchr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/04 14:35:15 by oltolmac          #+#    #+#             */
-/*   Updated: 2024/09/04 18:51:22 by oltolmac         ###   ########.fr       */
+/*   Created: 2024/09/04 19:04:20 by oltolmac          #+#    #+#             */
+/*   Updated: 2024/09/04 19:11:09 by oltolmac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void *ft_memchr(const void *s, int c, size_t n)
+static size_t	ft_strlen(const char *s)
 {
 	size_t i;
 
 	i = 0;
-	while (i < n)
+	while(s[i])
 	{
-		if (*(unsigned char *)(s + i) == (unsigned char) c)
-			return ((void *)(s + i));
-		s++;
 		i++;
 	}
-	return (NULL);
+	return (i);
 }
 
-/*int main() 
+char *ft_strrchr(const char *s, int c)
 {
-    char str[] = "Hello, world!";
-    const char *ps;
+	size_t i;
 
-    ps = ft_memchr(str, 'l', 5);
-    printf("ftmemchr: %s\n", ps);
-    ps = memchr(str, 'l', 5);
-    printf("memchr: %s\n", ps);   
-    return 0;
+	if (!s)
+		return (NULL);
+	i = ft_strlen(s);
+	if (c == '\0')
+		return ((char *)s + i);
+	while (i >= 0)
+	{
+		if (s[i] == c)
+			return ((char *)s + i);
+		i--;
+	}
+	return (NULL);	
+}
+
+/*int main ()
+{
+  char str[] = "This is a sample string";
+  char * pch;
+  pch= ft_strrchr(str,'s');
+  printf ("Last occurence of 's' found at %ld \n",pch-str+1);
+  return 0;
 }*/
