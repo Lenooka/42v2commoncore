@@ -1,40 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strnstr.c                                       :+:      :+:    :+:   */
+/*   ft_strchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: olena <olena@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/04 14:28:57 by oltolmac          #+#    #+#             */
-/*   Updated: 2024/09/04 23:25:46 by olena            ###   ########.fr       */
+/*   Created: 2024/09/04 23:17:06 by olena             #+#    #+#             */
+/*   Updated: 2024/09/04 23:19:25 by olena            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char *ft_strnstr(const char *big, const char *little, size_t len)
+char *ft_strchr(const char *s, int c)
 {
 	size_t i;
-	size_t j;
 
+	if (!s)
+		return (NULL);
 	i = 0;
-	if (!*little)
-		return ((char *)big);
-	while (big[i] && i < len)
-	{
-		j = 0;
-		while (big[i + j] == little[j] && little[j] && i + j < len)
-			j++;
-		if (!little[j])
-			return ((char *)big + i);
-		i++;
-	}
-	return (NULL);
+	if (c == '\0')
+        return ((char *)s + ft_strlen(s));
+	while (s[i])
+    {
+        if (s[i] == c)
+            return ((char *)s + i);
+        i++;
+    }
+	return (NULL);	
 }
-
-
-/*int main()
-{
-	char str[] = "Hewollo, world!";
-	printf("%s\n", ft_strnstr(str, "world", 100));
-}*/

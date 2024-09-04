@@ -1,40 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strnstr.c                                       :+:      :+:    :+:   */
+/*   ft_striteri.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: olena <olena@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/04 14:28:57 by oltolmac          #+#    #+#             */
-/*   Updated: 2024/09/04 23:25:46 by olena            ###   ########.fr       */
+/*   Created: 2024/09/04 22:31:55 by olena             #+#    #+#             */
+/*   Updated: 2024/09/04 22:33:41 by olena            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char *ft_strnstr(const char *big, const char *little, size_t len)
+void ft_striteri(char *s, void (*f)(unsigned int, char *))
 {
-	size_t i;
-	size_t j;
+    unsigned int i;
 
-	i = 0;
-	if (!*little)
-		return ((char *)big);
-	while (big[i] && i < len)
-	{
-		j = 0;
-		while (big[i + j] == little[j] && little[j] && i + j < len)
-			j++;
-		if (!little[j])
-			return ((char *)big + i);
-		i++;
-	}
-	return (NULL);
+    i = 0;
+    if (!s || !f)
+        return ;
+    while (s[i])
+    {
+        (*f)(i, &s[i]);
+        i++;
+    }
 }
-
-
-/*int main()
-{
-	char str[] = "Hewollo, world!";
-	printf("%s\n", ft_strnstr(str, "world", 100));
-}*/

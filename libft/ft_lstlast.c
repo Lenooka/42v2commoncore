@@ -1,40 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strnstr.c                                       :+:      :+:    :+:   */
+/*   ft_lstlast.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: olena <olena@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/04 14:28:57 by oltolmac          #+#    #+#             */
-/*   Updated: 2024/09/04 23:25:46 by olena            ###   ########.fr       */
+/*   Created: 2024/09/04 23:02:19 by olena             #+#    #+#             */
+/*   Updated: 2024/09/04 23:02:40 by olena            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char *ft_strnstr(const char *big, const char *little, size_t len)
+t_list *ft_lstlast(t_list *lst)
 {
-	size_t i;
-	size_t j;
-
-	i = 0;
-	if (!*little)
-		return ((char *)big);
-	while (big[i] && i < len)
-	{
-		j = 0;
-		while (big[i + j] == little[j] && little[j] && i + j < len)
-			j++;
-		if (!little[j])
-			return ((char *)big + i);
-		i++;
-	}
-	return (NULL);
+    if (!lst)
+        return (NULL);
+    while (lst->next)
+        lst = lst->next;
+    return (lst);
 }
-
-
-/*int main()
-{
-	char str[] = "Hewollo, world!";
-	printf("%s\n", ft_strnstr(str, "world", 100));
-}*/

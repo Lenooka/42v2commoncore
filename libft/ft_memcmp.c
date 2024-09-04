@@ -1,40 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strnstr.c                                       :+:      :+:    :+:   */
+/*   ft_memcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: olena <olena@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/04 14:28:57 by oltolmac          #+#    #+#             */
-/*   Updated: 2024/09/04 23:25:46 by olena            ###   ########.fr       */
+/*   Created: 2024/09/04 22:42:01 by olena             #+#    #+#             */
+/*   Updated: 2024/09/04 22:42:59 by olena            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char *ft_strnstr(const char *big, const char *little, size_t len)
+int	ft_memcmp(const void *s1, const void *s2, size_t n)
 {
-	size_t i;
-	size_t j;
+    unsigned char	*str1;
+    unsigned char	*str2;
+    size_t			i;
 
-	i = 0;
-	if (!*little)
-		return ((char *)big);
-	while (big[i] && i < len)
-	{
-		j = 0;
-		while (big[i + j] == little[j] && little[j] && i + j < len)
-			j++;
-		if (!little[j])
-			return ((char *)big + i);
-		i++;
-	}
-	return (NULL);
+    if (n == 0 || s1 == s2)
+        return (0);
+    str1 = (unsigned char *)s1;
+    str2 = (unsigned char *)s2;
+    i = 0;
+    while (i < n)
+    {
+        if (str1[i] != str2[i])
+            return ((int)(str1[i] - str2[i]));
+        i++;
+    }
+    return (0);
 }
-
-
-/*int main()
-{
-	char str[] = "Hewollo, world!";
-	printf("%s\n", ft_strnstr(str, "world", 100));
-}*/

@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: olena <olena@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 20:34:46 by oltolmac          #+#    #+#             */
-/*   Updated: 2024/09/04 20:53:32 by oltolmac         ###   ########.fr       */
+/*   Updated: 2024/09/05 00:06:29 by olena            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	len_calc(int n)
+static long	int len_calc(int n)
 {
 	int	len;
 
@@ -22,23 +22,25 @@ int	len_calc(int n)
 		n = -n;
 		len++;
 	}
-	while (n != 10)
+	if (n == 0)
+		return (1);
+	while (n != 0)
 	{
 		n = n / 10;
 		len++;
 	}
-	len++;
 	return (len);
 }
 
 char *ft_itoa(int n)
 {
 	char *res;
-	int len;
+	unsigned int len;
 
-	res = (char *)malloc(sizeof(char) * len_calc(n));
 	if (n == -2147483648)
 		return (res = ft_strdup("-2147483648"));
+	len = len_calc(n);
+	res = (char *)malloc(sizeof(char) * (len + 1));
 	if(!res)
 		return (NULL);
 	if (n < 0)
@@ -46,7 +48,6 @@ char *ft_itoa(int n)
 		n = -n;
 		res[0] = '-';
 	}
-	len = len_calc(n);
 	res[len] = '\0';
 	if (n == 0)
 		res[0] = '0';

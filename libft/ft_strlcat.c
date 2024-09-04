@@ -3,39 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strlcat.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: olena <olena@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 14:24:34 by oltolmac          #+#    #+#             */
-/*   Updated: 2024/09/04 14:27:24 by oltolmac         ###   ########.fr       */
+/*   Updated: 2024/09/05 00:17:13 by olena            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static size_t	ft_strlen(const char *s)
-{
-	size_t i;
-
-	i = 0;
-	while(s[i])
-	{
-		i++;
-	}
-	return (i);
-}
 
 size_t	ft_strlcat(char *dst, const char *src, size_t size)
 {
-	unsigned int	i;
-	unsigned int	destlen;
-	unsigned int	srclen;
+	size_t	i;
+	size_t	destlen;
+	size_t	srclen;
 
 	i = 0;
 	destlen = ft_strlen(dst);
 	srclen = ft_strlen(src);
-	if (size < destlen)
+	if (size < destlen || size == 0)
 		return (size + srclen);
-	if (size > 0)
+	if (destlen < size - 1 && size > 0)
 	{
 		while (src[i] != '\0' && ((i + destlen) < size - 1))
 		{

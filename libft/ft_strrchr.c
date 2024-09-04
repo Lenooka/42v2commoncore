@@ -3,30 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strrchr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: olena <olena@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 19:04:20 by oltolmac          #+#    #+#             */
-/*   Updated: 2024/09/04 19:11:09 by oltolmac         ###   ########.fr       */
+/*   Updated: 2024/09/05 00:18:56 by olena            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static size_t	ft_strlen(const char *s)
-{
-	size_t i;
-
-	i = 0;
-	while(s[i])
-	{
-		i++;
-	}
-	return (i);
-}
-
 char *ft_strrchr(const char *s, int c)
 {
-	size_t i;
+	int i;
 
 	if (!s)
 		return (NULL);

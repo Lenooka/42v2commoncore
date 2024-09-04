@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: olena <olena@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 13:58:58 by oltolmac          #+#    #+#             */
-/*   Updated: 2024/09/04 14:02:49 by oltolmac         ###   ########.fr       */
+/*   Updated: 2024/09/04 23:21:10 by olena            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,17 +27,6 @@ static char	*ft_strcpy(char *dest, const char *s)
 	}
 	dest[j] = '\0';
 	return (dest);
-}
-static size_t	ft_strlen(const char *s)
-{
-	size_t i;
-
-	i = 0;
-	while(s[i])
-	{
-		i++;
-	}
-	return (i);
 }
 
 char	*ft_strdup(const char *s)
