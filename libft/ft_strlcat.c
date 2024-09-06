@@ -6,25 +6,24 @@
 /*   By: olena <olena@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 14:24:34 by oltolmac          #+#    #+#             */
-/*   Updated: 2024/09/05 00:17:13 by olena            ###   ########.fr       */
+/*   Updated: 2024/09/05 14:18:24 by olena            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-
 size_t	ft_strlcat(char *dst, const char *src, size_t size)
 {
-	size_t	i;
 	size_t	destlen;
 	size_t	srclen;
+	size_t	i;
 
 	i = 0;
 	destlen = ft_strlen(dst);
 	srclen = ft_strlen(src);
-	if (size < destlen || size == 0)
+	if (size < destlen + 1)
 		return (size + srclen);
-	if (destlen < size - 1 && size > 0)
+	if (size > 0)
 	{
 		while (src[i] != '\0' && ((i + destlen) < size - 1))
 		{

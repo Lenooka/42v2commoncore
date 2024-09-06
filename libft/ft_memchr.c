@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: olena <olena@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 14:35:15 by oltolmac          #+#    #+#             */
-/*   Updated: 2024/09/04 18:51:22 by oltolmac         ###   ########.fr       */
+/*   Updated: 2024/09/05 00:38:00 by olena            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ void *ft_memchr(const void *s, int c, size_t n)
 	{
 		if (*(unsigned char *)(s + i) == (unsigned char) c)
 			return ((void *)(s + i));
-		s++;
 		i++;
 	}
 	return (NULL);

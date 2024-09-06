@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: olena <olena@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 19:31:36 by olena             #+#    #+#             */
-/*   Updated: 2024/09/04 13:51:07 by oltolmac         ###   ########.fr       */
+/*   Updated: 2024/09/05 13:30:03 by olena            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ static char	**free_arr(char **str, int i)
 	int	a;
 
 	a = 0;
-	while (i < a && str[a] != NULL)
+	while (a < i && str[a] != NULL)
 	{
 		free(str[a]);
 		a++;
@@ -68,7 +68,7 @@ char	**ft_split(const char *s, char c)
 {
 	int			i;
 	char		**res;
-	const char	*start;
+	const char	*pos;
 
 	i = 0;
 	res = (char **)malloc(sizeof(char *) * (word_count(s, c) + 1));
@@ -80,10 +80,10 @@ char	**ft_split(const char *s, char c)
 			s++;
 		else
 		{
-			start = s;
+			pos = s;
 			while (*s && *s != c)
 				s++;
-			res[i++] = ft_strndup(start, s - start);
+			res[i++] = ft_strndup(pos, s - pos);
 			if (!res[i - 1])
 				return (free_arr(res, i));
 		}

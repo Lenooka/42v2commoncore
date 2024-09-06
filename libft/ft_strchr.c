@@ -6,7 +6,7 @@
 /*   By: olena <olena@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 23:17:06 by olena             #+#    #+#             */
-/*   Updated: 2024/09/04 23:19:25 by olena            ###   ########.fr       */
+/*   Updated: 2024/09/05 13:36:45 by olena            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,16 +16,15 @@ char *ft_strchr(const char *s, int c)
 {
 	size_t i;
 
-	if (!s)
-		return (NULL);
 	i = 0;
-	if (c == '\0')
-        return ((char *)s + ft_strlen(s));
+	c = c % 128;
 	while (s[i])
     {
         if (s[i] == c)
             return ((char *)s + i);
         i++;
     }
+	if (c == '\0')
+		return ((char *)s + i);
 	return (NULL);	
 }

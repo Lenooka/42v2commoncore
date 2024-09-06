@@ -6,16 +6,11 @@
 /*   By: olena <olena@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 22:24:12 by olena             #+#    #+#             */
-/*   Updated: 2024/09/03 22:38:33 by olena            ###   ########.fr       */
+/*   Updated: 2024/09/05 13:14:28 by olena            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <stddef.h>
-
+#include "libft.h"
 
 void    *ft_memmove(void *dest, const void *src, size_t n)
 {
