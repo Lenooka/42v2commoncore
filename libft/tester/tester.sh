@@ -4,7 +4,6 @@
 mkdir -p exec
 echo -e "\033[0;33mLIBFT TESTER\033[0m\n"
 echo -e "\033[0;33mCompiling libft...\033[0m\n"
-echo -e "\n"
 cd ..
 make re > /dev/null 2>&1
 if [ $? -ne 0 ]; then
@@ -134,7 +133,7 @@ if [ $? -ne 0 ]; then
     exit 1
 fi
 
-cc -Wall -Wextra -Werror -I.. -o exec/test_strlcpy test_strlcpy.c -L.. -lft
+cc -Wall -Wextra -Werror -lbsd -I..  -o exec/test_strlcpy test_strlcpy.c -L.. -lft
 if [ $? -ne 0 ]; then
     echo -e "\033[0;31mFailed to compile test_strlcpy. Exiting.\033[0m"
     exit 1
@@ -146,7 +145,7 @@ if [ $? -ne 0 ]; then
     exit 1
 fi
 
-cc -Wall -Wextra -Werror  -I.. -o exec/test_strlcat test_strlcat.c -L.. -lft
+cc -Wall -Wextra -Werror -lbsd  -I.. -o exec/test_strlcat test_strlcat.c -L.. -lft
 if [ $? -ne 0 ]; then
     echo -e "\033[0;31mFailed to compile test_strlcat. Exiting.\033[0m"
     exit 1
@@ -242,7 +241,7 @@ if [ $? -ne 0 ]; then
     exit 1
 fi
 
-cc -Wall -Wextra -Werror  -I.. -o exec/test_strnstr test_strnstr.c -L.. -lft
+cc -Wall -Wextra -Werror -lbsd -I.. -o exec/test_strnstr test_strnstr.c -L.. -lft
 if [ $? -ne 0 ]; then
     echo -e "\033[0;31mFailed to compile test_strnstr. Exiting.\033[0m"
     exit 1
@@ -289,8 +288,107 @@ if [ $? -ne 0 ]; then
     echo -e "\033[0;31mTest execution failed.\033[0m"
     exit 1
 fi
+
 echo -e "\n"
 echo -e "\033[0;33mSECOND PART\033[0m\n"
+
+cc -Wall -Wextra -Werror  -I.. -o exec/test_substr test_substr.c -L.. -lft
+if [ $? -ne 0 ]; then
+    echo -e "\033[0;31mFailed to compile test_substr.c Exiting.\033[0m"
+    exit 1
+fi
+
+./exec/test_substr
+if [ $? -ne 0 ]; then
+    echo -e "\033[0;31mTest execution failed.\033[0m"
+    exit 1
+fi
+
+
+cc -Wall -Wextra -Werror  -I.. -o exec/test_strjoin test_strjoin.c -L.. -lft
+if [ $? -ne 0 ]; then
+    echo -e "\033[0;31mFailed to compile test_strjoin.c Exiting.\033[0m"
+    exit 1
+fi
+
+./exec/test_strjoin
+if [ $? -ne 0 ]; then
+    echo -e "\033[0;31mTest execution failed.\033[0m"
+    exit 1
+fi
+
+cc -Wall -Wextra -Werror  -I.. -o exec/test_strtrim test_strtrim.c -L.. -lft
+if [ $? -ne 0 ]; then
+    echo -e "\033[0;31mFailed to compile test_strtrim.c Exiting.\033[0m"
+    exit 1
+fi
+
+./exec/test_strtrim
+if [ $? -ne 0 ]; then
+    echo -e "\033[0;31mTest execution failed.\033[0m"
+    exit 1
+fi
+
+cc -Wall -Wextra -Werror  -I.. -o exec/test_split test_split.c -L.. -lft
+if [ $? -ne 0 ]; then
+    echo -e "\033[0;31mFailed to compile test_split.c Exiting.\033[0m"
+    exit 1
+fi
+
+./exec/test_split
+if [ $? -ne 0 ]; then
+    echo -e "\033[0;31mTest execution failed.\033[0m"
+    exit 1
+fi
+
+cc -Wall -Wextra -Werror  -I.. -o exec/test_itoa test_itoa.c -L.. -lft
+if [ $? -ne 0 ]; then
+    echo -e "\033[0;31mFailed to compile test_itoa.c Exiting.\033[0m"
+    exit 1
+fi
+
+./exec/test_itoa
+if [ $? -ne 0 ]; then
+    echo -e "\033[0;31mTest execution failed.\033[0m"
+    exit 1
+fi
+
+cc -Wall -Wextra -Werror  -I.. -o exec/test_strmapi test_strmapi.c -L.. -lft
+if [ $? -ne 0 ]; then
+    echo -e "\033[0;31mFailed to compile test_strmapi.c Exiting.\033[0m"
+    exit 1
+fi
+
+./exec/test_strmapi
+if [ $? -ne 0 ]; then
+    echo -e "\033[0;31mTest execution failed.\033[0m"
+    exit 1
+fi
+
+cc -Wall -Wextra -Werror  -I.. -o exec/test_striteri test_striteri.c -L.. -lft
+if [ $? -ne 0 ]; then
+    echo -e "\033[0;31mFailed to compile test_striteri.c Exiting.\033[0m"
+    exit 1
+fi
+
+./exec/test_striteri
+if [ $? -ne 0 ]; then
+    echo -e "\033[0;31mTest execution failed.\033[0m"
+    exit 1
+fi
+
+cc -Wall -Wextra -Werror  -I.. -o exec/test_putchar_fd test_putchar_fd.c -L.. -lft
+if [ $? -ne 0 ]; then
+    echo -e "\033[0;31mFailed to compile test_putchar_fd Exiting.\033[0m"
+    exit 1
+fi
+
+./exec/test_putchar_fd
+if [ $? -ne 0 ]; then
+    echo -e "\033[0;31mTest execution failed.\033[0m"
+    exit 1
+fi
+
 echo -e "\n"
 cd ..
 make fclean > /dev/null 2>&1

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: olena <olena@student.42.fr>                +#+  +:+       +#+        */
+/*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 23:17:06 by olena             #+#    #+#             */
-/*   Updated: 2024/09/06 14:39:14 by olena            ###   ########.fr       */
+/*   Updated: 2024/09/06 19:20:54 by oltolmac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ char *ft_strchr(const char *s, int c)
 	size_t i;
 
 	i = 0;
-	c = c % 128;
 	while (s[i])
     {
         if (s[i] == c)

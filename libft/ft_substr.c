@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_substr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: olena <olena@student.42.fr>                +#+  +:+       +#+        */
+/*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 19:12:01 by oltolmac          #+#    #+#             */
-/*   Updated: 2024/09/05 12:52:39 by olena            ###   ########.fr       */
+/*   Updated: 2024/09/06 16:57:30 by oltolmac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,6 @@ char *ft_substr(char const *s, unsigned int start, size_t len)
 
 /*int	main()
 {
-	char str[] = "Hello, world!";
-	printf("%s\n", ft_substr(str, 0, 100));
+	char str[] = "subHello";
+	printf("%s\n", ft_substr("subHello", 3, 5));
 }*/

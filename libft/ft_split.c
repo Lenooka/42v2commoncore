@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: olena <olena@student.42.fr>                +#+  +:+       +#+        */
+/*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 19:31:36 by olena             #+#    #+#             */
-/*   Updated: 2024/09/05 13:30:03 by olena            ###   ########.fr       */
+/*   Updated: 2024/09/06 19:18:40 by oltolmac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static int	word_count(const char *s, char c)
     int	count;
 
     count = 0;
-    while (*s)
+    while (*s && s != NULL)
     {
         if (*s == c)
             s++;
@@ -64,17 +64,13 @@ static char	**free_arr(char **str, int i)
 	return (NULL);
 }
 
-char	**ft_split(const char *s, char c)
+static char **ex_split(const char *s, char c, char **res)
 {
-	int			i;
-	char		**res;
-	const char	*pos;
+	int i;
+	const char *pos;
 
 	i = 0;
-	res = (char **)malloc(sizeof(char *) * (word_count(s, c) + 1));
-	if (!res)
-		return (NULL);
-	while (*s)
+	while (*s && s != NULL)
 	{
 		if (*s == c)
 			s++;
@@ -89,6 +85,19 @@ char	**ft_split(const char *s, char c)
 		}
 	}
 	res[i] = NULL;
+	return (res);
+}
+
+char	**ft_split(const char *s, char c)
+{
+	char		**res;
+
+	if (s == NULL)	
+		return (NULL);
+	res = (char **)malloc(sizeof(char *) * (word_count(s, c) + 1));
+	if (!res)
+		return (NULL);
+	res = ex_split(s, c, res);
 	return (res);
 }
 

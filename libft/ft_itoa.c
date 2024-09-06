@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: olena <olena@student.42.fr>                +#+  +:+       +#+        */
+/*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 20:34:46 by oltolmac          #+#    #+#             */
-/*   Updated: 2024/09/05 00:37:15 by olena            ###   ########.fr       */
+/*   Updated: 2024/09/06 19:24:59 by oltolmac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,11 +51,17 @@ char *ft_itoa(int n)
 	res[len] = '\0';
 	if (n == 0)
 		res[0] = '0';
+	len--;
 	while (n != 0)
 	{
-		res[len - 1] = (n % 10) + '0';
+		res[len] = (n % 10) + '0';
 		n = n / 10;
 		len--;
 	}
 	return (res);
 }
+
+/*int	main()
+{
+	printf("%s", ft_itoa(300));
+}*/

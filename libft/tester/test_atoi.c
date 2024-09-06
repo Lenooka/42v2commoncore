@@ -29,8 +29,11 @@ void    test_atoi(void)
     if (ft_atoi(str) == -2147483648)
         printf(" \033[0;32mOK\033[0m");
     else
+    {
         printf(" \033[0;31mKO\033[0m");
-	str = "1-1";
+    }
+    str = "1-1";
+
 	if (ft_atoi(str) == 1)
 		printf(" \033[0;32mOK\033[0m");
 	else

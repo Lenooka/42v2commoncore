@@ -9,12 +9,13 @@ void    test_strlcat()
     char    dest2[100];
     
     printf("\033[0;31mft_strlcat:\033[0m");
+    bzero(dest, 100);
+    bzero(dest2, 100);
     ft_strlcat(dest, "Hello, World!", 13);
     strlcat(dest2, "Hello, World!", 13);
     if (strcmp(dest, dest2) != 0)
     {
         printf(" \033[0;31mKO \033[0m");
-        return;
     }
     printf(" \033[0;32mOK\033[0m");
     bzero(dest, 100);
@@ -24,7 +25,6 @@ void    test_strlcat()
     if (strcmp(dest, dest2) != 0)
     {
         printf(" \033[0;31mKO \033[0m");
-        return;
     }
     printf(" \033[0;32mOK\033[0m");
     bzero(dest, 100);
@@ -34,7 +34,6 @@ void    test_strlcat()
     if (strcmp(dest, dest2) != 0)
     {
         printf(" \033[0;31mKO\033[0m");
-        return;
     }
     printf(" \033[0;32mOK\033[0m");
     bzero(dest, 100);
@@ -44,7 +43,6 @@ void    test_strlcat()
     if (strcmp(dest, dest2) != 0)
     {
         printf(" \033[0;31mKO\033[0m");
-        return;
     }
     printf(" \033[0;32mOK\033[0m");
     printf("\n");

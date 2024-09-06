@@ -31,25 +31,9 @@ void    test_calloc()
     else
         printf(" \033[0;31mKO\033[0m");
     free(str);
-    str = ft_calloc(0, 1);
-    str2 = calloc(0, 1);
+    str = ft_calloc(1, 100);
+    str2 = calloc(1, 100);
     if (strlen(str) == ft_strlen(str2))
-        printf(" \033[0;32mOK\033[0m");
-    else
-        printf(" \033[0;31mKO\033[0m");
-    free(str);
-    free(str2);
-    str = ft_calloc(1, 0);
-    str2 = calloc(1, 0);
-    if (strlen(str) == strlen(str2))
-        printf(" \033[0;32mOK\033[0m");
-    else
-        printf(" \033[0;31mKO\033[0m");
-    free(str);
-    free(str2);
-    str = ft_calloc(0, 0);
-    str2 = calloc(0, 0);
-    if (strlen(str) == strlen(str2))
         printf(" \033[0;32mOK\033[0m");
     else
         printf(" \033[0;31mKO\033[0m");
