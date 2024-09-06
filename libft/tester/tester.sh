@@ -1,10 +1,10 @@
 #!/bin/bash
 
-# Create a directory for the executables if it doesn't exist
-mkdir -p exec
 
-# Compile libft (navigate to parent directory and run make)
+mkdir -p exec
+echo -e "\033[0;33mLIBFT TESTER\033[0m\n"
 echo -e "\033[0;33mCompiling libft...\033[0m\n"
+echo -e "\n"
 cd ..
 make re > /dev/null 2>&1
 if [ $? -ne 0 ]; then
@@ -13,6 +13,7 @@ if [ $? -ne 0 ]; then
 fi
 cd tester
 
+echo -e "\033[0;33mFIRST PART\033[0m\n"
 cc -Wall -Wextra -Werror -I.. -o exec/test_isalpha test_isalpha.c -L.. -lft
 if [ $? -ne 0 ]; then
     echo -e "\033[0;31mFailed to compile test_isalpha. Exiting.\033[0m"
@@ -145,10 +146,152 @@ if [ $? -ne 0 ]; then
     exit 1
 fi
 
+cc -Wall -Wextra -Werror  -I.. -o exec/test_strlcat test_strlcat.c -L.. -lft
+if [ $? -ne 0 ]; then
+    echo -e "\033[0;31mFailed to compile test_strlcat. Exiting.\033[0m"
+    exit 1
+fi
 
-# Clean the libft files (not executables)
+./exec/test_strlcat
+if [ $? -ne 0 ]; then
+    echo -e "\033[0;31mTest execution failed.\033[0m"
+    exit 1
+fi
+
+cc -Wall -Wextra -Werror  -I.. -o exec/test_toupper test_toupper.c -L.. -lft
+if [ $? -ne 0 ]; then
+    echo -e "\033[0;31mFailed to compile test_toupper. Exiting.\033[0m"
+    exit 1
+fi
+
+./exec/test_toupper
+if [ $? -ne 0 ]; then
+    echo -e "\033[0;31mTest execution failed.\033[0m"
+    exit 1
+fi
+
+cc -Wall -Wextra -Werror  -I.. -o exec/test_tolower test_tolower.c -L.. -lft
+if [ $? -ne 0 ]; then
+    echo -e "\033[0;31mFailed to compile test_tolower. Exiting.\033[0m"
+    exit 1
+fi
+
+./exec/test_tolower
+if [ $? -ne 0 ]; then
+    echo -e "\033[0;31mTest execution failed.\033[0m"
+    exit 1
+fi
+
+cc -Wall -Wextra -Werror  -I.. -o exec/test_strchr test_strchr.c -L.. -lft
+if [ $? -ne 0 ]; then
+    echo -e "\033[0;31mFailed to compile test_strchr. Exiting.\033[0m"
+    exit 1
+fi
+
+./exec/test_strchr
+if [ $? -ne 0 ]; then
+    echo -e "\033[0;31mTest execution failed.\033[0m"
+    exit 1
+fi
+
+cc -Wall -Wextra -Werror  -I.. -o exec/test_strrchr test_strrchr.c -L.. -lft
+if [ $? -ne 0 ]; then
+    echo -e "\033[0;31mFailed to compile test_strrchr. Exiting.\033[0m"
+    exit 1
+fi
+
+./exec/test_strrchr
+if [ $? -ne 0 ]; then
+    echo -e "\033[0;31mTest execution failed.\033[0m"
+    exit 1
+fi
+
+cc -Wall -Wextra -Werror  -I.. -o exec/test_strncmp test_strncmp.c -L.. -lft
+if [ $? -ne 0 ]; then
+    echo -e "\033[0;31mFailed to compile test_strncmp. Exiting.\033[0m"
+    exit 1
+fi
+
+./exec/test_strncmp
+if [ $? -ne 0 ]; then
+    echo -e "\033[0;31mTest execution failed.\033[0m"
+    exit 1
+fi
+
+cc -Wall -Wextra -Werror  -I.. -o exec/test_memchr test_memchr.c -L.. -lft
+if [ $? -ne 0 ]; then
+    echo -e "\033[0;31mFailed to compile test_memchr. Exiting.\033[0m"
+    exit 1
+fi
+
+./exec/test_memchr
+if [ $? -ne 0 ]; then
+    echo -e "\033[0;31mTest execution failed.\033[0m"
+    exit 1
+fi
+
+cc -Wall -Wextra -Werror  -I.. -o exec/test_memcmp test_memcmp.c -L.. -lft
+if [ $? -ne 0 ]; then
+    echo -e "\033[0;31mFailed to compile test_memcmp. Exiting.\033[0m"
+    exit 1
+fi
+
+./exec/test_memcmp
+if [ $? -ne 0 ]; then
+    echo -e "\033[0;31mTest execution failed.\033[0m"
+    exit 1
+fi
+
+cc -Wall -Wextra -Werror  -I.. -o exec/test_strnstr test_strnstr.c -L.. -lft
+if [ $? -ne 0 ]; then
+    echo -e "\033[0;31mFailed to compile test_strnstr. Exiting.\033[0m"
+    exit 1
+fi
+
+./exec/test_strnstr
+if [ $? -ne 0 ]; then
+    echo -e "\033[0;31mTest execution failed.\033[0m"
+    exit 1
+fi
+
+cc -Wall -Wextra -Werror  -I.. -o exec/test_atoi test_atoi.c -L.. -lft
+if [ $? -ne 0 ]; then
+    echo -e "\033[0;31mFailed to compile test_atoi. Exiting.\033[0m"
+    exit 1
+fi
+
+./exec/test_atoi
+if [ $? -ne 0 ]; then
+    echo -e "\033[0;31mTest execution failed.\033[0m"
+    exit 1
+fi
+
+cc -Wall -Wextra -Werror  -I.. -o exec/test_calloc test_calloc.c -L.. -lft
+if [ $? -ne 0 ]; then
+    echo -e "\033[0;31mFailed to compile test_calloc. Exiting.\033[0m"
+    exit 1
+fi
+
+./exec/test_calloc
+if [ $? -ne 0 ]; then
+    echo -e "\033[0;31mTest execution failed.\033[0m"
+    exit 1
+fi
+
+cc -Wall -Wextra -Werror  -I.. -o exec/test_strdup test_strdup.c -L.. -lft
+if [ $? -ne 0 ]; then
+    echo -e "\033[0;31mFailed to compile test_strdup. Exiting.\033[0m"
+    exit 1
+fi
+
+./exec/test_strdup
+if [ $? -ne 0 ]; then
+    echo -e "\033[0;31mTest execution failed.\033[0m"
+    exit 1
+fi
 echo -e "\n"
-echo -e "\033[0;33mCleaning up...\033[0m"
+echo -e "\033[0;33mSECOND PART\033[0m\n"
+echo -e "\n"
 cd ..
 make fclean > /dev/null 2>&1
 cd tester
