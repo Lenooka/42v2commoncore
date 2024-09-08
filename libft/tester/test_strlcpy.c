@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <string.h>
-#include "../libft.h" // Ensure this header file contains the prototype for ft_strlcpy
+#include "../libft.h"
+#include <bsd/string.h>
 
 void test_strlcpy()
 {

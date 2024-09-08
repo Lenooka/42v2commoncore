@@ -1,4 +1,5 @@
 #include "../libft.h"
+#include <bsd/string.h>
 
 void    test_strnstr()
 {
