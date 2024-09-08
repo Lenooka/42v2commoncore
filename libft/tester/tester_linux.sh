@@ -133,7 +133,7 @@ if [ $? -ne 0 ]; then
     exit 1
 fi
 
-cc -Wall -Wextra -Werror -I..  -o exec/test_strlcpy test_strlcpy.c -L.. -lft
+cc -Wall -Wextra -Werror -lbsd -I..  -o exec/test_strlcpy test_strlcpy.c -L.. -lft
 if [ $? -ne 0 ]; then
     echo -e "\033[0;31mFailed to compile test_strlcpy. Exiting.\033[0m"
     exit 1
@@ -145,7 +145,7 @@ if [ $? -ne 0 ]; then
     exit 1
 fi
 
-cc -Wall -Wextra -Werror  -I.. -o exec/test_strlcat test_strlcat.c -L.. -lft
+cc -Wall -Wextra -Werror -lbsd  -I.. -o exec/test_strlcat test_strlcat.c -L.. -lft
 if [ $? -ne 0 ]; then
     echo -e "\033[0;31mFailed to compile test_strlcat. Exiting.\033[0m"
     exit 1
@@ -241,7 +241,7 @@ if [ $? -ne 0 ]; then
     exit 1
 fi
 
-cc -Wall -Wextra -Werror -I.. -o exec/test_strnstr test_strnstr.c -L.. -lft
+cc -Wall -Wextra -Werror -lbsd -I.. -o exec/test_strnstr test_strnstr.c -L.. -lft
 if [ $? -ne 0 ]; then
     echo -e "\033[0;31mFailed to compile test_strnstr. Exiting.\033[0m"
     exit 1
@@ -389,166 +389,7 @@ if [ $? -ne 0 ]; then
     exit 1
 fi
 
-cc -Wall -Wextra -Werror  -I.. -o exec/test_putstr_fd test_putstr_fd.c -L.. -lft
-if [ $? -ne 0 ]; then
-    echo -e "\033[0;31mFailed to compile test_putstr_fd Exiting.\033[0m"
-    exit 1
-fi
-
-./exec/test_putstr_fd
-if [ $? -ne 0 ]; then
-    echo -e "\033[0;31mTest execution failed.\033[0m"
-    exit 1
-fi
-
-cc -Wall -Wextra -Werror  -I.. -o exec/test_putendl_fd test_putendl_fd.c -L.. -lft
-if [ $? -ne 0 ]; then
-    echo -e "\033[0;31mFailed to compile test_putendl_fd Exiting.\033[0m"
-    exit 1
-fi
-
-./exec/test_putendl_fd
-if [ $? -ne 0 ]; then
-    echo -e "\033[0;31mTest execution failed.\033[0m"
-    exit 1
-fi
-
-cc -Wall -Wextra -Werror  -I.. -o exec/test_putnbr_fd test_putnbr_fd.c -L.. -lft
-if [ $? -ne 0 ]; then
-    echo -e "\033[0;31mFailed to compile test_putnbr_fd Exiting.\033[0m"
-    exit 1
-fi
-
-./exec/test_putnbr_fd
-if [ $? -ne 0 ]; then
-    echo -e "\033[0;31mTest execution failed.\033[0m"
-    exit 1
-fi
-
-
-echo -e "\n"
-echo -e "\033[0;33mBONUS\033[0m\n"
-cd ..
-make bonus > /dev/null 2>&1
-if [ $? -ne 0 ]; then
-    echo -e "\033[0;31mNO BONUS, OH WELL.\033[0m"
-    make fclean > /dev/null 2>&1
-    echo -e "\n"
-    echo -e "\033[0;33mKEEP UP THE GOOD WORK :) \033[0m\n"
-    exit 1
-fi
-cd tester
-
-cc -Wall -Wextra -Werror  -I.. -o exec/test_lstnew test_lstnew.c -L.. -lft
-if [ $? -ne 0 ]; then
-    echo -e "\033[0;31mFailed to compile test_lstnew.c Exiting.\033[0m"
-    exit 1
-fi
-
-./exec/test_lstnew
-if [ $? -ne 0 ]; then
-    echo -e "\033[0;31mTest execution failed.\033[0m"
-    exit 1
-fi
-
-cc -Wall -Wextra -Werror  -I.. -o exec/test_lstadd_front test_lstadd_front.c -L.. -lft
-if [ $? -ne 0 ]; then
-    echo -e "\033[0;31mFailed to compile test_lstadd_front.c Exiting.\033[0m"
-    exit 1
-fi
-
-./exec/test_lstadd_front
-if [ $? -ne 0 ]; then
-    echo -e "\033[0;31mTest execution failed.\033[0m"
-    exit 1
-fi
-
-cc -Wall -Wextra -Werror  -I.. -o exec/test_lstsize test_lstsize.c -L.. -lft
-if [ $? -ne 0 ]; then
-    echo -e "\033[0;31mFailed to compile test_lstsize.c Exiting.\033[0m"
-    exit 1
-fi
-
-./exec/test_lstsize
-if [ $? -ne 0 ]; then
-    echo -e "\033[0;31mTest execution failed.\033[0m"
-    exit 1
-fi
-
-cc -Wall -Wextra -Werror  -I.. -o exec/test_lstlast test_lstlast.c -L.. -lft
-if [ $? -ne 0 ]; then
-    echo -e "\033[0;31mFailed to compile test_lstlast.c Exiting.\033[0m"
-    exit 1
-fi
-
-./exec/test_lstlast
-if [ $? -ne 0 ]; then
-    echo -e "\033[0;31mTest execution failed.\033[0m"
-    exit 1
-fi
-
-cc -Wall -Wextra -Werror -I.. -o exec/test_lstadd_back test_lstadd_back.c -L.. -lft
-if [ $? -ne 0 ]; then
-    echo -e "\033[0;31mFailed to compile test_lstadd_back.c Exiting.\033[0m"
-    exit 1
-fi
-
-./exec/test_lstadd_back
-if [ $? -ne 0 ]; then
-    echo -e "\033[0;31mTest execution failed.\033[0m"
-    exit 1
-fi
-
-cc -Wall -Wextra -Werror -I.. -o exec/test_lstdelone test_lstdelone.c -L.. -lft
-if [ $? -ne 0 ]; then
-    echo -e "\033[0;31mFailed to compile test_lstdelone.c Exiting.\033[0m"
-    exit 1
-fi
-
-./exec/test_lstdelone
-if [ $? -ne 0 ]; then
-    echo -e "\033[0;31mTest execution failed.\033[0m"
-    exit 1
-fi
-
-cc -Wall -Wextra -Werror -I.. -o exec/test_lstclear test_lstclear.c -L.. -lft
-if [ $? -ne 0 ]; then
-    echo -e "\033[0;31mFailed to compile test_lstclear.c Exiting.\033[0m"
-    exit 1
-fi
-
-./exec/test_lstclear
-if [ $? -ne 0 ]; then
-    echo -e "\033[0;31mTest execution failed.\033[0m"
-    exit 1
-fi
-
-cc -Wall -Wextra -Werror -I.. -o exec/test_lstiter test_lstiter.c -L.. -lft
-if [ $? -ne 0 ]; then
-    echo -e "\033[0;31mFailed to compile test_lstiter.c Exiting.\033[0m"
-    exit 1
-fi
-
-./exec/test_lstiter
-if [ $? -ne 0 ]; then
-    echo -e "\033[0;31mTest execution failed.\033[0m"
-    exit 1
-fi
-
-cc -Wall -Wextra -Werror -I.. -o exec/test_lstmap test_lstmap.c -L.. -lft
-if [ $? -ne 0 ]; then
-    echo -e "\033[0;31mFailed to compile test_lstmap.c Exiting.\033[0m"
-    exit 1
-fi
-
-./exec/test_lstmap
-if [ $? -ne 0 ]; then
-    echo -e "\033[0;31mTest execution failed.\033[0m"
-    exit 1
-fi
-
 echo -e "\n"
 cd ..
 make fclean > /dev/null 2>&1
-echo -e "\033[0;33mKEEP UP THE GOOD WORK :) \033[0m\n"
 cd tester

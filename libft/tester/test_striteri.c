@@ -11,7 +11,7 @@ void	test_striteri()
 	char *fs;
 	char *s;
 	unsigned int i = 0;
-	printf("\033[0;31mft_striteri:\033[0m");
+	printf("\033[0;31mft_striteri:   \033[0m");
 	fs = strdup("hello");
 	s = strdup("hello");
 	while (fs[i])
