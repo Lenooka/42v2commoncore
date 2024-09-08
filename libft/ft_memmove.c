@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memmove.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: olena <olena@student.42.fr>                +#+  +:+       +#+        */
+/*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 22:24:12 by olena             #+#    #+#             */
-/*   Updated: 2024/09/08 21:33:28 by olena            ###   ########.fr       */
+/*   Updated: 2024/09/08 22:32:08 by oltolmac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-/*void    *ft_memmove(void *dest, const void *src, size_t n)
+void    *ft_memmove(void *dest, const void *src, size_t n)
 {
     unsigned char	*dp;
     unsigned char	*sp;
@@ -32,9 +32,9 @@
             *--dp = *--sp;
     }
     return (dest);
-}*/
+}
 
-void    *ft_memmove(void *dest, const void *src, size_t n)
+/*void    *ft_memmove(void *dest, const void *src, size_t n)
 {
 	int			i;
 
@@ -59,7 +59,7 @@ void    *ft_memmove(void *dest, const void *src, size_t n)
 		}
     }
     return (dest);
-}
+}*/
 
 /*int main() {
     char str[] = "Hello, world!";
