@@ -6,33 +6,11 @@
 /*   By: olena <olena@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 22:24:12 by olena             #+#    #+#             */
-/*   Updated: 2024/09/08 21:33:28 by olena            ###   ########.fr       */
+/*   Updated: 2024/09/09 12:27:18 by olena            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-
-/*void    *ft_memmove(void *dest, const void *src, size_t n)
-{
-    unsigned char	*dp;
-    unsigned char	*sp;
-
-    if (!dest && !src)
-        return (dest);
-    dp = (unsigned char *)dest;
-    sp = (unsigned char *)src;
-    if (dp < sp)
-        while (n--)
-            *dp++ = *sp++;
-    else
-    {
-        dp += n;
-        sp += n;
-        while (n--)
-            *--dp = *--sp;
-    }
-    return (dest);
-}*/
 
 void    *ft_memmove(void *dest, const void *src, size_t n)
 {
@@ -61,7 +39,8 @@ void    *ft_memmove(void *dest, const void *src, size_t n)
     return (dest);
 }
 
-/*int main() {
+/*int main() 
+{
     char str[] = "Hello, world!";
     char buffer[20];
 
