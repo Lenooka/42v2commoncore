@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstdelone.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: olena <olena@student.42.fr>                +#+  +:+       +#+        */
+/*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 23:03:20 by olena             #+#    #+#             */
-/*   Updated: 2024/09/08 17:39:43 by olena            ###   ########.fr       */
+/*   Updated: 2024/09/08 20:38:46 by oltolmac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void ft_lstdelone(t_list *lst, void (*del)(void *))
         return ;
 	}
 	del(lst->content);
+	lst->content = NULL;
     free(lst);
     lst = NULL;
 }

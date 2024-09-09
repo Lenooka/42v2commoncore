@@ -1,7 +1,7 @@
 #include "../libft.h"
 #include <stdio.h>
 #include <string.h>
-
+#include <bsd/string.h>
 
 void    test_strlcat()
 {   
