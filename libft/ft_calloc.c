@@ -6,13 +6,13 @@
 /*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 15:18:14 by oltolmac          #+#    #+#             */
-/*   Updated: 2024/09/04 18:41:25 by oltolmac         ###   ########.fr       */
+/*   Updated: 2024/09/09 18:29:39 by oltolmac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void *ft_calloc(size_t nmemb, size_t size)
+void	*ft_calloc(size_t nmemb, size_t size)
 {
 	char	*mem;
 

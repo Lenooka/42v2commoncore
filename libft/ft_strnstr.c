@@ -3,19 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strnstr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: olena <olena@student.42.fr>                +#+  +:+       +#+        */
+/*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 14:28:57 by oltolmac          #+#    #+#             */
-/*   Updated: 2024/09/04 23:25:46 by olena            ###   ########.fr       */
+/*   Updated: 2024/09/09 19:51:10 by oltolmac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char *ft_strnstr(const char *big, const char *little, size_t len)
+char	*ft_strnstr(const char *big, const char *little, size_t len)
 {
-	size_t i;
-	size_t j;
+	size_t	i;
+	size_t	j;
 
 	i = 0;
 	if (!*little)
@@ -31,7 +31,6 @@ char *ft_strnstr(const char *big, const char *little, size_t len)
 	}
 	return (NULL);
 }
-
 
 /*int main()
 {

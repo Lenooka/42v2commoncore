@@ -14,10 +14,10 @@
 
 static int	check_set(char c, const char *s)
 {
-	int i;
+	int	i;
 
 	i = 0;
-	while(s[i])
+	while (s[i])
 	{
 		if (s[i] == c)
 			return (1);
@@ -28,11 +28,11 @@ static int	check_set(char c, const char *s)
 
 char	*ft_strtrim(char const *s1, char const *set)
 {
-	char *trim;
+	char	*trim;
 	int		e;
 	int		s;
 	int		i;
-	
+
 	s = 0;
 	while (s1[s] && check_set(s1[s], set))
 		s++;

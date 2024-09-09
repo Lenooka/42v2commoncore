@@ -6,7 +6,7 @@
 /*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 19:31:36 by olena             #+#    #+#             */
-/*   Updated: 2024/09/06 19:18:40 by oltolmac         ###   ########.fr       */
+/*   Updated: 2024/09/09 19:20:29 by oltolmac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,33 +15,33 @@
 
 static int	word_count(const char *s, char c)
 {
-    int	count;
+	int	count;
 
-    count = 0;
-    while (*s && s != NULL)
-    {
-        if (*s == c)
-            s++;
-        else
-        {
-            count++;
-            while (*s && *s != c)
-                s++;
-        }
-    }
-    return (count);
+	count = 0;
+	while (*s && s != NULL)
+	{
+		if (*s == c)
+			s++;
+		else
+		{
+			count++;
+			while (*s && *s != c)
+				s++;
+		}
+	}
+	return (count);
 }
 
 static char	*ft_strndup(const char *s, size_t n)
 {
-	char	        *dest;
-    unsigned int	i;
+	char			*dest;
+	unsigned int	i;
 
-    i = 0;
+	i = 0;
 	dest = (char *)malloc(sizeof(char) * (n + 1));
 	if (!dest)
 		return (NULL);
-    while ((s[i] != '\0') && (i < n))
+	while ((s[i] != '\0') && (i < n))
 	{
 		dest[i] = s[i];
 		i++;
@@ -64,10 +64,10 @@ static char	**free_arr(char **str, int i)
 	return (NULL);
 }
 
-static char **ex_split(const char *s, char c, char **res)
+static char	**ex_split(const char *s, char c, char **res)
 {
-	int i;
-	const char *pos;
+	int			i;
+	const char	*pos;
 
 	i = 0;
 	while (*s && s != NULL)
@@ -92,7 +92,7 @@ char	**ft_split(const char *s, char c)
 {
 	char		**res;
 
-	if (s == NULL)	
+	if (s == NULL)
 		return (NULL);
 	res = (char **)malloc(sizeof(char *) * (word_count(s, c) + 1));
 	if (!res)

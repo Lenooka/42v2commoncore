@@ -3,28 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: olena <olena@student.42.fr>                +#+  +:+       +#+        */
+/*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 23:17:06 by olena             #+#    #+#             */
-/*   Updated: 2024/09/08 10:00:10 by olena            ###   ########.fr       */
+/*   Updated: 2024/09/09 19:21:13 by oltolmac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char *ft_strchr(const char *s, int c)
+char	*ft_strchr(const char *s, int c)
 {
-	size_t i;
+	size_t	i;
 
 	i = 0;
 	c = c % 256;
 	while (s[i])
-    {
-        if (s[i] == c)
-            return ((char *)s + i);
-        i++;
-    }
+	{
+		if (s[i] == c)
+			return ((char *)s + i);
+		i++;
+	}
 	if (c == '\0')
 		return ((char *)s + i);
-	return (NULL);	
+	return (NULL);
 }

@@ -6,7 +6,7 @@
 /*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 19:04:20 by oltolmac          #+#    #+#             */
-/*   Updated: 2024/09/08 22:33:13 by oltolmac         ###   ########.fr       */
+/*   Updated: 2024/09/09 19:53:13 by oltolmac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ char	*ft_strrchr(const char *s, int c)
 	i = ft_strlen(s);
 	while (i >= 0)
 	{
-		if (*(s + i) == (char)c && i >= 0)
+		if (s[i] == (char)c && i >= 0)
 			return ((char *)s + i);
 		i--;
 	}

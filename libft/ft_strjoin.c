@@ -6,17 +6,17 @@
 /*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 19:23:19 by oltolmac          #+#    #+#             */
-/*   Updated: 2024/09/04 19:33:00 by oltolmac         ###   ########.fr       */
+/*   Updated: 2024/09/09 19:38:40 by oltolmac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char *ft_strjoin(char const *s1, char const *s2)
+char	*ft_strjoin(char const *s1, char const *s2)
 {
-	size_t olen;
-	size_t tlen;
-	char 	*join;
+	size_t	olen;
+	size_t	tlen;
+	char	*join;
 
 	olen = ft_strlen(s1);
 	tlen = ft_strlen(s2);

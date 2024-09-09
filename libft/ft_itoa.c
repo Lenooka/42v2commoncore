@@ -6,13 +6,13 @@
 /*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 20:34:46 by oltolmac          #+#    #+#             */
-/*   Updated: 2024/09/06 19:24:59 by oltolmac         ###   ########.fr       */
+/*   Updated: 2024/09/09 18:35:37 by oltolmac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static long	int len_calc(int n)
+static long	int	len_calc(int n)
 {
 	int	len;
 
@@ -32,16 +32,16 @@ static long	int len_calc(int n)
 	return (len);
 }
 
-char *ft_itoa(int n)
+char	*ft_itoa(int n)
 {
-	char *res;
-	unsigned int len;
+	char			*res;
+	unsigned int	len;
 
 	if (n == -2147483648)
 		return (res = ft_strdup("-2147483648"));
 	len = len_calc(n);
 	res = (char *)malloc(sizeof(char) * (len + 1));
-	if(!res)
+	if (!res)
 		return (NULL);
 	if (n < 0)
 	{
