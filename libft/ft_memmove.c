@@ -6,7 +6,7 @@
 /*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 22:24:12 by olena             #+#    #+#             */
-/*   Updated: 2024/09/09 20:15:20 by oltolmac         ###   ########.fr       */
+/*   Updated: 2024/09/09 19:38:55 by oltolmac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ void	*ft_memmove(void *dest, const void *src, size_t n)
 }
 
 /*void    *ft_memmove(void *dest, const void *src, size_t n)
-void    *ft_memmove(void *dest, const void *src, size_t n)
 {
 	int			i;
 
@@ -60,10 +59,9 @@ void    *ft_memmove(void *dest, const void *src, size_t n)
 		}
     }
     return (dest);
-}
+}*/
 
-/*int main() 
-{
+/*int main() {
     char str[] = "Hello, world!";
     char buffer[20];
 
