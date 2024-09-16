@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf_chars.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: olena <olena@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 15:16:03 by oltolmac          #+#    #+#             */
-/*   Updated: 2024/09/16 17:43:48 by oltolmac         ###   ########.fr       */
+/*   Updated: 2024/09/16 21:04:44 by olena            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,8 @@
 
 int	ft_printf_char(int c)
 {
-	int	len;
-
-	len = write(1, &c, 1);
-	return (len);
+ 	write(1, &c, 1);
+	return (1);
 }
 
 int	ft_printf_str(char *s)

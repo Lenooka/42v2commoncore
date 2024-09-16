@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: olena <olena@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 12:42:13 by olena             #+#    #+#             */
-/*   Updated: 2024/09/16 20:53:08 by oltolmac         ###   ########.fr       */
+/*   Updated: 2024/09/16 21:06:45 by olena            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,13 +50,12 @@ int	ft_printf(const	char	*form, ...)
 	{
 		if (form[i] == '%')
 		{
-			c = ft_printf_parse(form, i, args);
+			c += ft_printf_parse(form, i, args);
 			i++;
 		}
 		else
 		{
-			ft_printf_char(form[i]);
-			c++;
+			c += ft_printf_char(form[i]);
 		}
 		i++;
 	}
