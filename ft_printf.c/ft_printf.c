@@ -6,23 +6,23 @@
 /*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 12:42:13 by olena             #+#    #+#             */
-/*   Updated: 2024/09/16 15:16:28 by oltolmac         ###   ########.fr       */
+/*   Updated: 2024/09/16 20:53:08 by oltolmac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	ft_printf_parse(char *form, int i, va_list arg)
+int	ft_printf_parse(const char *form, int i, va_list arg)
 {
 	int		c;
 
 	c = 0;
 	if (form[i + 1] == 'c')
-		c += ft_print_char(va_arg(arg, int));
+		c += ft_printf_char(va_arg(arg, int));
 	else if (form[i + 1] == 's')
-		c += ft_print_str(va_arg(arg, char *));
+		c += ft_printf_str(va_arg(arg, char *));
 	else if (form[i + 1] == 'd' || form[i + 1] == 'i')
-		c += ft_print_nbr(va_arg(arg, int));
+		c += ft_printf_nbr(va_arg(arg, int));
 	else if (form[i + 1] == 'u')
 		c += ft_printf_unsigned(va_arg(arg, unsigned int));
 	else if (form[i + 1] == 'x')
@@ -55,7 +55,7 @@ int	ft_printf(const	char	*form, ...)
 		}
 		else
 		{
-			ft_putchar_fd(form[i], 1);
+			ft_printf_char(form[i]);
 			c++;
 		}
 		i++;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf_nmbr.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: olena <olena@student.42.fr>                +#+  +:+       +#+        */
+/*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 15:20:33 by oltolmac          #+#    #+#             */
-/*   Updated: 2024/09/16 15:55:25 by olena            ###   ########.fr       */
+/*   Updated: 2024/09/16 20:42:19 by oltolmac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static long	int	ft_len(int n, int base)
 	return (len);
 }
 
-int	ft_print_nbr(int d)
+int	ft_printf_nbr(int d)
 {
 	int	len;
 
@@ -41,32 +41,30 @@ int	ft_print_nbr(int d)
 	return (len);
 }
 
-void	ft_hex(int n, int x)
+static void	ft_hex(unsigned int n, int x)
 {
-	if (n == 0)
-	{
-		ft_putchar_fd(48, 1);
-		return ;
-	}
 	if (n >= 16)
 	{
-		ft_putnbr_fd(n / 16, 1);
-		ft_putnbr_fd(n % 16, 1);
-	}
-	if (n < 10)
-	{
-		ft_putchar_fd((n + '0'), 1);
+		ft_hex(n / 16, x);
+		ft_hex(n % 16, x);
 	}
 	else
-	{
-		if (x == 0)
-			ft_putchar_fd((n - 10 + 'a'), 1);
-		if (x == 1)
-			ft_putchar_fd((n - 10 + 'A'), 1);
+	{ 
+		if (n < 10)
+		{
+			ft_putchar_fd((n + '0'), 1);
+		}
+		else
+		{
+			if (x == 0)
+				ft_putchar_fd((n - 10 + 'a'), 1);
+			if (x == 1)
+				ft_putchar_fd((n - 10 + 'A'), 1);
+		}
 	}
 }
 
-int	ft_printf_hex(int n, int x)
+int	ft_printf_hex(unsigned int n, int x)
 {
 	int	len;
 	
@@ -75,20 +73,12 @@ int	ft_printf_hex(int n, int x)
 		write(1, "-", 1);
 		n = -n;
 	}
-	ft_hex(n, x);
 	len = ft_len(n, 16);
-	return (len);
-}
-
-
-int	ft_printf_unsigned(unsigned int d)
-{
-	int		len;
-	char	*str;
-
-	len = ft_len(d, 10);
-	str = ft_itoa(d);
-	ft_putstr_fd(str, 1);
-	free(str);
+	if (n == 0)
+	{
+		ft_putchar_fd(48, 1);
+		return (len);
+	}
+	ft_hex(n, x);
 	return (len);
 }
