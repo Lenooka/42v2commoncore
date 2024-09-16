@@ -1,23 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.h                                        :+:      :+:    :+:   */
+/*   ft_calloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/16 12:59:30 by olena             #+#    #+#             */
-/*   Updated: 2024/09/16 15:14:54 by oltolmac         ###   ########.fr       */
+/*   Created: 2024/09/04 15:18:14 by oltolmac          #+#    #+#             */
+/*   Updated: 2024/09/11 15:28:32 by oltolmac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft.h"
 
-#ifndef FT_PRINTF_H
-# define FT_PRINTF_H
-# include <stdarg.h>
-# include <unistd.h>
-# include "libft/libft.h"
+void	*ft_calloc(size_t nmemb, size_t size)
+{
+	char	*mem;
+	int		len;
 
-int		ft_printf(const char *form, ...);
-int		ft_printf_parse(char *form, int i, va_list arg);
-
-#endif
+	len = nmemb * size;
+	if (nmemb != 0)
+		if (len / nmemb != size)
+			return (NULL);
+	mem = malloc(nmemb * size);
+	if (!mem)
+		return (NULL);
+	ft_bzero(mem, nmemb * size);
+	return (mem);
+}

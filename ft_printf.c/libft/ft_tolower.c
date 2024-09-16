@@ -1,23 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.h                                        :+:      :+:    :+:   */
+/*   ft_tolower.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/16 12:59:30 by olena             #+#    #+#             */
-/*   Updated: 2024/09/16 15:14:54 by oltolmac         ###   ########.fr       */
+/*   Created: 2024/09/04 15:07:52 by oltolmac          #+#    #+#             */
+/*   Updated: 2024/09/09 19:38:14 by oltolmac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft.h"
 
-#ifndef FT_PRINTF_H
-# define FT_PRINTF_H
-# include <stdarg.h>
-# include <unistd.h>
-# include "libft/libft.h"
-
-int		ft_printf(const char *form, ...);
-int		ft_printf_parse(char *form, int i, va_list arg);
-
-#endif
+int	ft_tolower(int c)
+{
+	if (c >= 'A' && c <= 'Z')
+	{
+		c = c + 32;
+		return (c);
+	}
+	return (c);
+}

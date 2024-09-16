@@ -1,23 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.h                                        :+:      :+:    :+:   */
+/*   ft_memset.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/16 12:59:30 by olena             #+#    #+#             */
-/*   Updated: 2024/09/16 15:14:54 by oltolmac         ###   ########.fr       */
+/*   Created: 2024/09/02 11:54:04 by oltolmac          #+#    #+#             */
+/*   Updated: 2024/09/09 19:39:22 by oltolmac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft.h"
 
-#ifndef FT_PRINTF_H
-# define FT_PRINTF_H
-# include <stdarg.h>
-# include <unistd.h>
-# include "libft/libft.h"
+void	*ft_memset(void *str, int c, size_t n)
+{
+	unsigned char	*set;
+	size_t			i;
 
-int		ft_printf(const char *form, ...);
-int		ft_printf_parse(char *form, int i, va_list arg);
-
-#endif
+	i = 0;
+	set = (unsigned char *)str;
+	while (i < n)
+	{
+		set[i] = (unsigned char)c;
+		i++;
+	}
+	return (set);
+}

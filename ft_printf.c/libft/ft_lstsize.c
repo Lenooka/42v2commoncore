@@ -1,23 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.h                                        :+:      :+:    :+:   */
+/*   ft_lstsize.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/16 12:59:30 by olena             #+#    #+#             */
-/*   Updated: 2024/09/16 15:14:54 by oltolmac         ###   ########.fr       */
+/*   Created: 2024/09/04 23:01:49 by olena             #+#    #+#             */
+/*   Updated: 2024/09/09 19:10:21 by oltolmac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft.h"
 
-#ifndef FT_PRINTF_H
-# define FT_PRINTF_H
-# include <stdarg.h>
-# include <unistd.h>
-# include "libft/libft.h"
+int	ft_lstsize(t_list *lst)
+{
+	int	count;
 
-int		ft_printf(const char *form, ...);
-int		ft_printf_parse(char *form, int i, va_list arg);
-
-#endif
+	count = 0;
+	while (lst)
+	{
+		lst = lst->next;
+		count++;
+	}
+	return (count);
+}

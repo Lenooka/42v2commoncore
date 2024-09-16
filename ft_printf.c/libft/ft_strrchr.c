@@ -1,23 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.h                                        :+:      :+:    :+:   */
+/*   ft_strrchr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/16 12:59:30 by olena             #+#    #+#             */
-/*   Updated: 2024/09/16 15:14:54 by oltolmac         ###   ########.fr       */
+/*   Created: 2024/09/04 19:04:20 by oltolmac          #+#    #+#             */
+/*   Updated: 2024/09/09 19:53:13 by oltolmac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft.h"
 
-#ifndef FT_PRINTF_H
-# define FT_PRINTF_H
-# include <stdarg.h>
-# include <unistd.h>
-# include "libft/libft.h"
+char	*ft_strrchr(const char *s, int c)
+{
+	int	i;
 
-int		ft_printf(const char *form, ...);
-int		ft_printf_parse(char *form, int i, va_list arg);
+	i = ft_strlen(s);
+	while (i >= 0)
+	{
+		if (s[i] == (char)c && i >= 0)
+			return ((char *)s + i);
+		i--;
+	}
+	return (NULL);
+}
 
-#endif
+/*int main ()
+{
+  char str[] = "This is a sample string";
+  char * pch;
+  pch= ft_strrchr(str,'s');
+  printf ("Last occurence of 's' found at %ld \n",pch-str+1);
+  return 0;
+}*/

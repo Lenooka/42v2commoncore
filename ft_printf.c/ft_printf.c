@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: olena <olena@student.42.fr>                +#+  +:+       +#+        */
+/*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 12:42:13 by olena             #+#    #+#             */
-/*   Updated: 2024/09/16 13:13:16 by olena            ###   ########.fr       */
+/*   Updated: 2024/09/16 15:16:28 by oltolmac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-
 
 int	ft_printf_parse(char *form, int i, va_list arg)
 {
@@ -19,9 +18,9 @@ int	ft_printf_parse(char *form, int i, va_list arg)
 
 	c = 0;
 	if (form[i + 1] == 'c')
-		c += ft_print_char(va_arg(arg, int), 1);
+		c += ft_print_char(va_arg(arg, int));
 	else if (form[i + 1] == 's')
-		c += ft_print_str(va_arg(arg, char *), 1);
+		c += ft_print_str(va_arg(arg, char *));
 	else if (form[i + 1] == 'd' || form[i + 1] == 'i')
 		c += ft_print_nbr(va_arg(arg, int));
 	else if (form[i + 1] == 'u')
