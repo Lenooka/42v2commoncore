@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf_nmbr.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: olena <olena@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 15:20:33 by oltolmac          #+#    #+#             */
-/*   Updated: 2024/09/16 15:48:18 by oltolmac         ###   ########.fr       */
+/*   Updated: 2024/09/16 15:55:25 by olena            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,11 +80,15 @@ int	ft_printf_hex(int n, int x)
 	return (len);
 }
 
-int	ft_printf_unsigned(int d)
+
+int	ft_printf_unsigned(unsigned int d)
 {
-	int	len;
+	int		len;
+	char	*str;
 
 	len = ft_len(d, 10);
-	ft_putnbr_fd(d, 1);
+	str = ft_itoa(d);
+	ft_putstr_fd(str, 1);
+	free(str);
 	return (len);
 }
