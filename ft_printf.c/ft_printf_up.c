@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf_up.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: olena <olena@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 16:27:07 by oltolmac          #+#    #+#             */
-/*   Updated: 2024/09/16 20:04:56 by oltolmac         ###   ########.fr       */
+/*   Updated: 2024/09/19 13:15:14 by olena            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,11 @@ int	ft_printf_unsigned(unsigned int n)
 	int	len;
 	char *str;
 
+	if (n == 0)
+	{
+		len = write(1, "0", 1);
+		return (len);
+	}
 	len = ft_u_len(n, 10);
 	str = ft_convert_unsigned(n);
 	ft_putstr_fd(str, 1);
@@ -58,39 +63,29 @@ int	ft_printf_unsigned(unsigned int n)
 	return (len);
 }
 
-static	void	ft_p_point(uintptr_t n)
+static	unsigned int	ft_p_point(uintptr_t n)
 {
+	int len;
+
+	len = 0;
 	if (n >= 16)
 	{
-		ft_p_point(n / 16);
-		ft_p_point(n % 16);
+		len += ft_p_point(n / 16);
+		len += ft_p_point(n % 16);
 	}
 	else
 	{
 		if (n < 10)
 		{
-			ft_putchar_fd((n + '0'), 1);
+			len += ft_printf_char((n + '0'));
 		}
 		else
 		{
-			ft_putchar_fd((n - 10 + 'a'), 1);
+			len += ft_printf_char((n - 10 + 'a'));
 		}
-	}
-}
-
-static	int	ft_p_len(uintptr_t n, int base)
-{
-	int	len;
-
-	len = 0;
-	while (n != 0)
-	{
-		n = n / base;
-		len++;
 	}
 	return (len);
 }
-
 
 int	ft_printf_pointer(unsigned long long p)
 {
@@ -102,8 +97,7 @@ int	ft_printf_pointer(unsigned long long p)
 	else
 	{
 		write(1, "0x", 2);
-		ft_p_point(p);
-		len = ft_p_len(p, 16) + 2;
+		len = ft_p_point(p) + 2;
 	}
 	return (len);
 }

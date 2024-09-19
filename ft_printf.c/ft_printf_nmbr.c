@@ -3,31 +3,39 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf_nmbr.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: olena <olena@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 15:20:33 by oltolmac          #+#    #+#             */
-/*   Updated: 2024/09/16 20:42:19 by oltolmac         ###   ########.fr       */
+/*   Updated: 2024/09/19 13:10:47 by olena            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static long	int	ft_len(int n, int base)
+static int	ft_putnbr(int n, int fd)
 {
 	int	len;
 
 	len = 0;
+	if (n == -2147483648)
+	{
+		len = write(fd, "-2147483648", 11);
+		return (len);
+	}
 	if (n < 0)
 	{
+		len += write(fd, "-", 1);
 		n = -n;
-		len++;
 	}
-	if (n == 0)
-		return (1);
-	while (n != 0)
+	if (n > 9)
 	{
-		n = n / base;
-		len++;
+		len += ft_putnbr(n / 10, fd);
+		len += ft_putnbr(n % 10, fd);
+	}
+	else
+	{
+		n = n + '0';
+		len += write(fd, &n, fd);
 	}
 	return (len);
 }
@@ -36,49 +44,52 @@ int	ft_printf_nbr(int d)
 {
 	int	len;
 
-	len = ft_len(d, 10);
-	ft_putnbr_fd(d, 1);
+	if (d == 0)
+	{
+		len = write(1, "0", 1);
+		return (len);
+	}
+	len = ft_putnbr(d, 1);
 	return (len);
 }
 
-static void	ft_hex(unsigned int n, int x)
+static int	ft_hex(unsigned int n, int x)
 {
+	int len;
+
+	len = 0;
 	if (n >= 16)
 	{
-		ft_hex(n / 16, x);
-		ft_hex(n % 16, x);
+		len += ft_hex(n / 16, x);
+		len += ft_hex(n % 16, x);
 	}
 	else
 	{ 
 		if (n < 10)
 		{
-			ft_putchar_fd((n + '0'), 1);
+			len += ft_printf_char((n + '0'));
 		}
 		else
 		{
 			if (x == 0)
-				ft_putchar_fd((n - 10 + 'a'), 1);
-			if (x == 1)
-				ft_putchar_fd((n - 10 + 'A'), 1);
+				len +=  ft_printf_char((n - 10 + 'a'));
+			else if (x == 1)
+				len += ft_printf_char((n - 10 + 'A'));
 		}
 	}
+	return (len);
 }
 
 int	ft_printf_hex(unsigned int n, int x)
 {
 	int	len;
 	
-	if (n < 0)
-	{
-		write(1, "-", 1);
-		n = -n;
-	}
 	len = ft_len(n, 16);
 	if (n == 0)
 	{
-		ft_putchar_fd(48, 1);
+		len = write(1, "0", 1);
 		return (len);
 	}
-	ft_hex(n, x);
+	len = ft_hex(n, x);
 	return (len);
 }
