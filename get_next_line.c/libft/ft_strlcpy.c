@@ -1,44 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf_chars.c                                  :+:      :+:    :+:   */
+/*   ft_strlcpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/16 15:16:03 by oltolmac          #+#    #+#             */
-/*   Updated: 2024/09/19 13:34:44 by oltolmac         ###   ########.fr       */
+/*   Created: 2024/09/04 14:13:27 by oltolmac          #+#    #+#             */
+/*   Updated: 2024/09/09 19:50:26 by oltolmac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft.h"
 
-int	ft_printf_char(int c)
+size_t	ft_strlcpy(char *dst, const char *src, size_t size)
 {
-	write(1, &c, 1);
-	return (1);
-}
+	size_t	i;
+	size_t	j;
+	size_t	len;
 
-int	ft_printf_str(char *s)
-{
-	int	len;
-	int	c;
-
-	if (s == NULL)
+	i = 0;
+	j = 0;
+	len = ft_strlen(src);
+	if (size <= 0)
+		return (len);
+	while (i < size - 1 && src[i] != '\0')
 	{
-		write(1, "(null)", 6);
-		return (6);
+		dst[j] = src[i];
+		i++;
+		j++;
 	}
-	c = ft_strlen(s);
-	len = write(1, s, c);
-	return (len);
-}
-
-int	ft_printf_percent(void)
-{
-	int		len;
-	char	c;
-
-	c = '%';
-	len = ft_printf_char(c);
+	dst[j] = '\0';
 	return (len);
 }

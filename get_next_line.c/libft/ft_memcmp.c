@@ -1,44 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf_chars.c                                  :+:      :+:    :+:   */
+/*   ft_memcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/16 15:16:03 by oltolmac          #+#    #+#             */
-/*   Updated: 2024/09/19 13:34:44 by oltolmac         ###   ########.fr       */
+/*   Created: 2024/09/04 22:42:01 by olena             #+#    #+#             */
+/*   Updated: 2024/09/09 19:11:37 by oltolmac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft.h"
 
-int	ft_printf_char(int c)
+int	ft_memcmp(const void *s1, const void *s2, size_t n)
 {
-	write(1, &c, 1);
-	return (1);
-}
+	unsigned char	*str1;
+	unsigned char	*str2;
+	size_t			i;
 
-int	ft_printf_str(char *s)
-{
-	int	len;
-	int	c;
-
-	if (s == NULL)
+	if (n == 0 || s1 == s2)
+		return (0);
+	str1 = (unsigned char *)s1;
+	str2 = (unsigned char *)s2;
+	i = 0;
+	while (i < n)
 	{
-		write(1, "(null)", 6);
-		return (6);
+		if (str1[i] != str2[i])
+			return ((int)(str1[i] - str2[i]));
+		i++;
 	}
-	c = ft_strlen(s);
-	len = write(1, s, c);
-	return (len);
-}
-
-int	ft_printf_percent(void)
-{
-	int		len;
-	char	c;
-
-	c = '%';
-	len = ft_printf_char(c);
-	return (len);
+	return (0);
 }

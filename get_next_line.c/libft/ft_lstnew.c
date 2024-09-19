@@ -1,44 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf_chars.c                                  :+:      :+:    :+:   */
+/*   ft_lstnew.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/16 15:16:03 by oltolmac          #+#    #+#             */
-/*   Updated: 2024/09/19 13:34:44 by oltolmac         ###   ########.fr       */
+/*   Created: 2024/09/04 22:45:31 by olena             #+#    #+#             */
+/*   Updated: 2024/09/09 18:48:51 by oltolmac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft.h"
 
-int	ft_printf_char(int c)
+t_list	*ft_lstnew(void *content)
 {
-	write(1, &c, 1);
-	return (1);
-}
+	t_list	*new;
 
-int	ft_printf_str(char *s)
-{
-	int	len;
-	int	c;
-
-	if (s == NULL)
-	{
-		write(1, "(null)", 6);
-		return (6);
-	}
-	c = ft_strlen(s);
-	len = write(1, s, c);
-	return (len);
-}
-
-int	ft_printf_percent(void)
-{
-	int		len;
-	char	c;
-
-	c = '%';
-	len = ft_printf_char(c);
-	return (len);
+	new = (t_list *)malloc(sizeof(t_list));
+	if (!new)
+		return (NULL);
+	new->content = content;
+	new->next = NULL;
+	return (new);
 }

@@ -6,12 +6,11 @@
 /*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 12:42:13 by olena             #+#    #+#             */
-/*   Updated: 2024/09/18 15:42:00 by oltolmac         ###   ########.fr       */
+/*   Updated: 2024/09/19 13:35:03 by oltolmac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-
 
 static	int	ft_printf_pars(va_list args, const char format)
 {

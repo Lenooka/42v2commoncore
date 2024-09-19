@@ -6,7 +6,7 @@
 /*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 16:27:07 by oltolmac          #+#    #+#             */
-/*   Updated: 2024/09/19 13:24:03 by oltolmac         ###   ########.fr       */
+/*   Updated: 2024/09/19 13:33:07 by oltolmac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,8 @@ static char	*ft_convert_unsigned(unsigned int n)
 
 int	ft_printf_unsigned(unsigned int n)
 {
-	int	len;
-	char *str;
+	int		len;
+	char	*str;
 
 	if (n == 0)
 	{
@@ -65,7 +65,7 @@ int	ft_printf_unsigned(unsigned int n)
 
 static	unsigned int	ft_p_point(uintptr_t n)
 {
-	int len;
+	int	len;
 
 	len = 0;
 	if (n >= 16)

@@ -1,44 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf_chars.c                                  :+:      :+:    :+:   */
+/*   ft_memset.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/16 15:16:03 by oltolmac          #+#    #+#             */
-/*   Updated: 2024/09/19 13:34:44 by oltolmac         ###   ########.fr       */
+/*   Created: 2024/09/02 11:54:04 by oltolmac          #+#    #+#             */
+/*   Updated: 2024/09/09 19:39:22 by oltolmac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft.h"
 
-int	ft_printf_char(int c)
+void	*ft_memset(void *str, int c, size_t n)
 {
-	write(1, &c, 1);
-	return (1);
-}
+	unsigned char	*set;
+	size_t			i;
 
-int	ft_printf_str(char *s)
-{
-	int	len;
-	int	c;
-
-	if (s == NULL)
+	i = 0;
+	set = (unsigned char *)str;
+	while (i < n)
 	{
-		write(1, "(null)", 6);
-		return (6);
+		set[i] = (unsigned char)c;
+		i++;
 	}
-	c = ft_strlen(s);
-	len = write(1, s, c);
-	return (len);
-}
-
-int	ft_printf_percent(void)
-{
-	int		len;
-	char	c;
-
-	c = '%';
-	len = ft_printf_char(c);
-	return (len);
+	return (set);
 }

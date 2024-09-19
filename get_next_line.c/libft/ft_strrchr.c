@@ -1,44 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf_chars.c                                  :+:      :+:    :+:   */
+/*   ft_strrchr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/16 15:16:03 by oltolmac          #+#    #+#             */
-/*   Updated: 2024/09/19 13:34:44 by oltolmac         ###   ########.fr       */
+/*   Created: 2024/09/04 19:04:20 by oltolmac          #+#    #+#             */
+/*   Updated: 2024/09/09 19:53:13 by oltolmac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft.h"
 
-int	ft_printf_char(int c)
+char	*ft_strrchr(const char *s, int c)
 {
-	write(1, &c, 1);
-	return (1);
-}
+	int	i;
 
-int	ft_printf_str(char *s)
-{
-	int	len;
-	int	c;
-
-	if (s == NULL)
+	i = ft_strlen(s);
+	while (i >= 0)
 	{
-		write(1, "(null)", 6);
-		return (6);
+		if (s[i] == (char)c && i >= 0)
+			return ((char *)s + i);
+		i--;
 	}
-	c = ft_strlen(s);
-	len = write(1, s, c);
-	return (len);
+	return (NULL);
 }
 
-int	ft_printf_percent(void)
+/*int main ()
 {
-	int		len;
-	char	c;
-
-	c = '%';
-	len = ft_printf_char(c);
-	return (len);
-}
+  char str[] = "This is a sample string";
+  char * pch;
+  pch= ft_strrchr(str,'s');
+  printf ("Last occurence of 's' found at %ld \n",pch-str+1);
+  return 0;
+}*/

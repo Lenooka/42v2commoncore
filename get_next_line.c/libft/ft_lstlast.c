@@ -1,44 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf_chars.c                                  :+:      :+:    :+:   */
+/*   ft_lstlast.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/16 15:16:03 by oltolmac          #+#    #+#             */
-/*   Updated: 2024/09/19 13:34:44 by oltolmac         ###   ########.fr       */
+/*   Created: 2024/09/04 23:02:19 by olena             #+#    #+#             */
+/*   Updated: 2024/09/09 18:47:03 by oltolmac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft.h"
 
-int	ft_printf_char(int c)
+t_list	*ft_lstlast(t_list *lst)
 {
-	write(1, &c, 1);
-	return (1);
-}
-
-int	ft_printf_str(char *s)
-{
-	int	len;
-	int	c;
-
-	if (s == NULL)
-	{
-		write(1, "(null)", 6);
-		return (6);
-	}
-	c = ft_strlen(s);
-	len = write(1, s, c);
-	return (len);
-}
-
-int	ft_printf_percent(void)
-{
-	int		len;
-	char	c;
-
-	c = '%';
-	len = ft_printf_char(c);
-	return (len);
+	if (!lst)
+		return (NULL);
+	while (lst->next)
+		lst = lst->next;
+	return (lst);
 }

@@ -1,44 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf_chars.c                                  :+:      :+:    :+:   */
+/*   ft_strmapi.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/16 15:16:03 by oltolmac          #+#    #+#             */
-/*   Updated: 2024/09/19 13:34:44 by oltolmac         ###   ########.fr       */
+/*   Created: 2024/09/04 20:55:12 by oltolmac          #+#    #+#             */
+/*   Updated: 2024/09/09 19:50:47 by oltolmac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft.h"
 
-int	ft_printf_char(int c)
+char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 {
-	write(1, &c, 1);
-	return (1);
-}
+	char			*map;
+	unsigned int	i;
 
-int	ft_printf_str(char *s)
-{
-	int	len;
-	int	c;
-
-	if (s == NULL)
+	i = 0;
+	if (!s || !f)
+		return (NULL);
+	map = (char *)malloc(sizeof(char) * (ft_strlen(s) + 1));
+	if (!map)
+		return (NULL);
+	while (s[i])
 	{
-		write(1, "(null)", 6);
-		return (6);
+		map[i] = (*f)(i, s[i]);
+		i++;
 	}
-	c = ft_strlen(s);
-	len = write(1, s, c);
-	return (len);
-}
-
-int	ft_printf_percent(void)
-{
-	int		len;
-	char	c;
-
-	c = '%';
-	len = ft_printf_char(c);
-	return (len);
+	map[i] = '\0';
+	return (map);
 }

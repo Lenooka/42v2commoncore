@@ -3,13 +3,12 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: olena <olena@student.42.fr>                +#+  +:+       +#+        */
+/*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 12:59:30 by olena             #+#    #+#             */
-/*   Updated: 2024/09/19 13:15:43 by olena            ###   ########.fr       */
+/*   Updated: 2024/09/19 13:31:49 by oltolmac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #ifndef FT_PRINTF_H
 # define FT_PRINTF_H
@@ -27,6 +26,5 @@ int		ft_printf_percent(void);
 int		ft_printf_str(char *s);
 int		ft_printf_char(int c);
 int		ft_printf_pointer(unsigned long long ptr);
-
 
 #endif

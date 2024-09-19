@@ -6,7 +6,7 @@
 /*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 15:20:33 by oltolmac          #+#    #+#             */
-/*   Updated: 2024/09/19 13:24:37 by oltolmac         ###   ########.fr       */
+/*   Updated: 2024/09/19 13:32:42 by oltolmac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int	ft_printf_nbr(int d)
 
 static int	ft_hex(unsigned int n, int x)
 {
-	int len;
+	int	len;
 
 	len = 0;
 	if (n >= 16)
@@ -64,7 +64,7 @@ static int	ft_hex(unsigned int n, int x)
 		len += ft_hex(n % 16, x);
 	}
 	else
-	{ 
+	{
 		if (n < 10)
 		{
 			len += ft_printf_char((n + '0'));
@@ -72,7 +72,7 @@ static int	ft_hex(unsigned int n, int x)
 		else
 		{
 			if (x == 0)
-				len +=  ft_printf_char((n - 10 + 'a'));
+				len += ft_printf_char((n - 10 + 'a'));
 			else if (x == 1)
 				len += ft_printf_char((n - 10 + 'A'));
 		}
