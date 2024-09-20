@@ -6,7 +6,7 @@
 /*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 13:40:39 by oltolmac          #+#    #+#             */
-/*   Updated: 2024/09/19 14:53:52 by oltolmac         ###   ########.fr       */
+/*   Updated: 2024/09/20 18:52:09 by oltolmac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,11 +54,12 @@ char	*ft_strjoin(char *s1, char *s2)
 	size_t	tlen;
 	char	*join;
 
-	if (s1 != NULL)
-		olen = strlen(s1);
-	else
-		olen = 0;
-	tlen = strlen(s2);
+	if (!s1)
+	{
+		s1 = (char *)malloc(sizeof(char) * 1);
+		s1[0] = '\0';
+	}
+	tlen = ft_strlen(s2);
 	join = (char *)malloc(sizeof(char) * (olen + tlen + 1));
 	if (!join)
 		return (NULL);
@@ -86,13 +87,11 @@ char	*ft_strchr(char *s, int c)
 	return (NULL);
 }
 
-char *get_next_line(int fd)
+char	*rr(char *line, int fd)
 {
-	char 	*line;
-	char	*buffer;
 	int		bytes;
-
-	line = NULL;
+	char	*buffer;
+	
 	bytes = 1;
 	if (fd == -1)
 		return (NULL);
@@ -113,17 +112,77 @@ char *get_next_line(int fd)
 	free(buffer);
 	return (line);
 }
+char *get_line(char *line)
+{
+	int i;
+	char *s;
+
+	i = 0;
+	while (line[i] && line[i] != '\n')
+		i++;
+	s = malloc(sizeof(char) * i + 2);
+	i = 0;
+	while (line[i] && line[i] != '\n')
+	{
+		s[i] = line[i];
+		i++;
+	}
+	s[i] = '\n';
+	s[i + 1] = '\0';
+	return (s);
+}
+char *get_next_line(int fd)
+{
+	static char 	*line;
+	char	*buffer;
+	int		bytes;
+	char	*s;
+	int		i;
+	
+	i = 0;
+	int j = 0;
+	line = rr(line, fd);
+	s = get_line(line);
+	while (line[i] && line[i] != '\n')
+		i++;
+	i++;
+	while (line[i] && line[i] != '\n')
+	{
+		line[j] = line[i];
+		i++;
+		j++;
+	}
+	if(line[i] == '\n')
+		line[j] = '\n';
+	line[j + 1] = '\0';
+	return (s);
+}
 int	main(void)
 {
 	char	*line;
 	int		i;
 	int		fd1;
-	fd1 = open("test/test.txt", O_RDONLY);
+	fd1 = open("test/test4.txt", O_RDONLY);
 
 	i = 1;
 	line = get_next_line(fd1);
 	if (line != NULL)
 	{
+		printf("line [%02d]: %s", i, line);
+		i++;
+		line = get_next_line(fd1);
+		printf("line [%02d]: %s", i, line);
+		line = get_next_line(fd1);
+		i++;
+		printf("line [%02d]: %s", i, line);
+		line = get_next_line(fd1);
+		i++;
+		printf("line [%02d]: %s", i, line);
+		line = get_next_line(fd1);
+		i++;
+		printf("line [%02d]: %s", i, line);
+		line = get_next_line(fd1);
+		i++;
 		printf("line [%02d]: %s", i, line);
 	}
 	free(line);
