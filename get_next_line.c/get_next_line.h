@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: olena <olena@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 13:40:57 by oltolmac          #+#    #+#             */
-/*   Updated: 2024/09/19 14:25:40 by oltolmac         ###   ########.fr       */
+/*   Updated: 2024/09/19 17:34:37 by olena            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 # include <unistd.h>
 # include <stdio.h>
 # include <string.h>
-# include <bsd/string.h>
+# include <string.h>
 # include <stdlib.h>
 # include <unistd.h>
 # include <stdio.h>
