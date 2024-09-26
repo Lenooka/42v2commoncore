@@ -6,7 +6,7 @@
 /*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 13:40:47 by oltolmac          #+#    #+#             */
-/*   Updated: 2024/09/25 15:19:59 by oltolmac         ###   ########.fr       */
+/*   Updated: 2024/09/25 17:46:56 by oltolmac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,10 +69,10 @@ char	*ft_gnl_strjoin(char *s1, char *s2)
 	if (!s1)
 	{
 		s1 = (char *)malloc(sizeof(char) * 1);
+		if (!s1 || !s2)
+			return (NULL);
 		s1[0] = '\0';
 	}
-	if (!s1 || !s2)
-		return (NULL);
 	tlen = ft_strlen_nl_op(s2, 1);
 	olen = ft_strlen_nl_op(s1, 1);
 	join = (char *)malloc(sizeof(char) * (olen + tlen) + 1);
@@ -103,11 +103,30 @@ char	*ft_gnl_strchr(char *s, int c)
 	return (NULL);
 }
 
+char	*ft_strcat(char *dest, char *src)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	j = 0;
+	while (dest[i] != '\0')
+		i++;
+	while (src[j] != '\0')
+	{
+		dest[i] = src[j];
+		i++;
+		j++;
+	}
+	dest[i] = '\0';
+	return (dest);
+}
+
 
 char	*ft_read_get_line(char *line, int fd)
 {
 	int		bytes;
-	static char	*buffer;
+	char	*buffer;
 
 	bytes = 1;
 	if (fd == -1)
@@ -126,6 +145,7 @@ char	*ft_read_get_line(char *line, int fd)
 		}
 		buffer[bytes] = '\0';
 		line = ft_gnl_strjoin(line, buffer);
+		//ft_strcat(line, buffer);
 	}
 	free(buffer);
 	return (line);
