@@ -6,11 +6,11 @@
 /*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 13:40:39 by oltolmac          #+#    #+#             */
-/*   Updated: 2024/09/25 22:52:17 by oltolmac         ###   ########.fr       */
+/*   Updated: 2024/09/26 13:32:21 by oltolmac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 char	*ft_copy_line(char *line)
 {
@@ -57,7 +57,6 @@ char	*get_next_line(int fd)
 {
 	static char	*line;
 	char		*s;
-	
 
 	if (fd == -1 || BUFFER_SIZE < 1)
 		return (NULL);
@@ -68,13 +67,12 @@ char	*get_next_line(int fd)
 	line = ft_rewrite_st_line(line);
 	return (s);
 }
-int	main(void)
+/*int	main(void)
 {
 	char	*line;
 	int		i;
 	int		fd1;
 	fd1 = open("test/test4.txt", O_RDONLY);
-	//int fd2 = open("test/test5.txt", O_RDONLY);
 
 	i = 1;
 	line = get_next_line(fd1);
@@ -109,4 +107,4 @@ int	main(void)
 	}
 	close(fd1);
 	return (0);
-}
+}*/

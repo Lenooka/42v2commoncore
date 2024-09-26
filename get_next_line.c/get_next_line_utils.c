@@ -6,7 +6,7 @@
 /*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 13:40:47 by oltolmac          #+#    #+#             */
-/*   Updated: 2024/09/25 15:19:59 by oltolmac         ###   ########.fr       */
+/*   Updated: 2024/09/26 13:25:32 by oltolmac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,10 +103,9 @@ char	*ft_gnl_strchr(char *s, int c)
 	return (NULL);
 }
 
-
 char	*ft_read_get_line(char *line, int fd)
 {
-	int		bytes;
+	int			bytes;
 	static char	*buffer;
 
 	bytes = 1;

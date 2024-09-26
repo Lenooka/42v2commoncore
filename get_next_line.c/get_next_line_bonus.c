@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 13:40:39 by oltolmac          #+#    #+#             */
-/*   Updated: 2024/09/25 22:06:55 by oltolmac         ###   ########.fr       */
+/*   Updated: 2024/09/26 13:31:45 by oltolmac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,52 +53,12 @@ char	*ft_rewrite_st_line(char *line)
 	return (line);
 }
 
-static	t_bonus	*get_fd(t_bonus **head, int fd)
-{
-	t_bonus *curr = *head;
-	static t_bonus *new;
-
-	while (curr)
-	{
-		if (curr->fd == fd)
-			return (curr);
-		curr = curr->next;
-	}
-	new = (t_bonus *)malloc(sizeof(t_bonus));
-	if (!new)
-		return (NULL);
-	new->fd = fd;
-	new->buffer = malloc(sizeof(char) * BUFFER_SIZE + 1);
-	new->buffer[0] = '\0';
-	new->next = *head;
-	*head = new;
-	return (new);
-}
-
-void free_bonus_list(t_bonus **head)
-{
-    t_bonus *curr = *head;
-    t_bonus *temp;
-
-    while (curr)
-	{
-        temp = curr;
-        curr = curr->next;
-        free(temp->buffer);
-        free(temp);
-    }
-    *head = NULL;
-}
-
 char	*get_next_line(int fd)
 {
 	char		*s;
-	//static	t_bonus *head = NULL;
-	//static	t_bonus *node;
-	static char	*fd_buf[FD_MAX];
-	static	int	pfd;
+	static char	*fd_buf[1024];
+	static int	pfd;
 
-	//node = get_fd(&head, fd);
 	if (fd == -1 || BUFFER_SIZE < 1)
 		return (NULL);
 	fd_buf[fd] = ft_read_get_line(fd_buf[fd], fd);
@@ -111,7 +71,8 @@ char	*get_next_line(int fd)
 	fd_buf[fd] = ft_rewrite_st_line(fd_buf[fd]);
 	return (s);
 }
-int	main(void)
+
+/*int	main(void)
 {
 	char	*line;
 	int		i;
@@ -150,4 +111,4 @@ int	main(void)
 	}
 	close(fd1);
 	return (0);
-}
+}*/

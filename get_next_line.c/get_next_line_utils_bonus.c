@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_utils.c                              :+:      :+:    :+:   */
+/*   get_next_line_utils_bonus.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 13:40:47 by oltolmac          #+#    #+#             */
-/*   Updated: 2024/09/25 17:46:56 by oltolmac         ###   ########.fr       */
+/*   Updated: 2024/09/26 13:29:35 by oltolmac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 size_t	ft_strlen_nl_op(const char *s, int op)
 {
@@ -103,26 +103,6 @@ char	*ft_gnl_strchr(char *s, int c)
 	return (NULL);
 }
 
-char	*ft_strcat(char *dest, char *src)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	j = 0;
-	while (dest[i] != '\0')
-		i++;
-	while (src[j] != '\0')
-	{
-		dest[i] = src[j];
-		i++;
-		j++;
-	}
-	dest[i] = '\0';
-	return (dest);
-}
-
-
 char	*ft_read_get_line(char *line, int fd)
 {
 	int		bytes;
@@ -145,7 +125,6 @@ char	*ft_read_get_line(char *line, int fd)
 		}
 		buffer[bytes] = '\0';
 		line = ft_gnl_strjoin(line, buffer);
-		//ft_strcat(line, buffer);
 	}
 	free(buffer);
 	return (line);
