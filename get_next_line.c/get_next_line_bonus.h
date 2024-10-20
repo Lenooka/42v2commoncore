@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.h                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: olena <olena@student.42.fr>                +#+  +:+       +#+        */
+/*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 13:40:57 by oltolmac          #+#    #+#             */
-/*   Updated: 2024/10/20 15:19:31 by olena            ###   ########.fr       */
+/*   Updated: 2024/09/26 13:30:29 by oltolmac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#ifndef GET_NEXT_LINE_BONUS_H
+# define GET_NEXT_LINE_BONUS_H
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 100
@@ -21,7 +21,7 @@
 # include <unistd.h>
 # include <stdio.h>
 # include <string.h>
-# include <string.h>
+# include <bsd/string.h>
 # include <stdlib.h>
 # include <unistd.h>
 # include <stdio.h>

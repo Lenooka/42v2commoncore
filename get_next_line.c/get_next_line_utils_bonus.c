@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_utils.c                              :+:      :+:    :+:   */
+/*   get_next_line_utils_bonus.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 13:40:47 by oltolmac          #+#    #+#             */
-/*   Updated: 2024/09/26 13:25:32 by oltolmac         ###   ########.fr       */
+/*   Updated: 2024/09/26 13:29:35 by oltolmac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 size_t	ft_strlen_nl_op(const char *s, int op)
 {
@@ -69,10 +69,10 @@ char	*ft_gnl_strjoin(char *s1, char *s2)
 	if (!s1)
 	{
 		s1 = (char *)malloc(sizeof(char) * 1);
+		if (!s1 || !s2)
+			return (NULL);
 		s1[0] = '\0';
 	}
-	if (!s1 || !s2)
-		return (NULL);
 	tlen = ft_strlen_nl_op(s2, 1);
 	olen = ft_strlen_nl_op(s1, 1);
 	join = (char *)malloc(sizeof(char) * (olen + tlen) + 1);
@@ -105,8 +105,8 @@ char	*ft_gnl_strchr(char *s, int c)
 
 char	*ft_read_get_line(char *line, int fd)
 {
-	int			bytes;
-	static char	*buffer;
+	int		bytes;
+	char	*buffer;
 
 	bytes = 1;
 	if (fd == -1)
