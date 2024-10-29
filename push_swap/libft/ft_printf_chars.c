@@ -1,33 +1,44 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_push_swap.h                                     :+:      :+:    :+:   */
+/*   ft_printf_chars.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/26 14:00:39 by oltolmac          #+#    #+#             */
-/*   Updated: 2024/10/29 16:06:39 by oltolmac         ###   ########.fr       */
+/*   Created: 2024/09/16 15:16:03 by oltolmac          #+#    #+#             */
+/*   Updated: 2024/10/29 14:14:07 by oltolmac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_PUSH_SWAP_H
-#define FT_PUSH_SWAP_H
+#include "libft.h"
 
-#define A 0
-#define B 1
-
-#include "libft/libft.h"
-
-typedef struct s_list_a
+int	ft_printf_char(int c)
 {
-	int			content;
-	struct s_list_a	*next;
-}	t_list_a;
+	write(1, &c, 1);
+	return (1);
+}
 
-typedef struct s_list_b
+int	ft_printf_str(char *s)
 {
-	int			content;
-	struct s_list_b	*next;
-}	t_list_b;
+	int	len;
+	int	c;
 
-#endif
+	if (s == NULL)
+	{
+		write(1, "(null)", 6);
+		return (6);
+	}
+	c = ft_strlen(s);
+	len = write(1, s, c);
+	return (len);
+}
+
+int	ft_printf_percent(void)
+{
+	int		len;
+	char	c;
+
+	c = '%';
+	len = ft_printf_char(c);
+	return (len);
+}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: olena <olena@student.42.fr>                +#+  +:+       +#+        */
+/*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 23:28:30 by olena             #+#    #+#             */
-/*   Updated: 2024/10/20 15:25:44 by olena            ###   ########.fr       */
+/*   Updated: 2024/10/29 14:19:18 by oltolmac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@
 # include <unistd.h>
 # include <stdio.h>
 # include <string.h>
+# include <stdarg.h>
+# include <stdint.h>
 
 typedef struct s_list
 {
@@ -70,5 +72,16 @@ void	ft_lstdelone(t_list *lst, void (*del)(void *));
 void	ft_lstclear(t_list **lst, void (*del)(void *));
 void	ft_lstiter(t_list *lst, void (*f)(void *));
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
+//PRINTF
+
+int		ft_printf(const char *form, ...);
+int		ft_printf_unsigned(unsigned int n);
+int		ft_printf_hex(unsigned int n, int x);
+int		ft_printf_nbr(int d);
+int		ft_printf_unsigned(unsigned int n);
+int		ft_printf_percent(void);
+int		ft_printf_str(char *s);
+int		ft_printf_char(int c);
+int		ft_printf_pointer(unsigned long long ptr);
 
 #endif
