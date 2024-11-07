@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   push_swap_main.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/10/30 13:41:35 by oltolmac          #+#    #+#             */
+/*   Updated: 2024/10/30 14:13:57 by oltolmac         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_push_swap.h"
 
 static t_list_a	*ft_lstne(int content)
@@ -112,13 +124,13 @@ int	elem_count(t_list_a *a)
 	return (c);
 }
 
-void	swap(t_list_a *stack, t_list_a *stackn, int ind)
+void	swap(t_list_a *stack, int ind)
 {
 	int s;
 
 	s = stack->content;
-	stack->content = stackn->content;
-	stackn->content = s;
+	stack->content = stack->next->content;
+	stack->next->content = s;
 	if (!ind)
 		ft_printf("sa\n");
 	else
@@ -143,7 +155,7 @@ void	sort_three(t_list_a *a)
 			temp = a->next->content;
 			if (a->content > temp)
 			{
-				swap(a, a->next, A); //SWAPS WHATEVER I GIVE BUT NOT JUST FIRST TWO ELEM LOGIC WRONG
+				swap(a, A); //SWAPS WHATEVER I GIVE BUT NOT JUST FIRST TWO ELEM LOGIC WRONG
 			}
 			a = a->next;
 		}
@@ -157,6 +169,7 @@ void	start_sorting(t_list_a *head_a, t_list_a *head_b)
 
 	elem_am = elem_count(head_a);
 	sort_three(head_a);
+	stack_a_print(head_a);
 }
 
 int	argv_split(t_list_a *head_a, t_list_a *head_b, char **argv)
@@ -175,12 +188,38 @@ int	argv_split(t_list_a *head_a, t_list_a *head_b, char **argv)
 		return (0);
 	}
 	head_a = fill_struct(argv_split, 0);
+	if (!head_a)
+		return (ft_printf("Malloc fail in structure fill!\n"), 0);
 	head_b = ft_lstne(0);
+	if (!head_b)
+	{
+		free(head_a);
+		return (ft_printf("Malloc fail in structure fill!\n"), 0);
+	}
 	start_sorting(head_a, head_b);
 	free_arr(argv_split);
 	return (0);
 }
 
+int	handle_mult_argv(char **argv, t_list_a *head_a, t_list_a *head_b)
+{
+	if (check_arg(argv))
+	{
+		ft_printf("Invalid characters in arguments!\n");
+		return (0);
+	}
+	head_a = fill_struct(argv, 1);
+	if (!head_a)
+		return (ft_printf("Malloc fail in structure fill!\n"), 0);
+	head_b = ft_lstne(0);
+	if (!head_b)
+	{
+		free(head_a);
+		return (ft_printf("Malloc fail in structure fill!\n"), 0);
+	}
+	start_sorting(head_a, head_b);
+	return (0);
+}
 int main(int argc, char **argv)
 {
 	t_list_a *head_a;
@@ -190,17 +229,10 @@ int main(int argc, char **argv)
 	{
 		argv_split(head_a, head_b, argv);
 		return (0);
-	}
+	} 
 	if (argc > 2)
 	{
-		if (check_arg(argv))
-		{
-			ft_printf("Invalid characters in arguments!\n");
-			return (0);
-		}
-		head_a = fill_struct(argv, 1);
-		head_b = ft_lstne(0);
-		start_sorting(head_a, head_b);
+		handle_mult_argv(argv, head_a, head_b);
 	}
-	return 0;
+	return (0);
 }
