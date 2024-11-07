@@ -6,17 +6,27 @@
 /*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 13:41:35 by oltolmac          #+#    #+#             */
-/*   Updated: 2024/10/30 14:13:57 by oltolmac         ###   ########.fr       */
+/*   Updated: 2024/11/07 21:05:52 by oltolmac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_push_swap.h"
 
-static t_list_a	*ft_lstne(int content)
+static t_stack	*ft_lstneb(void)
 {
-	t_list_a	*new;
+	t_stack	*new;
 
-	new = (t_list_a *)malloc(sizeof(t_list_a));
+	new = (t_stack *)malloc(sizeof(t_stack));
+	if (!new)
+		return (NULL);
+	new->next = NULL;
+	return (new);
+}
+static t_stack	*ft_lstne(int content)
+{
+	t_stack	*new;
+
+	new = (t_stack *)malloc(sizeof(t_stack));
 	if (!new)
 		return (NULL);
 	new->content = content;
@@ -24,12 +34,12 @@ static t_list_a	*ft_lstne(int content)
 	return (new);
 }
 
-t_list_a	*fill_struct(char **argv, int t)
+t_stack	*fill_struct(char **argv, int t)
 {
 	int	i;
 	int j;
-	t_list_a *head;
-	t_list_a *node;
+	t_stack *head;
+	t_stack *node;
 
 	if (t == 0)
 	{
@@ -86,7 +96,7 @@ int	check_arg(char **argv)
 	return (0);
 }
 
-int	stack_a_print(t_list_a *head_a)
+int	stack_a_print(t_stack *head_a)
 {
 
 	while (head_a)
@@ -111,7 +121,7 @@ char	**free_arr(char **str)
 	return (NULL);
 }
 
-int	elem_count(t_list_a *a)
+int	elem_count(t_stack *a)
 {
 	int c;
 
@@ -124,25 +134,100 @@ int	elem_count(t_list_a *a)
 	return (c);
 }
 
-void	swap(t_list_a *stack, int ind)
+
+int	swap(t_stack *stack, int ind)
 {
 	int s;
 
+	if (!stack || !stack->next)
+		return (0);
 	s = stack->content;
 	stack->content = stack->next->content;
 	stack->next->content = s;
 	if (!ind)
 		ft_printf("sa\n");
-	else
+	else if (ind == 1)
 		ft_printf("sb\n");
-
+	return (1);
 }
 
-void	sort_three(t_list_a *a)
+void	ss_swap(t_stack *a, t_stack *b)
+{	
+	swap(a, 2);
+	swap(b, 2);
+	ft_printf("ss\n");
+}
+
+void	push_on_top(t_stack **a, t_stack **b, int ind)
+{
+	t_stack *temp;
+
+	if (!a)
+		return ;
+	temp = *b;
+	*b = *a;
+	*a = (*a)->next;
+	(*b)->next = temp;
+	if (!ind)
+		ft_printf("pa\n");
+	else if (ind == 1)
+		ft_printf("pb\n");
+	
+}
+
+t_stack *rotaa(t_stack **a)
+{
+	int size;
+	int i;
+	t_stack *head;
+
+	size = elem_count(*a);
+	i = 0;
+	printf("size %d\n", size);
+	while (i < size)
+	{
+		while ((*a)->next)
+			*a = (*a)->next;	
+		i++;
+		head = *a;
+		(*a)->next = head;
+		*a = (*a)->next;
+		head = head->next;
+		(*a)->next = NULL;
+	}
+	return (head);
+}
+
+t_stack *rota(t_stack **a, int ind)
+{
+	int size;
+	int i;
+	int	f_el;
+	t_stack *head;
+
+	size = elem_count(*a);
+	i = 0;
+	head = *a;
+	f_el = (*a)->content;
+	while (i < size - 1 && (*a)->next)
+	{
+		(*a)->content = (*a)->next->content;
+		(*a) = (*a)->next;
+		i++;
+	}
+	(*a)->content = f_el;
+	if (!ind)
+		ft_printf("ra\n");
+	else if (ind == 1)
+		ft_printf("rb\n");
+	return (head);
+}
+
+void	sort_threee(t_stack *a)
 {
 	int i;
 	int temp;
-	t_list_a *head;
+	t_stack *head;
 
 	head = a;
 	i = 0;
@@ -163,16 +248,61 @@ void	sort_three(t_list_a *a)
 	}
 }
 
-void	start_sorting(t_list_a *head_a, t_list_a *head_b)
+int	sorted(t_stack *stack)
+{
+	int i;
+
+	i = 0;
+	while (stack)
+	{
+		if (stack->content > stack->next->content)
+		{
+			return (0);
+		}
+		stack = stack->next;
+	}
+	return (1);
+}
+
+void	sort_three(t_stack *a, t_stack *b)
+{
+	int		i;
+	t_stack *head;
+
+	head = a;
+	if (!sorted(a))
+	{
+		i = 1;
+		if (i == 0)		
+			push_on_top(&a, &b, B);
+		else if (i == 1)
+		{
+			if (a->content > a->next->content)
+				swap(a, A);
+		}
+		
+	}	
+}
+
+void	start_sorting(t_stack *head_a, t_stack *head_b)
 {
 	int	elem_am;
 
 	elem_am = elem_count(head_a);
-	sort_three(head_a);
+	//sort_three(head_a, head_b);
+	push_on_top(&head_a, &head_b, B);
+	push_on_top(&head_a, &head_b, B);
+	while (head_b->next)
+	{
+		push_on_top(&head_b, &head_a, A);
+	}
 	stack_a_print(head_a);
+	printf("H\n");
+	stack_a_print(head_b);
+	
 }
 
-int	argv_split(t_list_a *head_a, t_list_a *head_b, char **argv)
+int	argv_split(t_stack *head_a, t_stack *head_b, char **argv)
 {
 	char	**argv_split;
 
@@ -190,7 +320,7 @@ int	argv_split(t_list_a *head_a, t_list_a *head_b, char **argv)
 	head_a = fill_struct(argv_split, 0);
 	if (!head_a)
 		return (ft_printf("Malloc fail in structure fill!\n"), 0);
-	head_b = ft_lstne(0);
+	head_b = ft_lstneb();
 	if (!head_b)
 	{
 		free(head_a);
@@ -201,7 +331,7 @@ int	argv_split(t_list_a *head_a, t_list_a *head_b, char **argv)
 	return (0);
 }
 
-int	handle_mult_argv(char **argv, t_list_a *head_a, t_list_a *head_b)
+int	handle_mult_argv(char **argv, t_stack *head_a, t_stack *head_b)
 {
 	if (check_arg(argv))
 	{
@@ -211,7 +341,7 @@ int	handle_mult_argv(char **argv, t_list_a *head_a, t_list_a *head_b)
 	head_a = fill_struct(argv, 1);
 	if (!head_a)
 		return (ft_printf("Malloc fail in structure fill!\n"), 0);
-	head_b = ft_lstne(0);
+	head_b = ft_lstneb();
 	if (!head_b)
 	{
 		free(head_a);
@@ -222,8 +352,8 @@ int	handle_mult_argv(char **argv, t_list_a *head_a, t_list_a *head_b)
 }
 int main(int argc, char **argv)
 {
-	t_list_a *head_a;
-	t_list_a *head_b;
+	t_stack *head_a;
+	t_stack *head_b;
 
 	if (argc == 2)
 	{
