@@ -6,7 +6,7 @@
 /*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 13:41:35 by oltolmac          #+#    #+#             */
-/*   Updated: 2024/11/07 21:05:52 by oltolmac         ###   ########.fr       */
+/*   Updated: 2024/11/13 14:43:43 by oltolmac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -253,7 +253,7 @@ int	sorted(t_stack *stack)
 	int i;
 
 	i = 0;
-	while (stack)
+	while (stack && stack->next)
 	{
 		if (stack->content > stack->next->content)
 		{
@@ -279,9 +279,20 @@ void	sort_three(t_stack *a, t_stack *b)
 		{
 			if (a->content > a->next->content)
 				swap(a, A);
+			else
+				rota(&a, A);
 		}
-		
-	}	
+		if (!sorted(a))
+		// else
+		{
+			if (a->content > a->next->content)
+				swap(a, A);
+		}
+	}
+	while (b->next)
+	{
+		push_on_top(&b, &a, A);
+	}
 }
 
 void	start_sorting(t_stack *head_a, t_stack *head_b)
@@ -289,13 +300,15 @@ void	start_sorting(t_stack *head_a, t_stack *head_b)
 	int	elem_am;
 
 	elem_am = elem_count(head_a);
-	//sort_three(head_a, head_b);
-	push_on_top(&head_a, &head_b, B);
-	push_on_top(&head_a, &head_b, B);
-	while (head_b->next)
-	{
-		push_on_top(&head_b, &head_a, A);
-	}
+	if (!sorted(head_a) && elem_am == 3)
+		sort_three(head_a, head_b);
+	// push_on_top(&head_a, &head_b, B); NEED TO ADD CHECK FOR DUP AND INT OVERFLOW X.X =_= 
+	// push_on_top(&head_a, &head_b, B);
+	// while (head_b->next)
+	// {
+	// 	push_on_top(&head_b, &head_a, A);
+	// }
+	//head_a = rota(&head_a, A);
 	stack_a_print(head_a);
 	printf("H\n");
 	stack_a_print(head_b);
@@ -309,22 +322,22 @@ int	argv_split(t_stack *head_a, t_stack *head_b, char **argv)
 	argv_split = ft_split(argv[1], ' ');
 	if (!argv_split)
 	{			
-		ft_printf("Malloc fail in split!\n");
+		ft_printf("Error\n");
 		return (0);
 	}
 	if (check_arg(argv_split))
 	{
-		ft_printf("Invalid characters in argument!\n");
+		ft_printf("Error\n");
 		return (0);
 	}
 	head_a = fill_struct(argv_split, 0);
 	if (!head_a)
-		return (ft_printf("Malloc fail in structure fill!\n"), 0);
+		return (ft_printf("Error\n"), 0);
 	head_b = ft_lstneb();
 	if (!head_b)
 	{
 		free(head_a);
-		return (ft_printf("Malloc fail in structure fill!\n"), 0);
+		return (ft_printf("Error\n"), 0);
 	}
 	start_sorting(head_a, head_b);
 	free_arr(argv_split);
@@ -335,17 +348,17 @@ int	handle_mult_argv(char **argv, t_stack *head_a, t_stack *head_b)
 {
 	if (check_arg(argv))
 	{
-		ft_printf("Invalid characters in arguments!\n");
+		ft_printf("Error\n");
 		return (0);
 	}
 	head_a = fill_struct(argv, 1);
 	if (!head_a)
-		return (ft_printf("Malloc fail in structure fill!\n"), 0);
+		return (ft_printf("Error\n"), 0);
 	head_b = ft_lstneb();
 	if (!head_b)
 	{
 		free(head_a);
-		return (ft_printf("Malloc fail in structure fill!\n"), 0);
+		return (ft_printf("Error\n"), 0);
 	}
 	start_sorting(head_a, head_b);
 	return (0);

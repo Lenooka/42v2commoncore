@@ -6,7 +6,7 @@
 /*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 14:00:39 by oltolmac          #+#    #+#             */
-/*   Updated: 2024/11/07 20:17:46 by oltolmac         ###   ########.fr       */
+/*   Updated: 2024/11/08 15:04:45 by oltolmac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 #define B 1
 #define BOTH 2
 
-#include "libft/libft.h"
+#include "libftp/libft.h"
 
 typedef struct s_stack
 {
