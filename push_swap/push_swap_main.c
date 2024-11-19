@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap_main.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: olena <olena@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 13:41:35 by oltolmac          #+#    #+#             */
-/*   Updated: 2024/11/13 14:43:43 by oltolmac         ###   ########.fr       */
+/*   Updated: 2024/11/19 12:46:55 by olena            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -264,29 +264,99 @@ int	sorted(t_stack *stack)
 	return (1);
 }
 
+int	find_min(t_stack *a)
+{
+	int i;
+	int min;
+	int j;
+
+	i = 0;
+	min = a->content;
+	j = 0;
+	while (a)
+	{
+		if (a->content < min)
+		{
+			min = a->content;
+			j = i;
+		}
+		i++;
+		a = a->next;
+	}
+	return (j);
+}
+
+void	rrota(t_stack **a, int ind)
+{
+	int size;
+	int i;
+	int	f_el;
+	t_stack *head;
+
+	size = elem_count(*a);
+	i = 0;
+	head = *a;
+	while (i < size - 1 && (*a)->next)
+	{
+		(*a) = (*a)->next;
+		i++;
+	}
+	f_el = (*a)->content;
+	while ((*a)->next)
+	{
+		*a = (*a)->next;
+	}
+	(*a)->next = head;
+	(*a) = head;
+	(*a)->content = f_el;
+	if (!ind)
+		ft_printf("rra\n");
+	else if (ind == 1)
+		ft_printf("rrb\n");
+}
+
+void	min_pos(t_stack *a, int mid, int min)
+{
+	if (min < mid)
+	{
+		while (a->content != min)
+		{
+			rota(&a, A);
+		}
+	}
+	else if (min >= mid)
+	{
+		rrota(&a, A);
+	}
+}
+
 void	sort_three(t_stack *a, t_stack *b)
 {
 	int		i;
 	t_stack *head;
+	int		elem_am;
+	int		mid;
 
 	head = a;
-	if (!sorted(a))
+	elem_am = elem_count(a);
+	while (!sorted(head) && elem_am != 1)
 	{
-		i = 1;
+		mid = elem_am / 2;
+		i = find_min(a);
 		if (i == 0)		
 			push_on_top(&a, &b, B);
 		else if (i == 1)
 		{
 			if (a->content > a->next->content)
-				swap(a, A);
-			else
 				rota(&a, A);
+			else
+				swap(a, A);
 		}
-		if (!sorted(a))
-		// else
+		else
 		{
 			if (a->content > a->next->content)
 				swap(a, A);
+			min_pos(a, mid, i);
 		}
 	}
 	while (b->next)
@@ -300,8 +370,7 @@ void	start_sorting(t_stack *head_a, t_stack *head_b)
 	int	elem_am;
 
 	elem_am = elem_count(head_a);
-	if (!sorted(head_a) && elem_am == 3)
-		sort_three(head_a, head_b);
+	sort_three(head_a, head_b);
 	// push_on_top(&head_a, &head_b, B); NEED TO ADD CHECK FOR DUP AND INT OVERFLOW X.X =_= 
 	// push_on_top(&head_a, &head_b, B);
 	// while (head_b->next)
