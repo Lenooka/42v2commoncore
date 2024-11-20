@@ -1,32 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_push_swap .h                                    :+:      :+:    :+:   */
+/*   ft_push_swapold.h                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 14:00:39 by oltolmac          #+#    #+#             */
-/*   Updated: 2024/11/19 14:00:16 by oltolmac         ###   ########.fr       */
+/*   Updated: 2024/11/19 13:25:01 by oltolmac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_PUSH_SWAP_H
-#define FT_PUSH_SWAP_H
+#ifndef FT_PUSH_SWAPO_H
+#define FT_PUSH_SWAPO_H
 
 #define A 0
 #define B 1
 #define BOTH 2
 
 #include "libftp/libft.h"
-#include <limits.h>
 
-typedef struct s_stacks
+typedef struct s_stack
 {
-	long			*stacka;
-	long			*stackb;
-	int				lensa;
-	int				lensb;
-	char			min_indx;
-}	t_stacks;
+	int			content;
+	struct s_stack	*next;
+}	t_stack;
 
 #endif

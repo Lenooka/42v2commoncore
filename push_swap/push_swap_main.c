@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap_main.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: olena <olena@student.42.fr>                +#+  +:+       +#+        */
+/*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 13:41:35 by oltolmac          #+#    #+#             */
-/*   Updated: 2024/11/19 12:46:55 by olena            ###   ########.fr       */
+/*   Updated: 2024/11/19 13:29:31 by oltolmac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_push_swap.h"
+#include "ft_push_swapo.h"
 
 static t_stack	*ft_lstneb(void)
 {
@@ -220,6 +220,7 @@ t_stack *rota(t_stack **a, int ind)
 		ft_printf("ra\n");
 	else if (ind == 1)
 		ft_printf("rb\n");
+	stack_a_print(head);
 	return (head);
 }
 
@@ -339,7 +340,7 @@ void	sort_three(t_stack *a, t_stack *b)
 
 	head = a;
 	elem_am = elem_count(a);
-	while (!sorted(head) && elem_am != 1)
+	while (!sorted(a) && elem_am != 1)
 	{
 		mid = elem_am / 2;
 		i = find_min(a);
@@ -351,6 +352,7 @@ void	sort_three(t_stack *a, t_stack *b)
 				rota(&a, A);
 			else
 				swap(a, A);
+			stack_a_print(a);
 		}
 		else
 		{
@@ -362,6 +364,10 @@ void	sort_three(t_stack *a, t_stack *b)
 	while (b->next)
 	{
 		push_on_top(&b, &a, A);
+			stack_a_print(a);
+	printf("H\n");
+	stack_a_print(b);
+	printf("H\n");
 	}
 }
 
