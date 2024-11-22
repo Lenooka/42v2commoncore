@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swar.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: olena <olena@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 13:28:57 by oltolmac          #+#    #+#             */
-/*   Updated: 2024/11/20 14:44:48 by oltolmac         ###   ########.fr       */
+/*   Updated: 2024/11/22 14:27:22 by olena            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,8 @@ int	check_arg(char **argv)
 		x = 0;
 		while (argv[i][x])
 		{
-			if (!ft_isdigit(argv[i][x]) && argv[i][x] != '-'  && argv[i][x] != '+')
+			if (!ft_isdigit(argv[i][x]) && argv[i][x] != '-' 
+				&& argv[i][x] != '+')
 					return (1);
 			x++;
 		}
@@ -352,10 +353,15 @@ int	issorted(t_stacks *stacks)
 // 		pa(stacks);
 // }
 
+void	longsort(t_stacks *stacks)
+{
+	
+}
+
 
 void	start_sorting(t_stacks *stacks)
 {
-	shortsort(stacks);
+	longsort(stacks);
 }
 
 int	check_doubles(long *stack, int len)
@@ -378,6 +384,7 @@ int	check_doubles(long *stack, int len)
 	}
 	return (1);
 }
+
 
 int	argv_split(t_stacks *stacks, char **argv)
 {
