@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_push_swap .h                                    :+:      :+:    :+:   */
+/*   ft_push_swap.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 14:00:39 by oltolmac          #+#    #+#             */
-/*   Updated: 2024/11/19 14:00:16 by oltolmac         ###   ########.fr       */
+/*   Updated: 2024/11/26 13:54:24 by oltolmac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,9 @@ typedef struct s_stacks
 	long			*stackb;
 	int				lensa;
 	int				lensb;
-	char			min_indx;
+	int				min_indx;
+	int				max_indx;
+	
 }	t_stacks;
 
 #endif
