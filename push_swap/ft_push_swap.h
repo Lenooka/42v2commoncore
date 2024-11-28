@@ -6,7 +6,7 @@
 /*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 14:00:39 by oltolmac          #+#    #+#             */
-/*   Updated: 2024/11/26 13:54:24 by oltolmac         ###   ########.fr       */
+/*   Updated: 2024/11/28 14:36:14 by oltolmac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,10 @@ typedef struct s_stacks
 	int				lensb;
 	int				min_indx;
 	int				max_indx;
+	int				min_indxb;
+	int				max_indxb;
 	
+
 }	t_stacks;
 
 #endif

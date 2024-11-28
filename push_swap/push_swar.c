@@ -6,7 +6,7 @@
 /*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 13:28:57 by oltolmac          #+#    #+#             */
-/*   Updated: 2024/11/26 15:09:52 by oltolmac         ###   ########.fr       */
+/*   Updated: 2024/11/28 15:43:51 by oltolmac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -238,8 +238,6 @@ void	pa(t_stacks *stacks)
 	int	i;
 
 	i = 0;
-	if (!stacks->stackb[0])
-		return ;
 	while (i < stacks->lensa)
 	{
 		stacks->stacka[stacks->lensa - i] = stacks->stacka[stacks->lensa - i - 1];
@@ -263,8 +261,6 @@ void	pb(t_stacks *stacks)
 	int	i;
 
 	i = 0;
-	if (!stacks->stacka[0])
-		return ;
 	while (i < stacks->lensb)
 	{
 		stacks->stackb[stacks->lensb - i] = stacks->stackb[stacks->lensb - i - 1];
@@ -356,6 +352,20 @@ int	issorted(t_stacks *stacks)
 // 	while (stacks->lensb > 0)
 // 		pa(stacks);
 // }
+
+void	findmindexb(t_stacks *stacks)
+{
+	int	i;
+
+	i = 0;
+	stacks->min_indxb = 0;
+	while (i < stacks->lensb)
+	{
+		if (stacks->stackb[stacks->min_indxb] > stacks->stackb[i])
+			stacks->min_indxb = i;
+		i++;
+	}
+}
 
 void	findmindex(t_stacks *stacks)
 {
@@ -464,9 +474,98 @@ void	longsort(t_stacks *stacks)
 	print_stacks(stacks);
 }
 
+void	sort_three(t_stacks *stacks)
+{
+	int min;
+	int max;
+
+	findmindex(stacks);
+ 	findmaxndex(stacks);
+ 	min = stacks->min_indx;
+ 	max = stacks->max_indx;
+	if (min == 1 && max == 2)
+		sa(stacks, 0);
+	else if (min == 2 && max == 0)
+	{
+		sa(stacks, 0);
+		rra(stacks, 0);
+	}
+	else if (min == 1 && max == 0)
+		ra(stacks, 0);
+	else if (min == 0 && max == 1)
+	{
+		sa(stacks, 0);
+		ra(stacks, 0);
+	}
+	else if (min == 2 && max == 1)
+		rra(stacks, 0);
+}	
+
+void	step_one(t_stacks *stacks)
+{
+	int min;
+
+	findmindex(stacks);
+	min = stacks->min_indx;
+	if (stacks->stacka[0] > stacks->stacka[3])
+		ra(stacks, 0);
+	else if (min == 1 && stacks->stacka[0] < stacks->stacka[2])
+		sa(stacks, 0);
+	else if (stacks->stacka[0] < stacks->stacka[3] 
+		&& stacks->stacka[0] > stacks->stacka[2])
+	{
+		rra(stacks, 0);
+		pb(stacks);
+		sort_three(stacks);
+		pa(stacks);
+		ra(stacks, 0);
+	}
+}
+
+void	step_two(t_stacks *stacks)
+{
+	int min;
+	
+	findmindex(stacks);
+	min = stacks->min_indx;
+	if (stacks->stacka[0] > stacks->stacka[4])
+		ra(stacks, 0);
+	else if (min == 1 && stacks->stacka[0] < stacks->stacka[2])
+		sa(stacks, 0);
+	else if (stacks->stacka[0] < stacks->stacka[4] 
+		&& stacks->stacka[0] > stacks->stacka[2])
+	{
+		rra(stacks, 0);
+		pb(stacks);
+		sort_three(stacks);
+		pa(stacks);
+		ra(stacks, 0);
+	}
+}
+
+void	sort_five(t_stacks *stacks)
+{
+	int min;
+
+	pb(stacks);
+	pb(stacks);
+	sort_three(stacks);
+	pa(stacks);
+	if (issorted(stacks))
+		step_one(stacks);
+	pa(stacks);	
+	if (issorted(stacks))
+		step_two(stacks);
+}
+
 void	start_sorting(t_stacks *stacks)
 {
-	longsort(stacks);
+	if (stacks->lensa == 3)
+		sort_three(stacks);
+	if (stacks->lensa == 5)
+		sort_five(stacks);
+	//longsort(stacks);
+	print_stacks(stacks);
 }
 
 int	check_doubles(long *stack, int len)
