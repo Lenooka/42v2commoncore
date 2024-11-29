@@ -6,7 +6,7 @@
 /*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 13:28:57 by oltolmac          #+#    #+#             */
-/*   Updated: 2024/11/28 15:43:51 by oltolmac         ###   ########.fr       */
+/*   Updated: 2024/11/29 23:32:41 by oltolmac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -549,6 +549,10 @@ void	sort_five(t_stacks *stacks)
 
 	pb(stacks);
 	pb(stacks);
+	findmindexb(stacks);
+	min = stacks->min_indxb;
+	// if (min == 0)
+	// 	rb(stacks, 0);
 	sort_three(stacks);
 	pa(stacks);
 	if (issorted(stacks))
@@ -565,7 +569,7 @@ void	start_sorting(t_stacks *stacks)
 	if (stacks->lensa == 5)
 		sort_five(stacks);
 	//longsort(stacks);
-	print_stacks(stacks);
+	//print_stacks(stacks);
 }
 
 int	check_doubles(long *stack, int len)
