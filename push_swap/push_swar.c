@@ -6,7 +6,7 @@
 /*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 13:28:57 by oltolmac          #+#    #+#             */
-/*   Updated: 2024/11/29 23:32:41 by oltolmac         ###   ########.fr       */
+/*   Updated: 2024/12/01 18:55:26 by oltolmac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -528,18 +528,34 @@ void	step_two(t_stacks *stacks)
 	
 	findmindex(stacks);
 	min = stacks->min_indx;
-	if (stacks->stacka[0] > stacks->stacka[4])
-		ra(stacks, 0);
-	else if (min == 1 && stacks->stacka[0] < stacks->stacka[2])
-		sa(stacks, 0);
-	else if (stacks->stacka[0] < stacks->stacka[4] 
-		&& stacks->stacka[0] > stacks->stacka[2])
+	while (issorted(stacks))
 	{
-		rra(stacks, 0);
-		pb(stacks);
-		sort_three(stacks);
-		pa(stacks);
-		ra(stacks, 0);
+		if (stacks->stacka[0] > stacks->stacka[4])
+			ra(stacks, 0);
+		else if (min == 1 && stacks->stacka[0] < stacks->stacka[2])
+			sa(stacks, 0);
+		else if (stacks->stacka[0] < stacks->stacka[4] 
+			&& stacks->stacka[0] > stacks->stacka[2] && stacks->stacka[0] < stacks->stacka[3])
+		{
+			rra(stacks, 0);
+			pb(stacks);
+			sort_three(stacks);
+			pa(stacks);
+			ra(stacks, 0);
+		}
+		else if (min == 1 && stacks->stacka[0] > stacks->stacka[2] && stacks->stacka[0] < stacks->stacka[3])
+		{
+			pb(stacks);
+			pb(stacks);
+			pb(stacks);
+			rrb(stacks, 0);
+			sb(stacks, 0);
+			rb(stacks, 0);
+			pa(stacks);
+			pa(stacks);
+			pa(stacks);
+			sa(stacks, 0);
+		}
 	}
 }
 
