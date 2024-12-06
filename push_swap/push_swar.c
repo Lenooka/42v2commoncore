@@ -6,7 +6,7 @@
 /*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 13:28:57 by oltolmac          #+#    #+#             */
-/*   Updated: 2024/12/06 15:18:01 by oltolmac         ###   ########.fr       */
+/*   Updated: 2024/12/06 17:33:52 by oltolmac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -544,6 +544,31 @@ void	findmaxndex(t_stacks *stacks)
 		i++;
 	}
 }
+void	findmaxnextndex(t_stacks *stacks)
+{
+	int	i;
+	int next;
+
+	i = 0;
+	next = 0;
+	if (stacks->max_indx == 0)
+	{
+		next = 1;
+		i = 1;
+	}
+	while (i < stacks->lensa)
+	{
+		if (i == stacks->max_indx)
+		{
+			i++;
+		}
+		if (stacks->stacka[next] < stacks->stacka[i])
+			next = i;
+		i++;
+	}
+	stacks->max_indx = next;
+}
+
 
 void	sort_three(t_stacks *stacks)
 {
@@ -612,17 +637,22 @@ void	sort_five(t_stacks *stacks)
 
 void	longsort(t_stacks *stacks)
 {
-	while (is_not_sorted(stacks))
+	int mid;
+
+	findmaxndex(stacks);
+	mid = stacks->lensa / 2;
+	while (stacks->max_indx > mid)
 	{
-		
+		findmaxnextndex(stacks);
 	}
+	printf("%d\n", stacks->max_indx);
 }
 
 void	start_sorting(t_stacks *stacks)
 {
 	if (stacks->lensa == 3)
 		sort_three(stacks);
-	if (stacks->lensa == 5)
+	else if (stacks->lensa <= 5)
 		sort_five(stacks);
 	else
 		longsort(stacks);
