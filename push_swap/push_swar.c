@@ -6,7 +6,7 @@
 /*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 13:28:57 by oltolmac          #+#    #+#             */
-/*   Updated: 2024/12/06 14:56:37 by oltolmac         ###   ########.fr       */
+/*   Updated: 2024/12/06 15:18:01 by oltolmac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -309,7 +309,7 @@ void	pb(t_stacks *st)
 // {
 // 	int	middlen;
 
-// 	while (stacks->lensa != 1 && issorted(stacks))
+// 	while (stacks->lensa != 1 && is_not_sorted(stacks))
 // 	{
 // 		middlen = stacks->lensa / 2;
 // 		findmindex(stacks);
@@ -337,7 +337,7 @@ void	pb(t_stacks *st)
 // 	int min;
 // 	int max;
 
-// 	while (issorted(stacks))
+// 	while (is_not_sorted(stacks))
 // 	{
 // 		findmindex(stacks);
 // 		findmaxndex(stacks);
@@ -363,7 +363,7 @@ void	pb(t_stacks *st)
 // void	longsort(t_stacks *stacks)
 // {
 
-// 	while (issorted(stacks))
+// 	while (is_not_sorted(stacks))
 // 	{
 // 		pb(stacks);
 // 		if (stacks->stackb[0] < stacks->stacka[0])
@@ -416,7 +416,7 @@ void	pb(t_stacks *st)
 	
 // 	findmindex(stacks);
 // 	min = stacks->min_indx;
-// 	while (issorted(stacks))
+// 	while (is_not_sorted(stacks))
 // 	{
 // 		if (stacks->stacka[0] > stacks->stacka[4])
 // 			ra(stacks, 0);
@@ -461,7 +461,7 @@ void	pb(t_stacks *st)
 // 	}
 // }
 
-int	issorted(t_stacks *stacks)
+int	is_not_sorted(t_stacks *stacks)
 {
 	int	i;
 	int	j;
@@ -527,7 +527,7 @@ void	print_stacks(t_stacks  *stacks)
 		printf("stack b  %ld\n", stacks->stackb[i]);
 		i++;
 	}
-	if (!issorted(stacks))
+	if (!is_not_sorted(stacks))
 		printf("OK\n");
 }
 
@@ -574,7 +574,7 @@ void	sort_three(t_stacks *stacks)
 
 void	mid_len_sort(t_stacks *stacks, int middlen)
 {
-	while (stacks->lensa != 1 && issorted(stacks))
+	while (stacks->lensa != 1 && is_not_sorted(stacks))
 	{
 		middlen = stacks->lensa / 2;
 		findmindex(stacks);
@@ -604,7 +604,7 @@ void	sort_five(t_stacks *stacks)
 	int midlen;
 
 	sort_three(stacks);
-	if (issorted(stacks))
+	if (is_not_sorted(stacks))
 		mid_len_sort(stacks, midlen);
 	while (stacks->lensb > 0)
 		pa(stacks);
@@ -612,9 +612,11 @@ void	sort_five(t_stacks *stacks)
 
 void	longsort(t_stacks *stacks)
 {
-	
+	while (is_not_sorted(stacks))
+	{
+		
+	}
 }
-
 
 void	start_sorting(t_stacks *stacks)
 {
@@ -623,7 +625,7 @@ void	start_sorting(t_stacks *stacks)
 	if (stacks->lensa == 5)
 		sort_five(stacks);
 	else
-		//longsort(stacks);
+		longsort(stacks);
 	//print_stacks(stacks);
 }
 
@@ -671,7 +673,7 @@ int	argv_split(t_stacks *stacks, char **argv)
 		ft_printf("Error\n");
 		free_handle();
 	}
-	if (issorted(stacks))
+	if (is_not_sorted(stacks))
 		start_sorting(stacks);
 	//free_arr(argv_split);
 	//free_handle;
@@ -695,7 +697,7 @@ int	handle_mult_argv(char **argv, t_stacks *stacks)
 		ft_printf("Error\n");
 		free_handle();
 	}
-	if (issorted(stacks))
+	if (is_not_sorted(stacks))
 		start_sorting(stacks);
 	//free_handle;
 	return (0);
