@@ -6,7 +6,7 @@
 /*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 13:28:57 by oltolmac          #+#    #+#             */
-/*   Updated: 2024/12/01 18:55:26 by oltolmac         ###   ########.fr       */
+/*   Updated: 2024/12/06 14:56:37 by oltolmac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -233,49 +233,49 @@ void	rr(t_stacks *stacks)
 	ft_printf("rr\n");
 }
 
-void	pa(t_stacks *stacks)
+void	pa(t_stacks *st)
 {
 	int	i;
 
 	i = 0;
-	while (i < stacks->lensa)
+	while (i < st->lensa)
 	{
-		stacks->stacka[stacks->lensa - i] = stacks->stacka[stacks->lensa - i - 1];
+		st->stacka[st->lensa - i] = st->stacka[st->lensa - i - 1];
 		i++;
 	}
-	stacks->stacka[0] = stacks->stackb[0];
-	stacks->lensb--;
-	stacks->lensa++;
+	st->stacka[0] = st->stackb[0];
+	st->lensb--;
+	st->lensa++;
 	i = 0;
-	while (i < stacks->lensb)
+	while (i < st->lensb)
 	{
-		stacks->stackb[i] = stacks->stackb[i + 1];
+		st->stackb[i] = st->stackb[i + 1];
 		i++;
 	}
-	stacks->stackb[i] = 0;
+	st->stackb[i] = 0;
 	ft_printf("pa\n");
 }
 
-void	pb(t_stacks *stacks)
+void	pb(t_stacks *st)
 {
 	int	i;
 
 	i = 0;
-	while (i < stacks->lensb)
+	while (i < st->lensb)
 	{
-		stacks->stackb[stacks->lensb - i] = stacks->stackb[stacks->lensb - i - 1];
+		st->stackb[st->lensb - i] = st->stackb[st->lensb - i - 1];
 		i++;
 	}
-	stacks->stackb[0] = stacks->stacka[0];
-	stacks->lensb += 1;
-	stacks->lensa -= 1;
+	st->stackb[0] = st->stacka[0];
+	st->lensb += 1;
+	st->lensa -= 1;
 	i = 0;
-	while (i < stacks->lensa)
+	while (i < st->lensa)
 	{
-		stacks->stacka[i] = stacks->stacka[i + 1];
+		st->stacka[i] = st->stacka[i + 1];
 		i++;
 	}
-	stacks->stacka[i] = 0;
+	st->stacka[i] = 0;
 	ft_printf("pb\n");
 }
 
@@ -293,26 +293,6 @@ void	pb(t_stacks *stacks)
 // 	}
 // }
 
-int	issorted(t_stacks *stacks)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	j = 0;
-	while (i < stacks->lensa)
-	{
-		while (j < stacks->lensa)
-		{
-			if (stacks->stacka[i] > stacks->stacka[j] && i < j)
-				return (1);
-			j++;
-		}
-		j = 0;
-		i++;
-	}
-	return (0);
-}
 // void	posofmin(t_stacks *stacks, int middlensa)
 // {
 // 	if (stacks->min_indx < middlensa)
@@ -352,6 +332,155 @@ int	issorted(t_stacks *stacks)
 // 	while (stacks->lensb > 0)
 // 		pa(stacks);
 // }
+// void	longsort(t_stacks *stacks)
+// {
+// 	int min;
+// 	int max;
+
+// 	while (issorted(stacks))
+// 	{
+// 		findmindex(stacks);
+// 		findmaxndex(stacks);
+// 		min = stacks->stacka[stacks->min_indx];
+// 		max = stacks->stacka[stacks->max_indx];
+// 		while (min != stacks->stacka[0])
+// 		{
+// 			ra(stacks, 0);
+// 		}
+// 		pb(stacks);
+// 	}
+// 	int i = 0;
+// 	int len = stacks->lensb; 
+// 	while (len >= i)
+// 	{
+// 		pa(stacks);
+// 		i++;	
+// 	}
+// 	//print_stacks(stacks);
+// }
+
+
+// void	longsort(t_stacks *stacks)
+// {
+
+// 	while (issorted(stacks))
+// 	{
+// 		pb(stacks);
+// 		if (stacks->stackb[0] < stacks->stacka[0])
+// 		{
+// 			pa(stacks);
+// 			ra(stacks, 0);
+// 		}
+// 		else
+// 		{
+// 			while (!(stacks->stackb[0] < stacks->stacka[0]))
+// 			{
+// 				ra(stacks, 0);
+// 				pb(stacks);	
+// 			}
+// 		}
+// 	}
+// 	int i = 0;
+// 	int len = stacks->lensb; 
+// 	while (len >= i)
+// 	{
+// 		pa(stacks);
+// 		i++;	
+// 	}
+// 	print_stacks(stacks);
+// }
+// void	step_one(t_stacks *stacks)
+// {
+// 	int min;
+
+// 	findmindex(stacks);
+// 	min = stacks->min_indx;
+// 	if (stacks->stacka[0] > stacks->stacka[3])
+// 		ra(stacks, 0);
+// 	else if (min == 1 && stacks->stacka[0] < stacks->stacka[2])
+// 		sa(stacks, 0);
+// 	else if (stacks->stacka[0] < stacks->stacka[3] 
+// 		&& stacks->stacka[0] > stacks->stacka[2])
+// 	{
+// 		rra(stacks, 0);
+// 		pb(stacks);
+// 		sort_three(stacks);
+// 		pa(stacks);
+// 		ra(stacks, 0);
+// 	}
+// }
+
+// void	step_two(t_stacks *stacks)
+// {
+// 	int min;
+	
+// 	findmindex(stacks);
+// 	min = stacks->min_indx;
+// 	while (issorted(stacks))
+// 	{
+// 		if (stacks->stacka[0] > stacks->stacka[4])
+// 			ra(stacks, 0);
+// 		else if (min == 1 && stacks->stacka[0] < stacks->stacka[2])
+// 			sa(stacks, 0);
+// 		else if (stacks->stacka[0] < stacks->stacka[4] 
+// 			&& stacks->stacka[0] > stacks->stacka[2] && stacks->stacka[0] < stacks->stacka[3])
+// 		{
+// 			rra(stacks, 0);
+// 			pb(stacks);
+// 			sort_three(stacks);
+// 			pa(stacks);
+// 			ra(stacks, 0);
+// 		}
+// 		else if (min == 1 && stacks->stacka[0] > stacks->stacka[2] && stacks->stacka[0] < stacks->stacka[3])
+// 		{
+// 			pb(stacks);
+// 			pb(stacks);
+// 			pb(stacks);
+// 			rrb(stacks, 0);
+// 			sb(stacks, 0);
+// 			rb(stacks, 0);
+// 			pa(stacks);
+// 			pa(stacks);
+// 			pa(stacks);
+// 			sa(stacks, 0);
+// 		}
+// 	}
+// }
+
+// void	findmindex(t_stacks *stacks)
+// {
+// 	int	i;
+
+// 	i = 0;
+// 	stacks->min_indx = 0;
+// 	while (i < stacks->lensa)
+// 	{
+// 		if (stacks->stacka[stacks->min_indx] > stacks->stacka[i])
+// 			stacks->min_indx = i;
+// 		i++;
+// 	}
+// }
+
+int	issorted(t_stacks *stacks)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	j = 0;
+	while (i < stacks->lensa)
+	{
+		while (j < stacks->lensa)
+		{
+			if (stacks->stacka[i] > stacks->stacka[j] && i < j)
+				return (1);
+			j++;
+		}
+		j = 0;
+		i++;
+	}
+	return (0);
+}
 
 void	findmindexb(t_stacks *stacks)
 {
@@ -416,64 +545,6 @@ void	findmaxndex(t_stacks *stacks)
 	}
 }
 
-// void	longsort(t_stacks *stacks)
-// {
-// 	int min;
-// 	int max;
-
-// 	while (issorted(stacks))
-// 	{
-// 		findmindex(stacks);
-// 		findmaxndex(stacks);
-// 		min = stacks->stacka[stacks->min_indx];
-// 		max = stacks->stacka[stacks->max_indx];
-// 		while (min != stacks->stacka[0])
-// 		{
-// 			ra(stacks, 0);
-// 		}
-// 		pb(stacks);
-// 	}
-// 	int i = 0;
-// 	int len = stacks->lensb; 
-// 	while (len >= i)
-// 	{
-// 		pa(stacks);
-// 		i++;	
-// 	}
-// 	//print_stacks(stacks);
-// }
-
-
-void	longsort(t_stacks *stacks)
-{
-
-	while (issorted(stacks))
-	{
-		pb(stacks);
-		if (stacks->stackb[0] < stacks->stacka[0])
-		{
-			pa(stacks);
-			ra(stacks, 0);
-		}
-		else
-		{
-			while (!(stacks->stackb[0] < stacks->stacka[0]))
-			{
-				ra(stacks, 0);
-				pb(stacks);	
-			}
-		}
-	}
-	int i = 0;
-	int len = stacks->lensb; 
-	while (len >= i)
-	{
-		pa(stacks);
-		i++;	
-	}
-	print_stacks(stacks);
-}
-
 void	sort_three(t_stacks *stacks)
 {
 	int min;
@@ -501,82 +572,49 @@ void	sort_three(t_stacks *stacks)
 		rra(stacks, 0);
 }	
 
-void	step_one(t_stacks *stacks)
+void	mid_len_sort(t_stacks *stacks, int middlen)
 {
-	int min;
-
-	findmindex(stacks);
-	min = stacks->min_indx;
-	if (stacks->stacka[0] > stacks->stacka[3])
-		ra(stacks, 0);
-	else if (min == 1 && stacks->stacka[0] < stacks->stacka[2])
-		sa(stacks, 0);
-	else if (stacks->stacka[0] < stacks->stacka[3] 
-		&& stacks->stacka[0] > stacks->stacka[2])
+	while (stacks->lensa != 1 && issorted(stacks))
 	{
-		rra(stacks, 0);
-		pb(stacks);
-		sort_three(stacks);
-		pa(stacks);
-		ra(stacks, 0);
-	}
-}
-
-void	step_two(t_stacks *stacks)
-{
-	int min;
-	
-	findmindex(stacks);
-	min = stacks->min_indx;
-	while (issorted(stacks))
-	{
-		if (stacks->stacka[0] > stacks->stacka[4])
-			ra(stacks, 0);
-		else if (min == 1 && stacks->stacka[0] < stacks->stacka[2])
-			sa(stacks, 0);
-		else if (stacks->stacka[0] < stacks->stacka[4] 
-			&& stacks->stacka[0] > stacks->stacka[2] && stacks->stacka[0] < stacks->stacka[3])
-		{
-			rra(stacks, 0);
+		middlen = stacks->lensa / 2;
+		findmindex(stacks);
+		if (stacks->min_indx == 0)
 			pb(stacks);
-			sort_three(stacks);
-			pa(stacks);
-			ra(stacks, 0);
+		else if (stacks->min_indx != 1)
+		{
+			if (stacks->stacka[1] < stacks->stacka[0])
+				sa(stacks, 0);
+			if (stacks->min_indx < middlen)
+				ra(stacks, 0);
+			else if (stacks->min_indx >= middlen)
+				rra(stacks, 0);
 		}
-		else if (min == 1 && stacks->stacka[0] > stacks->stacka[2] && stacks->stacka[0] < stacks->stacka[3])
+		else if (stacks->min_indx == 1)
 		{
-			pb(stacks);
-			pb(stacks);
-			pb(stacks);
-			rrb(stacks, 0);
-			sb(stacks, 0);
-			rb(stacks, 0);
-			pa(stacks);
-			pa(stacks);
-			pa(stacks);
-			sa(stacks, 0);
+			if (stacks->stacka[0] > stacks->stacka[stacks->lensa - 1])
+				ra(stacks, 0);
+			else
+				sa(stacks, 0);
 		}
 	}
 }
 
 void	sort_five(t_stacks *stacks)
 {
-	int min;
+	int midlen;
 
-	pb(stacks);
-	pb(stacks);
-	findmindexb(stacks);
-	min = stacks->min_indxb;
-	// if (min == 0)
-	// 	rb(stacks, 0);
 	sort_three(stacks);
-	pa(stacks);
 	if (issorted(stacks))
-		step_one(stacks);
-	pa(stacks);	
-	if (issorted(stacks))
-		step_two(stacks);
+		mid_len_sort(stacks, midlen);
+	while (stacks->lensb > 0)
+		pa(stacks);
 }
+
+void	longsort(t_stacks *stacks)
+{
+	
+}
+
 
 void	start_sorting(t_stacks *stacks)
 {
@@ -584,7 +622,8 @@ void	start_sorting(t_stacks *stacks)
 		sort_three(stacks);
 	if (stacks->lensa == 5)
 		sort_five(stacks);
-	//longsort(stacks);
+	else
+		//longsort(stacks);
 	//print_stacks(stacks);
 }
 
