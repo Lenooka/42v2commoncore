@@ -6,7 +6,7 @@
 /*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 13:41:35 by oltolmac          #+#    #+#             */
-/*   Updated: 2024/11/19 13:29:31 by oltolmac         ###   ########.fr       */
+/*   Updated: 2024/12/07 16:56:44 by oltolmac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -241,7 +241,7 @@ void	sort_threee(t_stack *a)
 			temp = a->next->content;
 			if (a->content > temp)
 			{
-				swap(a, A); //SWAPS WHATEVER I GIVE BUT NOT JUST FIRST TWO ELEM LOGIC WRONG
+				swap(a, A);
 			}
 			a = a->next;
 		}
