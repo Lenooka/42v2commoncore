@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swar.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: olena <olena@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 13:28:57 by oltolmac          #+#    #+#             */
-/*   Updated: 2024/12/06 17:33:52 by oltolmac         ###   ########.fr       */
+/*   Updated: 2024/12/07 14:57:27 by olena            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -551,22 +551,15 @@ void	findmaxnextndex(t_stacks *stacks)
 
 	i = 0;
 	next = 0;
-	if (stacks->max_indx == 0)
-	{
-		next = 1;
-		i = 1;
-	}
 	while (i < stacks->lensa)
 	{
-		if (i == stacks->max_indx)
+		if (stacks->stacka[stacks->max_indx] < stacks->stacka[i] && i != stacks->max_indx)
 		{
-			i++;
-		}
-		if (stacks->stacka[next] < stacks->stacka[i])
+			stacks->max_indx = i;
 			next = i;
+		}
 		i++;
 	}
-	stacks->max_indx = next;
 }
 
 
@@ -635,17 +628,30 @@ void	sort_five(t_stacks *stacks)
 		pa(stacks);
 }
 
-void	longsort(t_stacks *stacks)
+void	sorting_max(t_stacks *stacks)
 {
-	int mid;
+	int min;
+	int max;
 
-	findmaxndex(stacks);
-	mid = stacks->lensa / 2;
-	while (stacks->max_indx > mid)
+	while (is_not_sorted(stacks))
 	{
-		findmaxnextndex(stacks);
+		findmindex(stacks);
+		findmaxndex(stacks);
+		min = stacks->stacka[stacks->min_indx];
+		max = stacks->stacka[stacks->max_indx];
+		while (min != stacks->stacka[0])
+		{
+			ra(stacks, 0);
+		}
+		pb(stacks);
 	}
-	printf("%d\n", stacks->max_indx);
+	int i = 0;
+	int len = stacks->lensb; 
+	while (len >= i)
+	{
+		pa(stacks);
+		i++;	
+	}
 }
 
 void	start_sorting(t_stacks *stacks)
@@ -655,7 +661,7 @@ void	start_sorting(t_stacks *stacks)
 	else if (stacks->lensa <= 5)
 		sort_five(stacks);
 	else
-		longsort(stacks);
+		sorting_max(stacks);
 	//print_stacks(stacks);
 }
 
