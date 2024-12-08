@@ -6,7 +6,7 @@
 /*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 13:28:57 by oltolmac          #+#    #+#             */
-/*   Updated: 2024/12/07 21:31:23 by oltolmac         ###   ########.fr       */
+/*   Updated: 2024/12/08 14:14:38 by oltolmac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -462,6 +462,70 @@ void	pb(t_stacks *st)
 // 	}
 // }
 
+// void	posofmin(t_stacks *stacks, int middlensa)
+// {
+// 	if (stacks->min_indx < middlensa)
+// 	{
+// 		ra(stacks, 0);
+// 	}
+// 	else if (stacks->min_indx >= middlensa)
+// 	{
+// 		rra(stacks, 0);
+// 	}
+
+// void	findmindex(t_stacks *stacks)
+// {
+// 	int	i;
+
+// 	i = 0;
+// 	stacks->min_indx = 0;
+// 	while (i < stacks->lensa)
+// 	{
+// 		if (stacks->stacka[stacks->min_indx] > stacks->stacka[i])
+// 			stacks->min_indx = i;
+// 		i++;
+// 	}
+// }
+
+// void	sort_five(t_stacks *stacks)
+// {
+// 	int midlen;
+
+// 	sort_three(stacks);
+// 	if (is_not_sorted(stacks))
+// 		mid_len_sort(stacks, midlen);
+// 	while (stacks->lensb > 0)
+// 		pa(stacks);
+// }
+
+// void	asign_index(t_stacks *stacks)
+// {
+// 	int			i;
+// 	int			j;
+// 	int			indx;
+// 	long		*tempa;
+
+// 	tempa = malloc(stacks->lensa * sizeof * tempa);
+// 	// if (!tempa)
+// 	i = 0;
+// 	while (i < stacks->lensa)
+// 	{
+// 		indx = 0;
+// 		j = -1;
+// 		while (++j < stacks->lensa)
+// 			if (stacks->stacka[i] > stacks->stacka[j])
+// 				indx++;
+// 		tempa[i] = indx;
+// 		i++;
+// 	}
+// 	i = stacks->lensa;
+// 	while (i--)
+// 	{
+// 		stacks->stacka[i] = tempa[i];
+// 	}
+// 	free(tempa);
+// }
+// }
 int	is_not_sorted(t_stacks *stacks)
 {
 	int	i;
@@ -481,17 +545,6 @@ int	is_not_sorted(t_stacks *stacks)
 		i++;
 	}
 	return (0);
-}
-void	posofmin(t_stacks *stacks, int middlensa)
-{
-	if (stacks->min_indx < middlensa)
-	{
-		ra(stacks, 0);
-	}
-	else if (stacks->min_indx >= middlensa)
-	{
-		rra(stacks, 0);
-	}
 }
 
 void	findmindexb(t_stacks *stacks)
@@ -627,62 +680,9 @@ void	mid_len_sort(t_stacks *stacks, int middlen)
 				rra(stacks, 0);
 		}
 	}
-	// while (stacks->lensb > 0)
-	// 	pa(stacks);
-}
-
-// void	findmindex(t_stacks *stacks)
-// {
-// 	int	i;
-
-// 	i = 0;
-// 	stacks->min_indx = 0;
-// 	while (i < stacks->lensa)
-// 	{
-// 		if (stacks->stacka[stacks->min_indx] > stacks->stacka[i])
-// 			stacks->min_indx = i;
-// 		i++;
-// 	}
-// }
-
-void	sort_five(t_stacks *stacks)
-{
-	int midlen;
-
-	sort_three(stacks);
-	if (is_not_sorted(stacks))
-		mid_len_sort(stacks, midlen);
 	while (stacks->lensb > 0)
 		pa(stacks);
 }
-
-// void	asign_index(t_stacks *stacks)
-// {
-// 	int			i;
-// 	int			j;
-// 	int			indx;
-// 	long		*tempa;
-
-// 	tempa = malloc(stacks->lensa * sizeof * tempa);
-// 	// if (!tempa)
-// 	i = 0;
-// 	while (i < stacks->lensa)
-// 	{
-// 		indx = 0;
-// 		j = -1;
-// 		while (++j < stacks->lensa)
-// 			if (stacks->stacka[i] > stacks->stacka[j])
-// 				indx++;
-// 		tempa[i] = indx;
-// 		i++;
-// 	}
-// 	i = stacks->lensa;
-// 	while (i--)
-// 	{
-// 		stacks->stacka[i] = tempa[i];
-// 	}
-// 	free(tempa);
-// }
 
 void	asign_index(t_stacks *stacks)
 {
@@ -754,35 +754,6 @@ void	sorting_max(t_stacks *stacks)
 		findmindex(stacks);
 		midlena = stacks->lensa / 2;
 	}
-}
-
-
-void	shortsort(t_stacks *stacks)
-{
-	int	middlen;
-
-	while (stacks->lensa != 1 && is_not_sorted(stacks))
-	{
-		middlen = stacks->lensa / 2;
-		findmindex(stacks);
-		if (stacks->min_indx == 0)
-			pb(stacks);
-		else if (stacks->min_indx == 1)
-		{
-			if (stacks->stacka[0] > stacks->stacka[stacks->lensa - 1])
-				ra(stacks, 0);
-			else
-				sa(stacks, 0);
-		}
-		else
-		{
-			if (stacks->stacka[0] > stacks->stacka[1])
-				sa(stacks, 0);
-			posofmin(stacks, middlen);
-		}
-	}
-	while (stacks->lensb > 0)
-		pa(stacks);
 }
 
 void	start_sorting(t_stacks *stacks)
