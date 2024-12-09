@@ -6,7 +6,7 @@
 /*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 13:28:57 by oltolmac          #+#    #+#             */
-/*   Updated: 2024/12/08 14:14:38 by oltolmac         ###   ########.fr       */
+/*   Updated: 2024/12/09 12:52:53 by oltolmac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -754,6 +754,7 @@ void	sorting_max(t_stacks *stacks)
 		findmindex(stacks);
 		midlena = stacks->lensa / 2;
 	}
+	
 }
 
 void	start_sorting(t_stacks *stacks)
@@ -763,8 +764,8 @@ void	start_sorting(t_stacks *stacks)
 	else if (stacks->lensa <= 5)
 		mid_len_sort(stacks, 0);
 	else
-		mid_len_sort(stacks, 0);
-	// print_stacks(stacks);
+		sorting_max(stacks);
+	print_stacks(stacks);
 }
 
 int	check_doubles(long *stack, int len)
