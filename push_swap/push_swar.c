@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swar.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: olena <olena@student.42.fr>                +#+  +:+       +#+        */
+/*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 13:28:57 by oltolmac          #+#    #+#             */
-/*   Updated: 2024/12/12 17:15:25 by olena            ###   ########.fr       */
+/*   Updated: 2024/12/12 20:13:12 by oltolmac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -759,8 +759,6 @@ void	min_to_the_top(t_stacks *stacks)
 	}	
 } 
 
-
-
 void	sorting_max(t_stacks *stacks)
 {
 	//asign_index(stacks);
@@ -775,7 +773,7 @@ void	start_sorting(t_stacks *stacks)
 		mid_len_sort(stacks, 0);
 	else
 		sorting_max(stacks);
-	//print_stacks(stacks);
+	print_stacks(stacks);
 }
 
 int	check_doubles(long *stack, int len)
