@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swar.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: olena <olena@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 13:28:57 by oltolmac          #+#    #+#             */
-/*   Updated: 2024/12/09 12:52:53 by oltolmac         ###   ########.fr       */
+/*   Updated: 2024/12/12 17:15:25 by olena            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -736,25 +736,35 @@ void	asign_index(t_stacks *stacks)
 	}
 }
 
+void	min_to_the_top(t_stacks *stacks)
+{
+	int min;
+
+	findmindex(stacks);
+	min = stacks->stacka[stacks->min_indx];
+	if (stacks->min_indx == 0)
+		return ;
+	printf("min %d\n", min);
+	printf("min_indx %d\n", stacks->min_indx);
+	printf("lensa %d\n", stacks->lensa);
+	if (stacks->lensa - stacks->min_indx < stacks->min_indx)
+	{
+		while (stacks->stacka[0] != min)
+			rra(stacks, 0);
+	}
+	else
+	{
+		while (stacks->stacka[0] != min)
+			ra(stacks, 0);
+	}	
+} 
+
+
+
 void	sorting_max(t_stacks *stacks)
 {
-	int midlena;
-
-	midlena = stacks->lensa / 2;
-	asign_index(stacks);
-	findmindex(stacks);
-	while (stacks->min_indx < midlena)
-	{
-		while (stacks->stacka[0] != stacks->min_indx)
-		{
-			pb(stacks);
-		}
-		pb(stacks);
-		rb(stacks, 0);
-		findmindex(stacks);
-		midlena = stacks->lensa / 2;
-	}
-	
+	//asign_index(stacks);
+	min_to_the_top(stacks);
 }
 
 void	start_sorting(t_stacks *stacks)
@@ -765,7 +775,7 @@ void	start_sorting(t_stacks *stacks)
 		mid_len_sort(stacks, 0);
 	else
 		sorting_max(stacks);
-	print_stacks(stacks);
+	//print_stacks(stacks);
 }
 
 int	check_doubles(long *stack, int len)
