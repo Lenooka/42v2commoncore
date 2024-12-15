@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swar.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: olena <olena@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 13:28:57 by oltolmac          #+#    #+#             */
-/*   Updated: 2024/12/12 20:13:12 by oltolmac         ###   ########.fr       */
+/*   Updated: 2024/12/15 05:12:45 by olena            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -744,9 +744,6 @@ void	min_to_the_top(t_stacks *stacks)
 	min = stacks->stacka[stacks->min_indx];
 	if (stacks->min_indx == 0)
 		return ;
-	printf("min %d\n", min);
-	printf("min_indx %d\n", stacks->min_indx);
-	printf("lensa %d\n", stacks->lensa);
 	if (stacks->lensa - stacks->min_indx < stacks->min_indx)
 	{
 		while (stacks->stacka[0] != min)
@@ -757,23 +754,64 @@ void	min_to_the_top(t_stacks *stacks)
 		while (stacks->stacka[0] != min)
 			ra(stacks, 0);
 	}	
-} 
+}
+
+
+
+long	*lng_inc_subs(t_stacks *stacks)
+{
+	long	*temp; //lengtg of the longest increasing subsequence
+	long	*temp2; //index of the previous element in the subsequence
+	int		i;
+	int		j;
+	int		k;
+
+	i = 0;
+	j = 0;
+	k = 0;
+	temp = malloc(stacks->lensa * sizeof *temp);
+	temp2 = malloc(stacks->lensa * sizeof *temp2);
+	while (i < stacks->lensa)
+	{
+		temp[i] = 1;
+		temp2[i] = -1;
+		i++;
+	}
+	i = 1;
+	while (i < stacks->lensa)
+	{
+		j = 0;
+		while (j < i)
+		{
+			if (stacks->stacka[i] > stacks->stacka[j] && temp[i] < temp[j] + 1)
+			{
+				temp[i] = temp[j] + 1;
+				temp2[i] = j;
+			}
+			j++;
+		}
+		i++;
+	}
+	return (temp);
+}
 
 void	sorting_max(t_stacks *stacks)
 {
-	//asign_index(stacks);
+	asign_index(stacks);
 	min_to_the_top(stacks);
+	stacks->stacka = lng_inc_subs(stacks);
+	print_stacks(stacks);
 }
 
 void	start_sorting(t_stacks *stacks)
 {
 	if (stacks->lensa == 3)
 		sort_three(stacks);
-	else if (stacks->lensa <= 5)
-		mid_len_sort(stacks, 0);
+	//else if (stacks->lensa <= 5)
+		//mid_len_sort(stacks, 0);
 	else
 		sorting_max(stacks);
-	print_stacks(stacks);
+	//print_stacks(stacks);
 }
 
 int	check_doubles(long *stack, int len)
@@ -839,11 +877,11 @@ int	handle_mult_argv(char **argv, t_stacks *stacks)
 		ft_printf("Error\n");
 		free_handle();
 	}
-	if (!check_doubles(stacks->stacka, stacks->lensa))
-	{
-		ft_printf("Error\n");
-		free_handle();
-	}
+	// if (!check_doubles(stacks->stacka, stacks->lensa))
+	// {
+	// 	ft_printf("Error\n");
+	// 	free_handle();
+	// }
 	if (is_not_sorted(stacks))
 		start_sorting(stacks);
 	//free_handle;
