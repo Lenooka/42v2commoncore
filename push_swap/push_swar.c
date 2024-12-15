@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swar.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: olena <olena@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 13:28:57 by oltolmac          #+#    #+#             */
-/*   Updated: 2024/12/15 15:27:23 by oltolmac         ###   ########.fr       */
+/*   Updated: 2024/12/15 16:39:12 by olena            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -595,6 +595,33 @@ void	print_stacks(t_stacks  *stacks)
 	if (!is_not_sorted(stacks))
 		printf("OK\n");
 }
+int	stack_len(long *stack)
+{
+	int	i;
+
+	i = 0;
+	while (stack[i])
+		i++;
+	return (i);
+}
+
+int	findmaxndex_arg(long *stack)
+{
+	int	i;
+	int len;
+	int max_indx;
+
+	i = 0;
+	max_indx = 0;
+	len = stack_len(stack);
+	while (i < len)
+	{
+		if (stack[max_indx] < stack[i])
+			max_indx = stack[i];
+		i++;
+	}
+	return (max_indx);
+}
 
 void	findmaxndex(t_stacks *stacks)
 {
@@ -803,12 +830,38 @@ void	init_lis(t_stacks *stacks)
 {
 	int i;
 	int j;
+	int max;
+
+	int len = stack_len(stacks->lenlis);
+	max = findmaxndex_arg(stacks->lenlis);
+	stacks->lis = malloc(stacks->lenlis[max] * sizeof *stacks->lis);
+	i = 0;
+	j = 0;
+	while (stacks->lenlis[i] != max)
+		i++;
+	while (i != 0)
+	{
+		stacks->lis[j] = stacks->stacka[i];
+		i = stacks->indxlis[i];
+		j++;
+	}
+	stacks->lis[j] = stacks->stacka[i];
+	i = 0;
+	while(stacks->lis[i])
+	{
+		printf("lis %ld\n", stacks->lis[i]);
+		i++;
+	}
+	
+
+	
+	
 }
 
 void	sorting_max(t_stacks *stacks)
 {
-	asign_index(stacks);
-	//min_to_the_top(stacks);
+	//asign_index(stacks);
+	min_to_the_top(stacks);
 	init_lislen_indxlis(stacks);
 	init_lis(stacks);
 	print_stacks(stacks);
