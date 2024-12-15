@@ -6,7 +6,7 @@
 /*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 14:00:39 by oltolmac          #+#    #+#             */
-/*   Updated: 2024/12/07 16:54:50 by oltolmac         ###   ########.fr       */
+/*   Updated: 2024/12/15 14:39:12 by oltolmac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,9 @@ typedef struct s_stacks
 {
 	long			*stacka;
 	long			*stackb;
+	long			*lenlis;
+	long			*indxlis;
+	long			*lis;
 	int				lensa;
 	int				lensb;
 	int				min_indx;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swar.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: olena <olena@student.42.fr>                +#+  +:+       +#+        */
+/*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 13:28:57 by oltolmac          #+#    #+#             */
-/*   Updated: 2024/12/15 05:12:45 by olena            ###   ########.fr       */
+/*   Updated: 2024/12/15 15:27:23 by oltolmac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -582,14 +582,14 @@ void	print_stacks(t_stacks  *stacks)
 	printf("===============\n");
 	while (i < stacks->lensa)
 	{
-		printf("stack a  %ld\n", stacks->stacka[i]);
+		printf("stack a  %ld\n", stacks->lenlis[i]);
 		i++;
 	}
 	i = 0;
 	printf("===============\n");
-	while (i <= stacks->lensb)
+	while (i <= stacks->lensa)
 	{
-		printf("stack b  %ld\n", stacks->stackb[i]);
+		printf("stack b  %ld\n", stacks->indxlis[i]);
 		i++;
 	}
 	if (!is_not_sorted(stacks))
@@ -756,50 +756,61 @@ void	min_to_the_top(t_stacks *stacks)
 	}	
 }
 
-
-
-long	*lng_inc_subs(t_stacks *stacks)
+void	calc_lislen_indxlis(t_stacks *stacks)
 {
-	long	*temp; //lengtg of the longest increasing subsequence
-	long	*temp2; //index of the previous element in the subsequence
-	int		i;
-	int		j;
-	int		k;
-
-	i = 0;
-	j = 0;
-	k = 0;
-	temp = malloc(stacks->lensa * sizeof *temp);
-	temp2 = malloc(stacks->lensa * sizeof *temp2);
-	while (i < stacks->lensa)
-	{
-		temp[i] = 1;
-		temp2[i] = -1;
-		i++;
-	}
+	int i;
+	int j;
+	
 	i = 1;
 	while (i < stacks->lensa)
 	{
 		j = 0;
 		while (j < i)
 		{
-			if (stacks->stacka[i] > stacks->stacka[j] && temp[i] < temp[j] + 1)
+			if (stacks->stacka[i] > stacks->stacka[j] 
+				&& stacks->lenlis[i] < stacks->lenlis[j] + 1)
 			{
-				temp[i] = temp[j] + 1;
-				temp2[i] = j;
+				stacks->lenlis[i] = stacks->lenlis[j] + 1;
+				stacks->indxlis[i] = j;
 			}
 			j++;
 		}
 		i++;
 	}
-	return (temp);
+} 
+
+void	init_lislen_indxlis(t_stacks *stacks)
+{
+	int		i;
+
+	i = 0;
+	stacks->lenlis = malloc(stacks->lensa * sizeof *stacks->lenlis);
+	if (!stacks->lenlis)
+		free_handle();
+	stacks->indxlis = malloc(stacks->lensa * sizeof *stacks->indxlis);
+	if (!stacks->indxlis)
+		free_handle();
+	while (i < stacks->lensa)
+	{
+		stacks->lenlis[i] = 1;
+		stacks->indxlis[i] = -1;
+		i++;
+	}
+	calc_lislen_indxlis(stacks);
+}
+
+void	init_lis(t_stacks *stacks)
+{
+	int i;
+	int j;
 }
 
 void	sorting_max(t_stacks *stacks)
 {
 	asign_index(stacks);
-	min_to_the_top(stacks);
-	stacks->stacka = lng_inc_subs(stacks);
+	//min_to_the_top(stacks);
+	init_lislen_indxlis(stacks);
+	init_lis(stacks);
 	print_stacks(stacks);
 }
 
