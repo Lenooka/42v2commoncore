@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swar.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: olena <olena@student.42.fr>                +#+  +:+       +#+        */
+/*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 13:28:57 by oltolmac          #+#    #+#             */
-/*   Updated: 2024/12/15 16:39:12 by olena            ###   ########.fr       */
+/*   Updated: 2024/12/17 17:44:25 by oltolmac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -582,14 +582,14 @@ void	print_stacks(t_stacks  *stacks)
 	printf("===============\n");
 	while (i < stacks->lensa)
 	{
-		printf("stack a  %ld\n", stacks->lenlis[i]);
+		printf("stack a  %ld\n", stacks->stacka[i]);
 		i++;
 	}
 	i = 0;
 	printf("===============\n");
-	while (i <= stacks->lensa)
+	while (i <= stacks->lensb)
 	{
-		printf("stack b  %ld\n", stacks->indxlis[i]);
+		printf("stack b  %ld\n", stacks->stackb[i]);
 		i++;
 	}
 	if (!is_not_sorted(stacks))
@@ -839,23 +839,13 @@ void	init_lis(t_stacks *stacks)
 	j = 0;
 	while (stacks->lenlis[i] != max)
 		i++;
-	while (i != 0)
+	while (i > 0)
 	{
 		stacks->lis[j] = stacks->stacka[i];
+		printf("--lis %ld\n", stacks->lenlis[i]);
 		i = stacks->indxlis[i];
 		j++;
 	}
-	stacks->lis[j] = stacks->stacka[i];
-	i = 0;
-	while(stacks->lis[i])
-	{
-		printf("lis %ld\n", stacks->lis[i]);
-		i++;
-	}
-	
-
-	
-	
 }
 
 void	sorting_max(t_stacks *stacks)
@@ -863,7 +853,7 @@ void	sorting_max(t_stacks *stacks)
 	//asign_index(stacks);
 	min_to_the_top(stacks);
 	init_lislen_indxlis(stacks);
-	init_lis(stacks);
+	//init_lis(stacks);
 	print_stacks(stacks);
 }
 
@@ -941,11 +931,11 @@ int	handle_mult_argv(char **argv, t_stacks *stacks)
 		ft_printf("Error\n");
 		free_handle();
 	}
-	// if (!check_doubles(stacks->stacka, stacks->lensa))
-	// {
-	// 	ft_printf("Error\n");
-	// 	free_handle();
-	// }
+	if (!check_doubles(stacks->stacka, stacks->lensa))
+	{
+		ft_printf("Error\n");
+		free_handle();
+	}
 	if (is_not_sorted(stacks))
 		start_sorting(stacks);
 	//free_handle;
