@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swar.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: olena <olena@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 13:28:57 by oltolmac          #+#    #+#             */
-/*   Updated: 2024/12/17 18:02:57 by oltolmac         ###   ########.fr       */
+/*   Updated: 2024/12/18 03:11:22 by olena            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -803,17 +803,20 @@ void	calc_lislen_indxlis(t_stacks *stacks)
 	int i;
 	int j;
 	
-	i = 1;
+	i = 0;
 	while (i < stacks->lensa)
 	{
 		j = 0;
+		stacks->lenlis[i] = 1;
 		while (j < i)
 		{
-			if (stacks->stacka[i] > stacks->stacka[j] 
-				&& stacks->lenlis[i] < stacks->lenlis[j] + 1)
+			if (stacks->stacka[i] > stacks->stacka[j])
 			{
-				stacks->lenlis[i] = stacks->lenlis[j] + 1;
-				stacks->indxlis[i] = j;
+				if (stacks->lenlis[i] < stacks->lenlis[j] + 1)
+				{
+					stacks->lenlis[i] = stacks->lenlis[j] + 1;
+					stacks->indxlis[i] = j;
+				}
 			}
 			j++;
 		}
@@ -847,29 +850,39 @@ void	init_lislen_indxlis(t_stacks *stacks)
 void	init_lis(t_stacks *stacks)
 {
 	int i;
-	int j;
 	int max;
+	int len;
 
-	int len = stack_len(stacks->lenlis);
+	len = stack_len(stacks->lenlis);
 	max = findmaxndex_arg(stacks->lenlis);
 	stacks->lis = malloc(stacks->lenlis[max] * sizeof *stacks->lis);
 	i = 0;
-	j = 0;
-	while (stacks->lenlis[i] != max)
-		i++;
-	while (i > 0)
+	while (len >= 0)
 	{
-		stacks->lis[j] = stacks->stacka[i];
-		printf("--lis %ld\n", stacks->lenlis[i]);
+		if (stacks->lenlis[len] == max)
+		{
+			i = len;
+			break;
+		}
+		else
+			i = 0;
+		len--;
+	}	
+	while (i != 0)
+	{
+		stacks->lis[--max] = stacks->stacka[i];
+		if (i == 0)
+			break ;
 		i = stacks->indxlis[i];
-		j++;
 	}
+	if (max > 0)
+		stacks->lis[0] = stacks->stacka[0];
 }
 
 void	sorting_max(t_stacks *stacks)
 {
 	//asign_index(stacks);
-	//min_to_the_top(stacks);
+	min_to_the_top(stacks);
 	init_lislen_indxlis(stacks);
 	init_lis(stacks);
 	print_stacks(stacks);
