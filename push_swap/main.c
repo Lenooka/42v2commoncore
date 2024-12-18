@@ -6,7 +6,7 @@
 /*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 07:20:17 by oltolmac          #+#    #+#             */
-/*   Updated: 2024/12/18 07:21:26 by oltolmac         ###   ########.fr       */
+/*   Updated: 2024/12/18 10:02:07 by oltolmac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@ void	start_sorting(t_stacks *stacks)
 {
 	if (stacks->lensa == 3)
 		sort_three(stacks);
-	//else if (stacks->lensa <= 5)
-		//mid_len_sort(stacks, 0);
+	else if (stacks->lensa <= 5)
+		mid_len_sort(stacks, 0);
 	else
 		sorting_max(stacks);
 	//print_stacks(stacks);
