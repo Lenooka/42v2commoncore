@@ -6,7 +6,7 @@
 /*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 13:28:57 by oltolmac          #+#    #+#             */
-/*   Updated: 2024/12/17 17:44:25 by oltolmac         ###   ########.fr       */
+/*   Updated: 2024/12/17 18:02:57 by oltolmac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -574,6 +574,30 @@ void	findmindex(t_stacks *stacks)
 		i++;
 	}
 }
+int	stack_len(long *stack)
+{
+	int	i;
+
+	i = 0;
+	while (stack[i])
+		i++;
+	return (i);
+}
+
+void	print_stacks_arg(long *stacks)
+{
+	int i = 0;
+	int len = stack_len(stacks);
+
+	printf("=|=|=|=|=|=|=|=|=|=|=|=|=|=|=\n");
+	while (i < len)
+	{
+		printf(" %ld\n", stacks[i]);
+		i++;
+	}
+	i = 0;
+	printf("=|=|=|=|=|=|=|=|=|=|=|=|=|=|=\n");
+}
 
 void	print_stacks(t_stacks  *stacks)
 {
@@ -594,15 +618,6 @@ void	print_stacks(t_stacks  *stacks)
 	}
 	if (!is_not_sorted(stacks))
 		printf("OK\n");
-}
-int	stack_len(long *stack)
-{
-	int	i;
-
-	i = 0;
-	while (stack[i])
-		i++;
-	return (i);
 }
 
 int	findmaxndex_arg(long *stack)
@@ -804,6 +819,9 @@ void	calc_lislen_indxlis(t_stacks *stacks)
 		}
 		i++;
 	}
+	print_stacks_arg(stacks->lenlis);
+	print_stacks_arg(stacks->indxlis);
+
 } 
 
 void	init_lislen_indxlis(t_stacks *stacks)
@@ -851,9 +869,9 @@ void	init_lis(t_stacks *stacks)
 void	sorting_max(t_stacks *stacks)
 {
 	//asign_index(stacks);
-	min_to_the_top(stacks);
+	//min_to_the_top(stacks);
 	init_lislen_indxlis(stacks);
-	//init_lis(stacks);
+	init_lis(stacks);
 	print_stacks(stacks);
 }
 
