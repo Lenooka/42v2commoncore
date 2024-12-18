@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swar.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: olena <olena@student.42.fr>                +#+  +:+       +#+        */
+/*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 13:28:57 by oltolmac          #+#    #+#             */
-/*   Updated: 2024/12/18 03:11:22 by olena            ###   ########.fr       */
+/*   Updated: 2024/12/18 07:19:33 by oltolmac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,9 +72,6 @@ t_stacks	*alloc_struct(char **argv, t_stacks *stacks, int elem_am)
 {
 	while (argv[elem_am])
 		elem_am++;
-	stacks = (t_stacks *)malloc(sizeof(t_stacks));
-	if (!stacks)
-		return (NULL);
 	stacks->stacka = (long *)malloc(sizeof(long) * elem_am + 1);
 	if (!stacks->stacka)
 	{
@@ -921,7 +918,7 @@ int	check_doubles(long *stack, int len)
 }
 
 
-int	argv_split(t_stacks *stacks, char **argv)
+int argv_split(t_stacks *stacks, char **argv)
 {
 	char	**argv_split;
 
@@ -950,7 +947,7 @@ int	argv_split(t_stacks *stacks, char **argv)
 	return (0);
 }
 
-int	handle_mult_argv(char **argv, t_stacks *stacks)
+int handle_mult_argv(char **argv, t_stacks *stacks)
 {
 	if (check_arg(argv))
 		return (ft_printf("Error\n"), 0);
@@ -979,11 +976,17 @@ int	main(int argc, char **argv)
 	
 	if (argc == 2)
 	{
+		stacks = (t_stacks *)malloc(sizeof(t_stacks));
+		if (!stacks)
+			return (0);
 		argv_split(stacks, argv);
 		return (0);
 	} 
 	if (argc > 2)
 	{
+		stacks = (t_stacks *)malloc(sizeof(t_stacks));
+		if (!stacks)
+			return (0);
 		handle_mult_argv(argv, stacks);
 		return (0);
 	}

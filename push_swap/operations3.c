@@ -1,28 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_push_swapold.h                                  :+:      :+:    :+:   */
+/*   operations 3.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/26 14:00:39 by oltolmac          #+#    #+#             */
-/*   Updated: 2024/11/19 13:25:01 by oltolmac         ###   ########.fr       */
+/*   Created: 2024/12/18 07:26:43 by oltolmac          #+#    #+#             */
+/*   Updated: 2024/12/18 07:28:14 by oltolmac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_PUSH_SWAPO_H
-#define FT_PUSH_SWAPO_H
+#include "ft_push_swap.h"
 
-#define A 0
-#define B 1
-#define BOTH 2
-
-#include "libftp/libft.h"
-
-typedef struct s_stack
+void	ra(t_stacks *stacks, int both)
 {
-	int			content;
-	struct s_stack	*next;
-}	t_stack;
+	int	temp;
+	int	i;
 
-#endif
+	i = 0;
+	temp = stacks->stacka[0];
+	while (i < stacks->lensa - 1)
+	{
+		stacks->stacka[i] = stacks->stacka[i + 1];
+		i++;
+	}
+	stacks->stacka[stacks->lensa - 1] = temp;
+	if (!both)
+		ft_printf("ra\n");
+}
