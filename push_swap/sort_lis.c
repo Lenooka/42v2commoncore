@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sort_lis.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: olena <olena@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 07:30:04 by oltolmac          #+#    #+#             */
-/*   Updated: 2024/12/18 07:40:43 by oltolmac         ###   ########.fr       */
+/*   Updated: 2024/12/22 20:50:45 by olena            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,6 @@ void	calc_lislen_indxlis(t_stacks *stacks)
 		}
 		i++;
 	}
-	print_stacks_arg(stacks->lenlis);
-	print_stacks_arg(stacks->indxlis);
-
 } 
 
 void	init_lislen_indxlis(t_stacks *stacks)
@@ -81,16 +78,34 @@ void	init_lislen_indxlis(t_stacks *stacks)
 	calc_lislen_indxlis(stacks);
 }
 
+int	get_index(long *arr, int value)
+{
+	int	len;
+
+	len = stack_len(arr);
+	while (len--)
+	{
+		if (arr[len] == value)
+			return (len);
+	}
+	return (0);
+}
+
 void	init_lis(t_stacks *stacks)
 {
 	int i;
 	int max;
 	int len;
 
-	len = stack_len(stacks->lenlis);
+	len = stack_len(stacks->stacka);
 	max = findmaxndex_arg(stacks->lenlis);
 	stacks->lis = malloc(stacks->lenlis[max] * sizeof *stacks->lis);
-	i = 0;
+	i = -1;
+	while (++i < len)
+	{
+		if (stacks->lenlis[i] > max)
+			max = stacks->lenlis[i];
+	}
 	while (len >= 0)
 	{
 		if (stacks->lenlis[len] == max)
@@ -101,7 +116,7 @@ void	init_lis(t_stacks *stacks)
 		else
 			i = 0;
 		len--;
-	}	
+	}
 	while (i != 0)
 	{
 		stacks->lis[--max] = stacks->stacka[i];
@@ -109,8 +124,51 @@ void	init_lis(t_stacks *stacks)
 			break ;
 		i = stacks->indxlis[i];
 	}
-	if (max > 0)
-		stacks->lis[0] = stacks->stacka[0];
+	stacks->lis[0] = stacks->stacka[0];
+}
+
+
+void	lisr(long *s)
+{
+	int	temp;
+	int	i;
+	int len;
+
+	i = 0;
+	temp = s[0];
+	len = stack_len(s);
+	while (i < len - 1)
+	{
+		s[i] = s[i + 1];
+		i++;
+	}
+	s[len - 1] = temp;
+}
+
+
+void	push_notsubseq(t_stacks *stacks)
+{
+	int i;
+
+	i = 0;
+	i = stack_len(stacks->stacka);
+	while (i)
+	{
+		if (stacks->stacka[0] == stacks->lis[0])
+		{
+			ra(stacks, 0);
+			lisr(stacks->lis);
+		}
+		else
+			pb(stacks);
+		i--;
+	}
+	i = 0;
+	while (stacks->stacka[i])
+	{
+		printf("li<s[%d] = %ld\n", i, stacks->stacka[i]);
+		i++;
+	}
 }
 
 void	sorting_max(t_stacks *stacks)
@@ -119,5 +177,6 @@ void	sorting_max(t_stacks *stacks)
 	min_to_the_top(stacks);
 	init_lislen_indxlis(stacks);
 	init_lis(stacks);
+	push_notsubseq(stacks);
 	print_stacks(stacks);
 }

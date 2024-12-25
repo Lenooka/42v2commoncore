@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swar.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: olena <olena@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 13:28:57 by oltolmac          #+#    #+#             */
-/*   Updated: 2024/12/18 07:19:33 by oltolmac         ###   ########.fr       */
+/*   Updated: 2024/12/22 20:24:04 by olena            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -633,6 +633,7 @@ int	findmaxndex_arg(long *stack)
 		i++;
 	}
 	return (max_indx);
+	
 }
 
 void	findmaxndex(t_stacks *stacks)
@@ -819,8 +820,6 @@ void	calc_lislen_indxlis(t_stacks *stacks)
 		}
 		i++;
 	}
-	print_stacks_arg(stacks->lenlis);
-	print_stacks_arg(stacks->indxlis);
 
 } 
 
@@ -874,6 +873,12 @@ void	init_lis(t_stacks *stacks)
 	}
 	if (max > 0)
 		stacks->lis[0] = stacks->stacka[0];
+	i = 0;
+	while (i < stacks->lenlis[max])
+	{
+		printf("lis %ld\n", stacks->lis[i]);
+		i++;
+	}
 }
 
 void	sorting_max(t_stacks *stacks)
