@@ -6,7 +6,7 @@
 /*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 07:39:07 by oltolmac          #+#    #+#             */
-/*   Updated: 2024/12/18 07:39:09 by oltolmac         ###   ########.fr       */
+/*   Updated: 2024/12/27 12:05:54 by oltolmac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,14 @@ void	print_stacks(t_stacks  *stacks)
 	}
 	i = 0;
 	printf("===============\n");
-	while (i <= stacks->lensb)
+	stacks->lensb = stack_len(stacks->stackb);
+	if (stacks->lensb != 0)
 	{
-		printf("stack b  %ld\n", stacks->stackb[i]);
-		i++;
+		while (i <= stacks->lensb)
+		{
+			printf("stack b  %ld\n", stacks->stackb[i]);
+			i++;
+		}
 	}
 	if (!is_not_sorted(stacks))
 		printf("OK\n");

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_push_swap.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: olena <olena@student.42.fr>                +#+  +:+       +#+        */
+/*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 14:00:39 by oltolmac          #+#    #+#             */
-/*   Updated: 2024/12/25 21:36:57 by olena            ###   ########.fr       */
+/*   Updated: 2024/12/27 15:11:18 by oltolmac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ typedef struct s_stacks
 	long			*lenlis;
 	long			*indxlis;
 	long			*lis;
+	int				lis_len;
 	int				lensa;
 	int				lensb;
 	int				min_indx;
@@ -69,7 +70,7 @@ int	stack_len(long *stack);
 void	findmindex(t_stacks *stacks);
 void	findmindexb(t_stacks *stacks);
 int	is_not_sorted(t_stacks *stacks);
-int	findmaxndex_arg(long *stack);
+int		findmaxndex_arg(long *stack, int len);
 void	findmaxndex(t_stacks *stacks);
 void	print_stacks_arg(long *stacks);
 void	print_stacks(t_stacks  *stacks);

@@ -3,14 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   sort_lis.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: olena <olena@student.42.fr>                +#+  +:+       +#+        */
+/*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 07:30:04 by oltolmac          #+#    #+#             */
-/*   Updated: 2024/12/26 15:52:19 by olena            ###   ########.fr       */
+/*   Updated: 2024/12/27 16:52:04 by oltolmac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_push_swap.h"
+
+int	sz(long *stack)
+{
+	unsigned long a = sizeof(stack);
+	unsigned long b = sizeof(stack[0]);
+	int l = a / b;
+	printf("aaaaaaaaaaaaaa %d\n", l);
+	return (l);
+}
 
 void	min_to_the_top(t_stacks *stacks)
 {
@@ -63,10 +72,10 @@ void	init_lislen_indxlis(t_stacks *stacks)
 	int		i;
 
 	i = 0;
-	stacks->lenlis = malloc(stacks->lensa * sizeof *stacks->lenlis);
+	stacks->lenlis = malloc(stacks->lensa * sizeof *stacks->stacka);
 	if (!stacks->lenlis)
 		free_handle();
-	stacks->indxlis = malloc(stacks->lensa * sizeof *stacks->indxlis);
+	stacks->indxlis = malloc(stacks->lensa * sizeof *stacks->stacka);
 	if (!stacks->indxlis)
 		free_handle();
 	while (i < stacks->lensa)
@@ -97,9 +106,9 @@ void	init_lis(t_stacks *stacks)
 	int max;
 	int len;
 
-	len = stack_len(stacks->stacka);
-	max = findmaxndex_arg(stacks->lenlis);
-	stacks->lis = malloc(stacks->lenlis[max] * sizeof *stacks->lis);
+	len = stacks->lensa - 1;
+	max = findmaxndex_arg(stacks->lenlis, stacks->lensa);
+	stacks->lis = malloc(stacks->lensa * sizeof *stacks->stacka);
 	i = -1;
 	while (++i < len)
 	{
@@ -117,6 +126,7 @@ void	init_lis(t_stacks *stacks)
 			i = 0;
 		len--;
 	}
+	stacks->lis_len = max;
 	while (i != 0)
 	{
 		stacks->lis[--max] = stacks->stacka[i];
@@ -128,15 +138,13 @@ void	init_lis(t_stacks *stacks)
 }
 
 
-void	lisr(long *s)
+void	lisr(long *s, int len)
 {
 	int	temp;
 	int	i;
-	int len;
 
 	i = 0;
 	temp = s[0];
-	len = stack_len(s);
 	while (i < len - 1)
 	{
 		s[i] = s[i + 1];
@@ -145,18 +153,29 @@ void	lisr(long *s)
 	s[len - 1] = temp;
 }
 
-
+//CONDITIONAL JUMP
+//add sentiel val to lis 
 void	push_notsubseq(t_stacks *stacks)
 {
 	int i;
+	int j;
+	int len; 
 
-	i = stack_len(stacks->stacka);
+	i = stacks->lensa;
+	len = stacks->lis_len;
+	j = 0;
 	while (i)
 	{
-		if (stacks->stacka[0] == stacks->lis[0])
+		if (j <= len - 1)
 		{
-			ra(stacks, 0);
-			lisr(stacks->lis);
+			if (stacks->stacka[0] == stacks->lis[0])
+			{
+				ra(stacks, 0);
+				lisr(stacks->lis, stacks->lensa);
+				j++;
+			}
+			else
+				pb(stacks);
 		}
 		else
 			pb(stacks);
@@ -182,20 +201,36 @@ long *op_b(t_stacks *stacks)
 		b[i] = i - (i > len / 2) * len;
 		i++;
 	}
+//	print_stacks_arg(b);
 	return (b);
 }
-long	*op_a(t_stacks *stacks)
-{
+// long	*op_a(t_stacks *stacks)
+// {
+// 	long	*a;
+// 	int 	i;
+// 	int		len;
+
+// 	i = 0;
+// 	len = stack_len(stacks->stacka);
+// 	a = malloc(len * sizeof *a);
+// 	if (!a)
+// 		free_handle();
+// 	while (i < len)
+// 	{
+// 		a[i] = 
+// 	}
 	
-}
+	
+	
+// }
 
 void	calculate_rotates(t_stacks *stacks)
 {
-	while (stack_len(stacks->stackb))
-	{
-		stacks->rot_a = op_a(stacks);
+	// while (stack_len(stacks->stackb))
+	// {
+	// 	stacks->rot_a = op_a(stacks);
 	    stacks->rot_b = op_b(stacks);
-	}
+	// }
 }
 
 
@@ -205,8 +240,11 @@ void	sorting_max(t_stacks *stacks)
 	min_to_the_top(stacks);
 	init_lislen_indxlis(stacks);
 	init_lis(stacks);
+//	print_stacks_arg(stacks->lis);
 	push_notsubseq(stacks);
+	// print_stacks_arg(stacks->stacka);
+	// print_stacks_arg(stacks->stackb);
+	 //print_stacks_arg(stacks->lis);
 	calculate_rotates(stacks);
-	sort_stack(stacks);
-	print_stacks(stacks);
+	//print_stacks(stacks);
 }
