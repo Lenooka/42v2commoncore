@@ -6,7 +6,7 @@
 /*   By: olena <olena@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 07:30:04 by oltolmac          #+#    #+#             */
-/*   Updated: 2024/12/22 20:50:45 by olena            ###   ########.fr       */
+/*   Updated: 2024/12/26 15:52:19 by olena            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,7 +150,6 @@ void	push_notsubseq(t_stacks *stacks)
 {
 	int i;
 
-	i = 0;
 	i = stack_len(stacks->stacka);
 	while (i)
 	{
@@ -163,13 +162,42 @@ void	push_notsubseq(t_stacks *stacks)
 			pb(stacks);
 		i--;
 	}
+}
+
+long *op_b(t_stacks *stacks)
+{
+	long *b;
+	int len;
+	int i;
+
+	len = stack_len(stacks->stackb);
+	if (len == 0)
+		return (0);
+	b = malloc(len * sizeof *b);
+	if (!b)
+		free_handle();
 	i = 0;
-	while (stacks->stacka[i])
+	while (i < len)
 	{
-		printf("li<s[%d] = %ld\n", i, stacks->stacka[i]);
+		b[i] = i - (i > len / 2) * len;
 		i++;
 	}
+	return (b);
 }
+long	*op_a(t_stacks *stacks)
+{
+	
+}
+
+void	calculate_rotates(t_stacks *stacks)
+{
+	while (stack_len(stacks->stackb))
+	{
+		stacks->rot_a = op_a(stacks);
+	    stacks->rot_b = op_b(stacks);
+	}
+}
+
 
 void	sorting_max(t_stacks *stacks)
 {
@@ -178,5 +206,7 @@ void	sorting_max(t_stacks *stacks)
 	init_lislen_indxlis(stacks);
 	init_lis(stacks);
 	push_notsubseq(stacks);
+	calculate_rotates(stacks);
+	sort_stack(stacks);
 	print_stacks(stacks);
 }

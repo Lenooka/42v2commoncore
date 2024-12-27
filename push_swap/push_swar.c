@@ -6,7 +6,7 @@
 /*   By: olena <olena@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 13:28:57 by oltolmac          #+#    #+#             */
-/*   Updated: 2024/12/22 20:24:04 by olena            ###   ########.fr       */
+/*   Updated: 2024/12/26 15:00:23 by olena            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -873,12 +873,6 @@ void	init_lis(t_stacks *stacks)
 	}
 	if (max > 0)
 		stacks->lis[0] = stacks->stacka[0];
-	i = 0;
-	while (i < stacks->lenlis[max])
-	{
-		printf("lis %ld\n", stacks->lis[i]);
-		i++;
-	}
 }
 
 void	sorting_max(t_stacks *stacks)
