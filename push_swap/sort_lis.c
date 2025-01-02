@@ -6,7 +6,7 @@
 /*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 07:30:04 by oltolmac          #+#    #+#             */
-/*   Updated: 2024/12/27 16:52:04 by oltolmac         ###   ########.fr       */
+/*   Updated: 2025/01/02 16:27:26 by oltolmac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -183,6 +183,20 @@ void	push_notsubseq(t_stacks *stacks)
 	}
 }
 
+void	print_stacks_argg(long *stacks, int len)
+{
+	int i = 0;
+
+	printf("=|=|=|=|=|=|=|=|=|=|=|=|=|=|=\n");
+	while (i < len)
+	{
+		printf(" %ld\n", stacks[i]);
+		i++;
+	}
+	i = 0;
+	printf("=|=|=|=|=|=|=|=|=|=|=|=|=|=|=\n");
+}
+
 long *op_b(t_stacks *stacks)
 {
 	long *b;
@@ -201,7 +215,6 @@ long *op_b(t_stacks *stacks)
 		b[i] = i - (i > len / 2) * len;
 		i++;
 	}
-//	print_stacks_arg(b);
 	return (b);
 }
 // long	*op_a(t_stacks *stacks)
@@ -229,7 +242,7 @@ void	calculate_rotates(t_stacks *stacks)
 	// while (stack_len(stacks->stackb))
 	// {
 	// 	stacks->rot_a = op_a(stacks);
-	    stacks->rot_b = op_b(stacks);
+		stacks->rot_b = op_b(stacks);
 	// }
 }
 
@@ -241,10 +254,10 @@ void	sorting_max(t_stacks *stacks)
 	init_lislen_indxlis(stacks);
 	init_lis(stacks);
 //	print_stacks_arg(stacks->lis);
-	push_notsubseq(stacks);
+	push_notsubseq(stacks);	
 	// print_stacks_arg(stacks->stacka);
 	// print_stacks_arg(stacks->stackb);
 	 //print_stacks_arg(stacks->lis);
 	calculate_rotates(stacks);
-	//print_stacks(stacks);
+//print_stacks(stacks);
 }
