@@ -6,7 +6,7 @@
 /*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 07:30:04 by oltolmac          #+#    #+#             */
-/*   Updated: 2025/01/02 16:27:26 by oltolmac         ###   ########.fr       */
+/*   Updated: 2025/01/02 17:33:16 by oltolmac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -258,6 +258,6 @@ void	sorting_max(t_stacks *stacks)
 	// print_stacks_arg(stacks->stacka);
 	// print_stacks_arg(stacks->stackb);
 	 //print_stacks_arg(stacks->lis);
-	calculate_rotates(stacks);
-//print_stacks(stacks);
+	//calculate_rotates(stacks);
+	print_stacks(stacks);
 }
