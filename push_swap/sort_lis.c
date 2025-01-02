@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sort_lis.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 07:30:04 by oltolmac          #+#    #+#             */
-/*   Updated: 2025/01/02 17:33:16 by oltolmac         ###   ########.fr       */
+/*   Updated: 2025/01/02 18:03:58 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,19 @@ int	get_index(long *arr, int value)
 	return (0);
 }
 
+void	initlistwo(t_stacks *stacks, int max, int i)
+{
+	stacks->lis_len = max;
+	while (i != 0)
+	{
+		stacks->lis[--max] = stacks->stacka[i];
+		if (i == 0)
+			break ;
+		i = stacks->indxlis[i];
+	}
+	stacks->lis[0] = stacks->stacka[0];
+}
+
 void	init_lis(t_stacks *stacks)
 {
 	int i;
@@ -126,15 +139,7 @@ void	init_lis(t_stacks *stacks)
 			i = 0;
 		len--;
 	}
-	stacks->lis_len = max;
-	while (i != 0)
-	{
-		stacks->lis[--max] = stacks->stacka[i];
-		if (i == 0)
-			break ;
-		i = stacks->indxlis[i];
-	}
-	stacks->lis[0] = stacks->stacka[0];
+	initlistwo(stacks, max, i);
 }
 
 
@@ -237,6 +242,155 @@ long *op_b(t_stacks *stacks)
 	
 // }
 
+void rotat_a(t_stacks *stacks, int ta)
+{
+    if (ta <= stacks->lensa / 2)
+    {
+        // Rotate up
+        while (ta > 0)
+        {
+            ra(stacks, 0);
+            ta--;
+        }
+    }
+    else
+    {
+        // Rotate down
+        while (ta < stacks->lensa)
+        {
+            rra(stacks, 0);
+            ta++;
+        }
+    }
+}
+
+
+void rotat_b(t_stacks *stacks, int best)
+{
+    if (best <= stacks->lensb / 2)
+    {
+        // Rotate up
+        while (best > 0)
+        {
+            rb(stacks, 0);
+            best--;
+        }
+    }
+    else
+    {
+        // Rotate down
+        while (best < stacks->lensb)
+        {
+            rrb(stacks, 0);
+            best++;
+        }
+    }
+}
+
+
+int	findminndex(t_stacks *stacks)
+{
+	int	i;
+
+	i = 0;
+	stacks->min_indx = 0;
+	while (i < stacks->lensa)
+	{
+		if (stacks->stacka[stacks->min_indx] > stacks->stacka[i])
+			stacks->min_indx = i;
+		i++;
+	}
+	return (stacks->min_indx);
+}
+
+int insert_pos(t_stacks *stacks, int el)
+{
+    int i = 0;
+
+    while (i < stacks->lensa)
+    {
+        if (el > stacks->stacka[i] && el < stacks->stacka[(i + 1) % stacks->lensa])
+            return (i + 1);
+        i++;
+    }
+	i = findminndex(stacks);
+    return (i);
+}
+
+
+int calc_cost(int ib, int ta, t_stacks *stacks)
+{
+	int cost_b;
+	int cost_a;
+
+	if (ib <= stacks->lensb / 2)
+	{
+   	 	cost_b = ib;
+	}
+	else
+  	{
+	  cost_b = stacks->lensb - ib;
+	}
+	if (ta <= stacks->lensa / 2)
+	{
+	    cost_a = ta;
+	}
+	else
+	{
+	    cost_a = stacks->lensa - ta;
+	}
+	return (cost_b + cost_a);
+
+}
+
+
+int bestmove(t_stacks *stacks)
+{
+    int best;
+	int i;
+    int best_cost;
+	int cost;
+	int el;
+	int ta;
+
+	best = 0;
+	i = 0;
+	best_cost = INT_MAX;
+    while (i < stacks->lensb)
+    {
+        el = stacks->stackb[i];
+        ta = insert_pos(stacks, el); // Find where it fits in stack a
+        cost = calc_cost(i, ta, stacks);
+        if (cost < best_cost)
+        {
+            best_cost = cost;
+            best = i;
+        }
+		i++;
+    }
+    return (best);
+}
+
+
+void push_back_to_a(t_stacks *stacks)
+{
+	int best_move;
+	int el;
+	int ta;
+
+    while (stacks->lensb > 0)
+    {
+        best_move = bestmove(stacks);
+        el = stacks->stackb[best_move];
+        ta = insert_pos(stacks, el);
+        rotat_b(stacks, best_move);  // Rotate stack b to bring the el to the top
+        rotat_a(stacks, ta); // Rotate stack a to prepare for insertion
+        pa(stacks); // Push the el to stack a
+    }
+	min_to_the_top(stacks);
+}
+
+
 void	calculate_rotates(t_stacks *stacks)
 {
 	// while (stack_len(stacks->stackb))
@@ -257,7 +411,8 @@ void	sorting_max(t_stacks *stacks)
 	push_notsubseq(stacks);	
 	// print_stacks_arg(stacks->stacka);
 	// print_stacks_arg(stacks->stackb);
-	 //print_stacks_arg(stacks->lis);
+	//print_stacks_arg(stacks->lis);
 	//calculate_rotates(stacks);
-	print_stacks(stacks);
+	push_back_to_a(stacks);
+	//print_stacks(stacks);
 }
