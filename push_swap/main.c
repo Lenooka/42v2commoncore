@@ -6,7 +6,7 @@
 /*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 07:20:17 by oltolmac          #+#    #+#             */
-/*   Updated: 2025/01/03 16:04:45 by oltolmac         ###   ########.fr       */
+/*   Updated: 2025/01/03 18:20:50 by oltolmac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,13 @@ void	sorting_max(t_stacks *stacks)
 {
 	min_to_the_top(stacks);
 	init_lislen_indxlis(stacks);
+	stacks->lis = malloc(stacks->lensa * sizeof * stacks->stacka);
+	if (!stacks->lis)
+	{
+		free(stacks->lenlis);
+		free(stacks->indxlis);
+		free_handle(stacks);
+	}
 	init_lis(stacks);
 	push_notsubseq(stacks);
 	push_back_to_a(stacks);

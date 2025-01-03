@@ -6,7 +6,7 @@
 /*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 07:30:04 by oltolmac          #+#    #+#             */
-/*   Updated: 2025/01/03 16:08:12 by oltolmac         ###   ########.fr       */
+/*   Updated: 2025/01/03 18:20:23 by oltolmac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,6 @@ void	init_lis(t_stacks *stacks)
 
 	len = stacks->lensa - 1;
 	max = findmaxndex_arg(stacks->lenlis, stacks->lensa);
-	stacks->lis = malloc(stacks->lensa * sizeof * stacks->stacka);
 	i = -1;
 	while (++i < len)
 	{
