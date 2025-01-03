@@ -3,14 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 07:20:17 by oltolmac          #+#    #+#             */
-/*   Updated: 2025/01/02 18:06:30 by codespace        ###   ########.fr       */
+/*   Updated: 2025/01/03 16:04:45 by oltolmac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_push_swap.h"
+
+void	sorting_max(t_stacks *stacks)
+{
+	min_to_the_top(stacks);
+	init_lislen_indxlis(stacks);
+	init_lis(stacks);
+	push_notsubseq(stacks);
+	push_back_to_a(stacks);
+}
 
 void	start_sorting(t_stacks *stacks)
 {
@@ -20,65 +29,64 @@ void	start_sorting(t_stacks *stacks)
 		mid_len_sort(stacks, 0);
 	else
 		sorting_max(stacks);
-	//print_stacks(stacks);
 }
 
-int argv_split(t_stacks *stacks, char **argv)
+int	argv_split(t_stacks *stacks, char **argv)
 {
 	char	**argv_split;
 
 	argv_split = ft_split(argv[1], ' ');
 	if (!argv_split)
-			return (ft_printf("Error\n"), 0);
+		return (free(stacks), ft_printf("Error\n"), 0);
 	if (check_arg(argv_split))
-		return (ft_printf("Error\n"), 0);
+		return (free(stacks), ft_printf("Error\n"), 0);
 	stacks = alloc_struct(argv_split, stacks, 0);
 	if (!stacks)
 		return (ft_printf("Error\n"), 0);
 	if (fill_struct(stacks, argv_split, 0) == 1)
 	{
 		ft_printf("Error\n");
-		free_handle();
+		free_handle(stacks);
 	}
 	if (!check_doubles(stacks->stacka, stacks->lensa))
 	{
 		ft_printf("Error\n");
-		free_handle();
+		free_handle(stacks);
 	}
 	if (is_not_sorted(stacks))
 		start_sorting(stacks);
-	//free_arr(argv_split);
-	//free_handle;
+	free_arr(argv_split);
+	free_handle(stacks);
 	return (0);
 }
 
-int handle_mult_argv(char **argv, t_stacks *stacks)
+int	handle_mult_argv(char **argv, t_stacks *stacks)
 {
 	if (check_arg(argv))
-		return (ft_printf("Error\n"), 0);
+		return (free(stacks), ft_printf("Error\n"), 0);
 	stacks = alloc_struct(argv, stacks, 1);
 	if (!stacks)
-		return (ft_printf("Error\n"), 0);
+		return (free(stacks), ft_printf("Error\n"), 0);
 	if (fill_struct(stacks, argv, 1) == 1)
 	{
 		ft_printf("Error\n");
-		free_handle();
+		free_handle(stacks);
 	}
 	if (!check_doubles(stacks->stacka, stacks->lensa))
 	{
 		ft_printf("Error\n");
-		free_handle();
+		free_handle(stacks);
 	}
 	if (is_not_sorted(stacks))
 		start_sorting(stacks);
-	//free_handle;
+	free_handle(stacks);
 	return (0);
 }
 
 int	main(int argc, char **argv)
 {
-	t_stacks *stacks;
-	
+	t_stacks	*stacks;
+
 	if (argc == 2)
 	{
 		stacks = (t_stacks *)malloc(sizeof(t_stacks));
@@ -86,7 +94,7 @@ int	main(int argc, char **argv)
 			return (0);
 		argv_split(stacks, argv);
 		return (0);
-	} 
+	}
 	if (argc > 2)
 	{
 		stacks = (t_stacks *)malloc(sizeof(t_stacks));

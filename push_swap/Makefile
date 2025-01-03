@@ -1,6 +1,6 @@
 NAME = push_swap
 CC = cc
-SRCS =  print_utils.c utils2.c utils.c sort_three_five.c sort_lis.c operations.c operations3.c operations2.c init_check.c free_handle.c main.c
+SRCS =  print_utils.c utils2.c utils.c sort_three_five.c sort_lis.c operations.c operations3.c operations2.c init_check.c free_handle.c rot_choice.c sort_push.c main.c
 CFLAGS = -Wall -Wextra -Werror -g
 RM = rm -rf
 OBJ_DIR = obj

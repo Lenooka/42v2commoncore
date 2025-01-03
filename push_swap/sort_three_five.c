@@ -6,7 +6,7 @@
 /*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 07:28:54 by oltolmac          #+#    #+#             */
-/*   Updated: 2024/12/18 07:29:33 by oltolmac         ###   ########.fr       */
+/*   Updated: 2025/01/03 16:03:00 by oltolmac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,13 @@
 
 void	sort_three(t_stacks *stacks)
 {
-	int min;
-	int max;
+	int	min;
+	int	max;
 
 	findmindex(stacks);
- 	findmaxndex(stacks);
- 	min = stacks->min_indx;
- 	max = stacks->max_indx;
+	findmaxndex(stacks);
+	min = stacks->min_indx;
+	max = stacks->max_indx;
 	if (min == 1 && max == 2)
 		sa(stacks, 0);
 	else if (min == 2 && max == 0)

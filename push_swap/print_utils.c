@@ -6,7 +6,7 @@
 /*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 07:39:07 by oltolmac          #+#    #+#             */
-/*   Updated: 2024/12/27 12:05:54 by oltolmac         ###   ########.fr       */
+/*   Updated: 2025/01/03 15:35:40 by oltolmac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,4 +50,18 @@ void	print_stacks(t_stacks  *stacks)
 	}
 	if (!is_not_sorted(stacks))
 		printf("OK\n");
+}
+
+void	print_stacks_argg(long *stacks, int len)
+{
+	int i = 0;
+
+	printf("=|=|=|=|=|=|=|=|=|=|=|=|=|=|=\n");
+	while (i < len)
+	{
+		printf(" %ld\n", stacks[i]);
+		i++;
+	}
+	i = 0;
+	printf("=|=|=|=|=|=|=|=|=|=|=|=|=|=|=\n");
 }

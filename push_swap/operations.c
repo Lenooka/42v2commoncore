@@ -6,7 +6,7 @@
 /*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 07:26:43 by oltolmac          #+#    #+#             */
-/*   Updated: 2024/12/18 07:27:06 by oltolmac         ###   ########.fr       */
+/*   Updated: 2025/01/03 16:01:36 by oltolmac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ void	rrb(t_stacks *stacks, int both)
 	stacks->stackb[0] = temp;
 	if (!both)
 		ft_printf("rrb\n");
-
 }
 
 void	rrr(t_stacks *stacks)

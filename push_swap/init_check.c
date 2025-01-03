@@ -6,7 +6,7 @@
 /*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 07:21:42 by oltolmac          #+#    #+#             */
-/*   Updated: 2024/12/18 07:23:01 by oltolmac         ###   ########.fr       */
+/*   Updated: 2025/01/03 15:59:31 by oltolmac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ long	ft_strtol(const char *str, char **endptr, int minus)
 int	fill_struct(t_stacks *stacks, char **argv, int i)
 {
 	long	val;
-	char 	*endptr;
+	char	*endptr;
 	int		j;
 
 	j = 0;
@@ -76,14 +76,14 @@ t_stacks	*alloc_struct(char **argv, t_stacks *stacks, int elem_am)
 	if (!stacks->stacka)
 	{
 		free(stacks);
-		return(NULL);
+		return (NULL);
 	}
 	stacks->stackb = (long *)malloc(sizeof(long) * elem_am + 1);
 	if (!stacks->stackb)
 	{
 		free(stacks->stacka);
 		free(stacks);
-		return(NULL);
+		return (NULL);
 	}
 	return (stacks);
 }
@@ -120,9 +120,9 @@ int	check_arg(char **argv)
 		x = 0;
 		while (argv[i][x])
 		{
-			if (!ft_isdigit(argv[i][x]) && argv[i][x] != '-' 
+			if (!ft_isdigit(argv[i][x]) && argv[i][x] != '-'
 				&& argv[i][x] != '+')
-					return (1);
+				return (1);
 			x++;
 		}
 		i++;

@@ -6,7 +6,7 @@
 /*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 07:24:16 by oltolmac          #+#    #+#             */
-/*   Updated: 2024/12/27 14:39:24 by oltolmac         ###   ########.fr       */
+/*   Updated: 2025/01/03 16:00:34 by oltolmac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ void	findmindex(t_stacks *stacks)
 		i++;
 	}
 }
+
 int	stack_len(long *stack)
 {
 	int	i;
@@ -69,4 +70,3 @@ int	stack_len(long *stack)
 		i++;
 	return (i);
 }
-

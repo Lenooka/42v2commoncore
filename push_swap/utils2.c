@@ -6,7 +6,7 @@
 /*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 07:24:16 by oltolmac          #+#    #+#             */
-/*   Updated: 2024/12/27 12:26:04 by oltolmac         ###   ########.fr       */
+/*   Updated: 2025/01/03 16:01:06 by oltolmac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	findmaxndex_arg(long *stack, int len)
 {
 	int	i;
-	int max_indx;
+	int	max_indx;
 
 	i = 0;
 	max_indx = 0;
