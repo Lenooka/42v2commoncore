@@ -6,7 +6,7 @@
 /*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 14:00:39 by oltolmac          #+#    #+#             */
-/*   Updated: 2025/01/03 16:15:46 by oltolmac         ###   ########.fr       */
+/*   Updated: 2025/01/04 20:26:09 by oltolmac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,11 +57,11 @@ int			fill_struct(t_stacks *stacks, char **argv, int i);
 t_stacks	*alloc_struct(char **argv, t_stacks *stacks, int elem_am);
 int			check_doubles(long *stack, int len);
 int			check_arg(char **argv);
-void		start_sorting(t_stacks *stacks);
+void		start_sorting(t_stacks *stacks, char **argv);
 int			argv_split(t_stacks *stacks, char **argv);
 int			handle_mult_argv(char **argv, t_stacks *stacks);
-void		start_sorting(t_stacks *stacks);
-void		sorting_max(t_stacks *stacks);
+void		start_sorting(t_stacks *stacks, char **argv);
+void		sorting_max(t_stacks *stacks, char **argv);
 void		init_lis(t_stacks *stacks);
 void		initlistwo(t_stacks *stacks, int max, int i);
 void		init_lislen_indxlis(t_stacks *stacks);
@@ -75,12 +75,13 @@ void		findmindexb(t_stacks *stacks);
 int			is_not_sorted(t_stacks *stacks);
 int			findmaxndex_arg(long *stack, int len);
 void		findmaxndex(t_stacks *stacks);
-void		print_stacks_arg(long *stacks);
 void		lisr(long *s, int len);
-void		print_stacks(t_stacks *stacks);
 void		rotat_a(t_stacks *stacks, int ta);
 void		rotat_b(t_stacks *stacks, int best);
 void		push_notsubseq(t_stacks *stacks);
 void		push_back_to_a(t_stacks *stacks);
 int			bestmove(t_stacks *stacks, int best);
+/// print utils 
+void		print_stacks_arg(long *stacks);
+void		print_stacks(t_stacks *stacks);
 #endif

@@ -6,7 +6,7 @@
 /*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 15:34:26 by oltolmac          #+#    #+#             */
-/*   Updated: 2025/01/03 16:54:41 by oltolmac         ###   ########.fr       */
+/*   Updated: 2025/01/04 20:50:32 by oltolmac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ void	rotat_a(t_stacks *stacks, int ta)
 {
 	if (ta <= stacks->lensa / 2)
 	{
-		// Rotate up
 		while (ta > 0)
 		{
 			ra(stacks, 0);
@@ -60,7 +59,6 @@ void	rotat_a(t_stacks *stacks, int ta)
 	}
 	else
 	{
-		// Rotate down
 		while (ta < stacks->lensa)
 		{
 			rra(stacks, 0);
@@ -73,7 +71,6 @@ void	rotat_b(t_stacks *stacks, int best)
 {
 	if (best <= stacks->lensb / 2)
 	{
-		// Rotate up
 		while (best > 0)
 		{
 			rb(stacks, 0);
@@ -82,7 +79,6 @@ void	rotat_b(t_stacks *stacks, int best)
 	}
 	else
 	{
-		//Rotate down
 		while (best < stacks->lensb)
 		{
 			rrb(stacks, 0);

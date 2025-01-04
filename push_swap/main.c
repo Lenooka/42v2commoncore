@@ -6,13 +6,13 @@
 /*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 07:20:17 by oltolmac          #+#    #+#             */
-/*   Updated: 2025/01/03 18:20:50 by oltolmac         ###   ########.fr       */
+/*   Updated: 2025/01/04 20:42:50 by oltolmac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_push_swap.h"
 
-void	sorting_max(t_stacks *stacks)
+void	sorting_max(t_stacks *stacks, char **argv)
 {
 	min_to_the_top(stacks);
 	init_lislen_indxlis(stacks);
@@ -21,6 +21,8 @@ void	sorting_max(t_stacks *stacks)
 	{
 		free(stacks->lenlis);
 		free(stacks->indxlis);
+		if (argv != NULL)
+			free_arr(argv);
 		free_handle(stacks);
 	}
 	init_lis(stacks);
@@ -28,14 +30,14 @@ void	sorting_max(t_stacks *stacks)
 	push_back_to_a(stacks);
 }
 
-void	start_sorting(t_stacks *stacks)
+void	start_sorting(t_stacks *stacks, char **argv)
 {
 	if (stacks->lensa == 3)
 		sort_three(stacks);
 	else if (stacks->lensa <= 5)
 		mid_len_sort(stacks, 0);
 	else
-		sorting_max(stacks);
+		sorting_max(stacks, argv);
 }
 
 int	argv_split(t_stacks *stacks, char **argv)
@@ -46,22 +48,22 @@ int	argv_split(t_stacks *stacks, char **argv)
 	if (!argv_split)
 		return (free(stacks), ft_printf("Error\n"), 0);
 	if (check_arg(argv_split))
-		return (free(stacks), ft_printf("Error\n"), 0);
+		return (free(stacks), free_arr(argv_split), ft_printf("Error\n"), 0);
 	stacks = alloc_struct(argv_split, stacks, 0);
 	if (!stacks)
-		return (ft_printf("Error\n"), 0);
+		return (free_arr(argv_split), ft_printf("Error\n"), 0);
 	if (fill_struct(stacks, argv_split, 0) == 1)
 	{
 		ft_printf("Error\n");
-		free_handle(stacks);
+		return (free_arr(argv_split), free_handle(stacks), 0);
 	}
 	if (!check_doubles(stacks->stacka, stacks->lensa))
 	{
 		ft_printf("Error\n");
-		free_handle(stacks);
+		return (free_arr(argv_split), free_handle(stacks), 0);
 	}
 	if (is_not_sorted(stacks))
-		start_sorting(stacks);
+		start_sorting(stacks, argv_split);
 	free_arr(argv_split);
 	free_handle(stacks);
 	return (0);
@@ -85,7 +87,7 @@ int	handle_mult_argv(char **argv, t_stacks *stacks)
 		free_handle(stacks);
 	}
 	if (is_not_sorted(stacks))
-		start_sorting(stacks);
+		start_sorting(stacks, NULL);
 	free_handle(stacks);
 	return (0);
 }

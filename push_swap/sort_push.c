@@ -6,7 +6,7 @@
 /*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 15:32:12 by oltolmac          #+#    #+#             */
-/*   Updated: 2025/01/03 16:18:24 by oltolmac         ###   ########.fr       */
+/*   Updated: 2025/01/04 20:41:49 by oltolmac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ int	bestmove(t_stacks *stacks, int best)
 	while (i < stacks->lensb)
 	{
 		el = stacks->stackb[i];
-		ta = insert_pos(stacks, el); // Find where it fits in stack a
+		ta = insert_pos(stacks, el);
 		cost = calc_cost(i, ta, stacks);
 		if (cost < best_cost)
 		{
@@ -104,9 +104,9 @@ void	push_back_to_a(t_stacks *stacks)
 		best_move = bestmove(stacks, best_move);
 		el = stacks->stackb[best_move];
 		ta = insert_pos(stacks, el);
-		rotat_b(stacks, best_move);// Rotate stack b to bring the el to the top
-		rotat_a(stacks, ta);// Rotate stack a to prepare for insertion
-		pa(stacks);// Push the el to stack a
+		rotat_b(stacks, best_move);
+		rotat_a(stacks, ta);
+		pa(stacks);
 	}
 	min_to_the_top(stacks);
 }
