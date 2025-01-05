@@ -6,7 +6,7 @@
 /*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 07:20:17 by oltolmac          #+#    #+#             */
-/*   Updated: 2025/01/04 20:42:50 by oltolmac         ###   ########.fr       */
+/*   Updated: 2025/01/05 13:48:43 by oltolmac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	sorting_max(t_stacks *stacks, char **argv)
 		free(stacks->lenlis);
 		free(stacks->indxlis);
 		if (argv != NULL)
-			free_arr(argv);
+			f_a(argv);
 		free_handle(stacks);
 	}
 	init_lis(stacks);
@@ -46,25 +46,25 @@ int	argv_split(t_stacks *stacks, char **argv)
 
 	argv_split = ft_split(argv[1], ' ');
 	if (!argv_split)
-		return (free(stacks), ft_printf("Error\n"), 0);
+		return (free(stacks), ft_putendl_fd("Error", 2), 0);
 	if (check_arg(argv_split))
-		return (free(stacks), free_arr(argv_split), ft_printf("Error\n"), 0);
+		return (free(stacks), f_a(argv_split), ft_putendl_fd("Error", 2), 0);
 	stacks = alloc_struct(argv_split, stacks, 0);
 	if (!stacks)
-		return (free_arr(argv_split), ft_printf("Error\n"), 0);
+		return (f_a(argv_split), ft_putendl_fd("Error", 2), 0);
 	if (fill_struct(stacks, argv_split, 0) == 1)
 	{
-		ft_printf("Error\n");
-		return (free_arr(argv_split), free_handle(stacks), 0);
+		ft_putendl_fd("Error", 2);
+		return (f_a(argv_split), free_handle(stacks), 0);
 	}
 	if (!check_doubles(stacks->stacka, stacks->lensa))
 	{
-		ft_printf("Error\n");
-		return (free_arr(argv_split), free_handle(stacks), 0);
+		ft_putendl_fd("Error", 2);
+		return (f_a(argv_split), free_handle(stacks), 0);
 	}
 	if (is_not_sorted(stacks))
 		start_sorting(stacks, argv_split);
-	free_arr(argv_split);
+	f_a(argv_split);
 	free_handle(stacks);
 	return (0);
 }
@@ -72,18 +72,18 @@ int	argv_split(t_stacks *stacks, char **argv)
 int	handle_mult_argv(char **argv, t_stacks *stacks)
 {
 	if (check_arg(argv))
-		return (free(stacks), ft_printf("Error\n"), 0);
+		return (free(stacks), ft_putendl_fd("Error", 2), 0);
 	stacks = alloc_struct(argv, stacks, 1);
 	if (!stacks)
-		return (free(stacks), ft_printf("Error\n"), 0);
+		return (free(stacks), ft_putendl_fd("Error", 2), 0);
 	if (fill_struct(stacks, argv, 1) == 1)
 	{
-		ft_printf("Error\n");
+		ft_putendl_fd("Error", 2);
 		free_handle(stacks);
 	}
 	if (!check_doubles(stacks->stacka, stacks->lensa))
 	{
-		ft_printf("Error\n");
+		ft_putendl_fd("Error", 2);
 		free_handle(stacks);
 	}
 	if (is_not_sorted(stacks))

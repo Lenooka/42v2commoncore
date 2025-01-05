@@ -6,7 +6,7 @@
 /*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 07:23:24 by oltolmac          #+#    #+#             */
-/*   Updated: 2025/01/03 16:00:04 by oltolmac         ###   ########.fr       */
+/*   Updated: 2025/01/05 13:46:53 by oltolmac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	free_handle(t_stacks *s)
 	exit(1);
 }
 
-void	free_arr(char **str)
+void	f_a(char **str)
 {
 	int	a;
 

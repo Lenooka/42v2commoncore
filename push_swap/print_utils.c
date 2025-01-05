@@ -6,7 +6,7 @@
 /*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 07:39:07 by oltolmac          #+#    #+#             */
-/*   Updated: 2025/01/03 15:35:40 by oltolmac         ###   ########.fr       */
+/*   Updated: 2025/01/05 15:26:59 by oltolmac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void	print_stacks_arg(long *stacks)
 	int i = 0;
 	int len = stack_len(stacks);
 
+	len = 10;
 	printf("=|=|=|=|=|=|=|=|=|=|=|=|=|=|=\n");
 	while (i < len)
 	{

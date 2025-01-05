@@ -6,7 +6,7 @@
 /*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 14:00:39 by oltolmac          #+#    #+#             */
-/*   Updated: 2025/01/04 20:26:09 by oltolmac         ###   ########.fr       */
+/*   Updated: 2025/01/05 13:47:08 by oltolmac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void		rr(t_stacks *stacks);
 void		pa(t_stacks *stacks);
 void		pb(t_stacks *stacks);
 void		free_handle(t_stacks *stacks);
-void		free_arr(char **str);
+void		f_a(char **str);
 long		ft_strtol(const char *str, char **endptr, int minus);
 int			fill_struct(t_stacks *stacks, char **argv, int i);
 t_stacks	*alloc_struct(char **argv, t_stacks *stacks, int elem_am);
