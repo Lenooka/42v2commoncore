@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: olena <olena@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 07:24:16 by oltolmac          #+#    #+#             */
-/*   Updated: 2025/01/03 16:01:06 by oltolmac         ###   ########.fr       */
+/*   Updated: 2025/01/07 21:21:33 by olena            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,17 +15,17 @@
 int	findmaxndex_arg(long *stack, int len)
 {
 	int	i;
-	int	max_indx;
+	int	max;
 
 	i = 0;
-	max_indx = 0;
-	while (i < len)
+	max = stack[0];
+	while (i <= len)
 	{
-		if (stack[max_indx] < stack[i])
-			max_indx = stack[i];
+		if (max < stack[i])
+			max = stack[i];
 		i++;
 	}
-	return (max_indx);
+	return (max);
 }
 
 void	findmaxndex(t_stacks *stacks)

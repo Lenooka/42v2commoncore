@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sort_lis.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: olena <olena@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 07:30:04 by oltolmac          #+#    #+#             */
-/*   Updated: 2025/01/05 15:29:41 by oltolmac         ###   ########.fr       */
+/*   Updated: 2025/01/07 21:25:21 by olena            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,13 +83,7 @@ void	init_lis(t_stacks *stacks)
 	int	len;
 
 	len = stacks->lensa - 1;
-	max = findmaxndex_arg(stacks->lenlis, stacks->lensa);
-	i = -1;
-	while (++i < len)
-	{
-		if (stacks->lenlis[i] > max)
-			max = stacks->lenlis[i];
-	}
+	max = findmaxndex_arg(stacks->lenlis, len);
 	while (len >= 0)
 	{
 		if (stacks->lenlis[len] == max)
