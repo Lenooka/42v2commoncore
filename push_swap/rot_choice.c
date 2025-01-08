@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rot_choice.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: olena <olena@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 15:34:26 by oltolmac          #+#    #+#             */
-/*   Updated: 2025/01/04 20:50:32 by oltolmac         ###   ########.fr       */
+/*   Updated: 2025/01/08 13:59:58 by olena            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,26 @@ void	rotat_b(t_stacks *stacks, int best)
 		{
 			rrb(stacks, 0);
 			best++;
+		}
+	}
+}
+
+void	rot_both(t_stacks *stacks, int best_move)
+{
+	if (best_move <= stacks->lensb / 2)
+	{
+		while (best_move > 0)
+		{
+			rr(stacks);
+			best_move--;
+		}
+	}
+	else
+	{
+		while (best_move < stacks->lensb)
+		{
+			rrr(stacks);
+			best_move++;
 		}
 	}
 }

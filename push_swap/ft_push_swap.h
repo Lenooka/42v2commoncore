@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_push_swap.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: olena <olena@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 14:00:39 by oltolmac          #+#    #+#             */
-/*   Updated: 2025/01/05 13:47:08 by oltolmac         ###   ########.fr       */
+/*   Updated: 2025/01/08 13:51:59 by olena            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,7 @@ typedef struct s_stacks
 	int				max_indx;
 	int				min_indxb;
 	int				max_indxb;
-	long			*rot_a;
-	long			*rot_b;
+	int				max_lis;
 }	t_stacks;
 
 void		sa(t_stacks *stacks, int op);
@@ -78,6 +77,7 @@ void		findmaxndex(t_stacks *stacks);
 void		lisr(long *s, int len);
 void		rotat_a(t_stacks *stacks, int ta);
 void		rotat_b(t_stacks *stacks, int best);
+void		rot_both(t_stacks *stacks, int best_move);
 void		push_notsubseq(t_stacks *stacks);
 void		push_back_to_a(t_stacks *stacks);
 int			bestmove(t_stacks *stacks, int best);

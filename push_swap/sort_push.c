@@ -6,7 +6,7 @@
 /*   By: olena <olena@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 15:32:12 by oltolmac          #+#    #+#             */
-/*   Updated: 2025/01/07 21:37:18 by olena            ###   ########.fr       */
+/*   Updated: 2025/01/08 14:00:48 by olena            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,6 @@ int	bestmove(t_stacks *stacks, int best)
 	int	i;
 	int	best_cost;
 	int	cost;
-	int	el;
 	int	ta;	
 
 	best = 0;
@@ -80,8 +79,7 @@ int	bestmove(t_stacks *stacks, int best)
 	best_cost = MAX;
 	while (i < stacks->lensb)
 	{
-		el = stacks->stackb[i];
-		ta = insert_pos(stacks, el);
+		ta = insert_pos(stacks, stacks->stackb[i]);
 		cost = calc_cost(i, ta, stacks);
 		if (cost < best_cost)
 		{
@@ -96,16 +94,19 @@ int	bestmove(t_stacks *stacks, int best)
 void	push_back_to_a(t_stacks *stacks)
 {
 	int	best_move;
-	int	el;
 	int	ta;
 
 	while (stacks->lensb > 0)
 	{
 		best_move = bestmove(stacks, best_move);
-		el = stacks->stackb[best_move];
-		ta = insert_pos(stacks, el);
-		rotat_b(stacks, best_move);
-		rotat_a(stacks, ta);
+		ta = insert_pos(stacks, stacks->stackb[best_move]);
+		if (best_move == ta)
+			rot_both(stacks, best_move);
+		else
+		{
+			rotat_b(stacks, best_move);
+			rotat_a(stacks, ta);
+		}
 		pa(stacks);
 	}
 	min_to_the_top(stacks);
