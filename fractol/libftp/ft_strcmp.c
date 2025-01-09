@@ -1,16 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fractol.h                                          :+:      :+:    :+:   */
+/*   ft_strcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/18 06:40:01 by oltolmac          #+#    #+#             */
-/*   Updated: 2024/12/18 06:40:39 by oltolmac         ###   ########.fr       */
+/*   Created: 2025/01/09 20:33:09 by oltolmac          #+#    #+#             */
+/*   Updated: 2025/01/09 20:33:27 by oltolmac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_FRACTOL_H
-#define FT_FRACTOL_H
+#include "libft.h"
 
-#endif
+int	ft_strcmp(char *s1, char *s2)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	j = 0;
+	while (s1[i] != '\0' && s2[j] != '\0' && s1[i] == s2[j])
+	{
+		i++;
+		j++;
+	}
+	return (s1[i] - s2[j]);
+}
