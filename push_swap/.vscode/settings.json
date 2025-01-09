@@ -8,6 +8,7 @@
 		"tuple": "c",
 		"type_traits": "c",
 		"utility": "c",
-		"ft_push_swap.h": "c"
+		"ft_push_swap.h": "c",
+		"limits.h": "c"
 	}
 }
