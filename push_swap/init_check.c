@@ -6,7 +6,7 @@
 /*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 07:21:42 by oltolmac          #+#    #+#             */
-/*   Updated: 2025/01/03 15:59:31 by oltolmac         ###   ########.fr       */
+/*   Updated: 2025/01/09 17:17:11 by oltolmac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,12 +75,14 @@ t_stacks	*alloc_struct(char **argv, t_stacks *stacks, int elem_am)
 	stacks->stacka = (long *)malloc(sizeof(long) * elem_am + 1);
 	if (!stacks->stacka)
 	{
+		f_a(stacks->arg_s);
 		free(stacks);
 		return (NULL);
 	}
 	stacks->stackb = (long *)malloc(sizeof(long) * elem_am + 1);
 	if (!stacks->stackb)
 	{
+		f_a(stacks->arg_s);
 		free(stacks->stacka);
 		free(stacks);
 		return (NULL);
@@ -109,12 +111,10 @@ int	check_doubles(long *stack, int len)
 	return (1);
 }
 
-int	check_arg(char **argv)
+int	check_arg(char **argv, int i)
 {
-	int	i;
 	int	x;
 
-	i = 1;
 	while (argv[i])
 	{
 		x = 0;

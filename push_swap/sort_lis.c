@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sort_lis.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: olena <olena@student.42.fr>                +#+  +:+       +#+        */
+/*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 07:30:04 by oltolmac          #+#    #+#             */
-/*   Updated: 2025/01/08 14:19:02 by olena            ###   ########.fr       */
+/*   Updated: 2025/01/09 15:18:28 by oltolmac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,13 +111,13 @@ void	push_notsubseq(t_stacks *stacks)
 	int	len;
 
 	i = stacks->lensa;
-	len = stacks->lis_len;
+	len = stacks->max_lis;
 	j = 0;
 	while (i)
 	{
 		if (j <= len - 1)
 		{
-			if (stacks->stacka[0] == stacks->lis[0])
+			if (stacks->lis[0] == stacks->stacka[0])
 			{
 				ra(stacks, 0);
 				lisr(stacks->lis, stacks->lensa);

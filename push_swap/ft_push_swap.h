@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_push_swap.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: olena <olena@student.42.fr>                +#+  +:+       +#+        */
+/*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 14:00:39 by oltolmac          #+#    #+#             */
-/*   Updated: 2025/01/08 13:51:59 by olena            ###   ########.fr       */
+/*   Updated: 2025/01/09 17:11:05 by oltolmac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ typedef struct s_stacks
 	int				min_indxb;
 	int				max_indxb;
 	int				max_lis;
+	char			**arg_s;
 }	t_stacks;
 
 void		sa(t_stacks *stacks, int op);
@@ -55,14 +56,13 @@ long		ft_strtol(const char *str, char **endptr, int minus);
 int			fill_struct(t_stacks *stacks, char **argv, int i);
 t_stacks	*alloc_struct(char **argv, t_stacks *stacks, int elem_am);
 int			check_doubles(long *stack, int len);
-int			check_arg(char **argv);
-void		start_sorting(t_stacks *stacks, char **argv);
+int			check_arg(char **argv, int i);
+void		start_sorting(t_stacks *stacks);
 int			argv_split(t_stacks *stacks, char **argv);
 int			handle_mult_argv(char **argv, t_stacks *stacks);
-void		start_sorting(t_stacks *stacks, char **argv);
-void		sorting_max(t_stacks *stacks, char **argv);
+void		start_sorting(t_stacks *stacks);
+void		sorting_max(t_stacks *stacks);
 void		init_lis(t_stacks *stacks);
-void		initlistwo(t_stacks *stacks, int max, int i);
 void		init_lislen_indxlis(t_stacks *stacks);
 void		calc_lislen_indxlis(t_stacks *stacks);
 void		min_to_the_top(t_stacks *stacks);
