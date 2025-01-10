@@ -6,7 +6,7 @@
 /*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 06:39:48 by oltolmac          #+#    #+#             */
-/*   Updated: 2025/01/09 21:11:40 by oltolmac         ###   ########.fr       */
+/*   Updated: 2025/01/10 17:55:14 by oltolmac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,10 @@ void	check_and_start_julia(char **argv)
 }
 void	check_and_start_mandelbrot(char **argv)
 {
-	int len;
+	int		len;
+	void	*mlx;
+	void	*w;
+	void	*img;
 
 	len = ft_strlen(argv[1]);
 	if (ft_strncmp("julia", argv[1], len) == 0 
@@ -76,6 +79,10 @@ void	check_and_start_mandelbrot(char **argv)
 		exit(1);
 	}
 	printf("Mandel %s\n", argv[1]);
+	mlx = mlx_init();	
+	w = mlx_new_window(mlx, 1920, 939, "fractol");
+	img = mlx_new_image(mlx, 1920, 939);
+	mlx_loop(mlx);
 }
 
 int main(int argc, char **argv)
@@ -86,7 +93,7 @@ int main(int argc, char **argv)
 			return(print_mess(), 1);
 		if (argc == 4)
 			check_and_start_julia(argv);
-		if (argc == 2 && argv[1])
+		if (argc == 2 && argv[1])  // maybe I can make it colorfull or black and white???
 			check_and_start_mandelbrot(argv);
 	}
 	return (0);
