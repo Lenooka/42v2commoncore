@@ -11,13 +11,13 @@ LFLAGS = -Llibftp/ -lft
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	make -C $(LIBFT_PATH)
-	$(CC) $(CFLAGS) $(MLX_FLAGS) $(LFLAGS) -o fractol $(OBJS) $(LIBFT_LIB)
+	make -C $(LIBFT_PATH) > /dev/null 2>&1
+	@$(CC) $(CFLAGS) $(MLX_FLAGS) $(LFLAGS) -o fractol $(OBJS) $(LIBFT_LIB)
 
 clean:
 	rm -rf $(OBJS)
-	make clean -C $(LIBFT_PATH)
-	make fclean -C $(LIBFT_PATH)
+	make clean -C $(LIBFT_PATH) > /dev/null 2>&1
+	make fclean -C $(LIBFT_PATH) > /dev/null 2>&1
 
 fclean: clean
 	rm -rf fractol
