@@ -6,7 +6,7 @@
 /*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 07:20:17 by oltolmac          #+#    #+#             */
-/*   Updated: 2025/01/09 17:29:50 by oltolmac         ###   ########.fr       */
+/*   Updated: 2025/01/11 16:01:12 by oltolmac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int	argv_split(t_stacks *stacks, char **argv)
 	if (!stacks->arg_s)
 		return (free(stacks), ft_putendl_fd("Error", 2), 0);
 	if (check_arg(stacks->arg_s, 0))
-		return (free(stacks), f_a(stacks->arg_s), ft_putendl_fd("Error", 2), 0);
+		return (f_a(stacks->arg_s), free(stacks), ft_putendl_fd("Error", 2), 0);
 	stacks = alloc_struct(stacks->arg_s, stacks, 0);
 	if (!stacks)
 		return (ft_putendl_fd("Error", 2), 0);
