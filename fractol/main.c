@@ -6,7 +6,7 @@
 /*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 06:39:48 by oltolmac          #+#    #+#             */
-/*   Updated: 2025/01/19 20:24:15 by oltolmac         ###   ########.fr       */
+/*   Updated: 2025/01/19 21:10:56 by oltolmac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,9 +107,10 @@ void	calc_and_render_m(t_frac *frac)
 	while (x < 1920)
 	{
 		i = 0;
-		while (i < 100)
+		s = 0;
+		while (i < 1000)
 		{
-			if (i < 900)
+			if (i < 400)
 			{
 				color = 0x00101891;
 				c = mlx_get_data_addr(frac->img, &frac->bits_per_pixel, &frac->size_line, &frac->endian);
@@ -121,7 +122,6 @@ void	calc_and_render_m(t_frac *frac)
 				c = mlx_get_data_addr(frac->img, &frac->bits_per_pixel, &frac->size_line, &frac->endian);
 				*(unsigned int *)c = color;
 			}
-			
 			mlx_put_image_to_window(frac->mlx, frac->w, frac->img, s, x);
 			i++;
 			s++;
