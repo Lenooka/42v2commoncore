@@ -6,7 +6,7 @@
 /*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 07:24:16 by oltolmac          #+#    #+#             */
-/*   Updated: 2025/01/03 16:00:34 by oltolmac         ###   ########.fr       */
+/*   Updated: 2025/01/14 11:22:42 by oltolmac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,9 @@ int	is_not_sorted(t_stacks *stacks)
 		while (j < stacks->lensa)
 		{
 			if (stacks->stacka[i] > stacks->stacka[j] && i < j)
+			{
 				return (1);
+			}
 			j++;
 		}
 		j = 0;

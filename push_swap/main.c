@@ -6,7 +6,7 @@
 /*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 07:20:17 by oltolmac          #+#    #+#             */
-/*   Updated: 2025/01/11 16:01:12 by oltolmac         ###   ########.fr       */
+/*   Updated: 2025/01/14 11:22:19 by oltolmac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void	start_sorting(t_stacks *stacks)
 		mid_len_sort(stacks, 0);
 	else
 		sorting_max(stacks);
+	//print_stacks(stacks);
 }
 
 int	argv_split(t_stacks *stacks, char **argv)

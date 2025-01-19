@@ -6,26 +6,11 @@
 /*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 06:39:48 by oltolmac          #+#    #+#             */
-/*   Updated: 2025/01/10 17:55:14 by oltolmac         ###   ########.fr       */
+/*   Updated: 2025/01/19 20:24:15 by oltolmac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_fractol.h"
-
-int	ft_strcmp(char *s1, char *s2)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	j = 0;
-	while (s1[i] == '\0' && s2[j] == '\0' && s1[i] == s2[j])
-	{
-		i++;
-		j++;
-	}
-	return (s1[i] - s2[j]);
-}
 
 void	print_mess()
 {
@@ -60,16 +45,95 @@ int	not_correct_name(char *s)
 	return (1);
 }
 
-void	check_and_start_julia(char **argv)
+
+int	get_r(int trgb)
 {
-	printf("%s\n%s\n%s\n", argv[1], argv[2], argv[3]);
+	return ((trgb >> 16) & 0xFF);
 }
+
+
+int	create_trgb(int t, int r, int g, int b)
+{
+	return (t << 24 | r << 16 | g << 8 | b);
+}
+int	window_start(t_frac *frac)
+{
+	frac->mlx = mlx_init();
+	if (!frac->mlx)
+		return (0);	
+	frac->w = mlx_new_window(frac->mlx, 1920, 939, "fractol");
+	if (!frac->w)
+	{
+		mlx_destroy_display(frac->mlx);
+		return (0);	
+	}
+	return (1);
+}
+
+t_frac	*init_struct()
+{
+	t_frac *frac;
+
+	frac = (t_frac *)malloc(sizeof(t_frac));
+	if (!frac)
+	{	
+		ft_printerr("%sError!\nMalloc fail! in inut_struct!", KMAG);
+		exit(1);
+	}
+	if (!window_start(frac))
+	{
+		ft_printerr("%sError!\nMlx function fail!\n", KMAG);
+		exit(1);
+	}
+	return (frac);
+}
+
+void	calc_and_render_m(t_frac *frac)
+{
+	int	w;
+	int h;
+	char *c;
+	int color;
+	
+	w = 60;
+	h = 60;
+	color = 0x00FF0000;
+	frac->img = mlx_new_image(frac->mlx, w, h);
+	c = mlx_get_data_addr(frac->img, &frac->bits_per_pixel, &frac->size_line, &frac->endian);
+	*(unsigned int *)c = color;
+	int s = 0;
+	int i = 0;
+	int x = 0;
+	while (x < 1920)
+	{
+		i = 0;
+		while (i < 100)
+		{
+			if (i < 900)
+			{
+				color = 0x00101891;
+				c = mlx_get_data_addr(frac->img, &frac->bits_per_pixel, &frac->size_line, &frac->endian);
+				*(unsigned int *)c = color;
+			}
+			else
+			{
+				color = 0x00ffbf50;
+				c = mlx_get_data_addr(frac->img, &frac->bits_per_pixel, &frac->size_line, &frac->endian);
+				*(unsigned int *)c = color;
+			}
+			
+			mlx_put_image_to_window(frac->mlx, frac->w, frac->img, s, x);
+			i++;
+			s++;
+		}
+		x++;
+	}
+}
+
 void	check_and_start_mandelbrot(char **argv)
 {
 	int		len;
-	void	*mlx;
-	void	*w;
-	void	*img;
+	t_frac	*frac;
 
 	len = ft_strlen(argv[1]);
 	if (ft_strncmp("julia", argv[1], len) == 0 
@@ -78,15 +142,29 @@ void	check_and_start_mandelbrot(char **argv)
 		print_mess();
 		exit(1);
 	}
-	printf("Mandel %s\n", argv[1]);
-	mlx = mlx_init();	
-	w = mlx_new_window(mlx, 1920, 939, "fractol");
-	img = mlx_new_image(mlx, 1920, 939);
-	mlx_loop(mlx);
+	frac = init_struct();
+	calc_and_render_m(frac);
+	mlx_loop(frac->mlx);
+}
+void	check_convert_float(char **a)
+{
+	(void)a;
+	printf("%sHadling float is in progress%s\n", KMAG, KNRM);
 }
 
+void	check_and_start_julia(char **argv)
+{
+	t_frac	*frac;
+	
+	check_convert_float(argv);
+	frac = init_struct();
+	//calc_and_render_j(frac);
+	mlx_loop(frac->mlx);
+}
 int main(int argc, char **argv)
 {
+	if (argc == 1)
+		return(print_mess(), 1);
 	if (argc <= 4 && argc > 1)
 	{
 		if (not_correct_name(argv[1]) || ft_strlen(argv[1]) == 0)

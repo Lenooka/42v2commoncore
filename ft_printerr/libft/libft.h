@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: olena <olena@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 23:28:30 by olena             #+#    #+#             */
-/*   Updated: 2025/01/09 20:33:49 by oltolmac         ###   ########.fr       */
+/*   Updated: 2024/09/16 21:01:44 by olena            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,6 @@
 # include <unistd.h>
 # include <stdio.h>
 # include <string.h>
-# include <stdarg.h>
-# include <stdint.h>
 
 typedef struct s_list
 {
@@ -50,7 +48,6 @@ char	*ft_strrchr(const char *s, int c);
 char	*ft_strnstr(const char *haystack, const char *needle, size_t len);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
 char	*ft_strchr(const char *s, int c);
-int		ft_strcmp(char *s1, char *s2);
 //PART 2
 char	*ft_strjoin(char const *s1, char const *s2);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
@@ -73,16 +70,5 @@ void	ft_lstdelone(t_list *lst, void (*del)(void *));
 void	ft_lstclear(t_list **lst, void (*del)(void *));
 void	ft_lstiter(t_list *lst, void (*f)(void *));
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
-//PRINTF
-
-int		ft_printf(const char *form, ...);
-int		ft_printf_unsigned(unsigned int n);
-int		ft_printf_hex(unsigned int n, int x);
-int		ft_printf_nbr(int d);
-int		ft_printf_unsigned(unsigned int n);
-int		ft_printf_percent(void);
-int		ft_printf_str(char *s);
-int		ft_printf_char(int c);
-int		ft_printf_pointer(unsigned long long ptr);
 
 #endif
