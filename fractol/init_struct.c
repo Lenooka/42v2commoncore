@@ -1,33 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   init_struct.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/18 06:39:48 by oltolmac          #+#    #+#             */
-/*   Updated: 2025/01/21 18:41:44 by oltolmac         ###   ########.fr       */
+/*   Created: 2025/01/21 14:08:12 by oltolmac          #+#    #+#             */
+/*   Updated: 2025/01/21 19:40:14 by oltolmac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_fractol.h"
 
-int main(int argc, char **argv)
+int	window_start(t_frac *frac)
+{
+	frac->mlx = mlx_init();
+	if (!frac->mlx)
+		return (0);	
+	return (1);
+}
+
+t_frac	*init_struct()
 {
 	t_frac *frac;
 
-	if (argc == 1)
-		return(print_mess(), 1);
-	frac = init_struct();
-	if (argc <= 4 && argc > 1)
-	{
-		if (not_correct_name(argv[1]) || ft_strlen(argv[1]) == 0)
-			return(print_mess(), 1);
-		if (argc == 4)
-			check_and_start_julia(argv);
-		if (argc == 2 && argv[1])  // maybe I can make it colorfull or black and white???
-			check_and_start_mandelbrot(argv);
+	frac = (t_frac *)malloc(sizeof(t_frac));
+	if (!frac)
+	{	
+		ft_printerr("%sError!\nMalloc fail! in inut_struct!", KMAG);
+		exit(1);
 	}
-	return (0);
-	
+	if (!window_start(frac))
+	{
+		free(frac);
+		ft_printerr("%sError!\nMlx function fail!\n", KMAG);
+		exit(1);
+	}
+	return (frac);
 }
