@@ -6,7 +6,7 @@
 /*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 06:40:01 by oltolmac          #+#    #+#             */
-/*   Updated: 2025/01/21 18:42:59 by oltolmac         ###   ########.fr       */
+/*   Updated: 2025/01/22 13:36:11 by oltolmac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <X11/X.h>
 # include <X11/keysym.h>
 # include <errno.h>
+#include <math.h>
 # include <unistd.h>
 
 # define KNRM  "\x1B[0m"

@@ -6,7 +6,7 @@
 /*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 14:05:53 by oltolmac          #+#    #+#             */
-/*   Updated: 2025/01/21 19:48:13 by oltolmac         ###   ########.fr       */
+/*   Updated: 2025/01/22 16:45:49 by oltolmac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,20 @@
 	// c = mlx_get_data_addr(frac->img, &frac->bits_per_pixel, &frac->size_line, &frac->endian);
 	// *(unsigned int *)c = color;
 
-int get_color(int iter) 
+int	get_color(int iter)
 {
-    if (iter == 100)
-        return 0x000000;
-    int r = (iter * 9) % 256;
-    int g = (iter * 7) % 256;
-    int b = (iter * 3) % 256;
-    return (r << 16) | (g << 8) | b;
+	int	r;
+	int	g;
+	int	b;
+
+	if (iter == 100)
+		return (0x000000);
+	r = (int)(127.5 * (1 + cos(iter * 0.1))); // Smooth oscillation for red
+	g = (int)(100.5 * (1 + sin(iter * 0.1))); // Smooth oscillation for green
+	b = (int)(127.5 * (1 + cos(iter * 0.1 + 3.1415 / 2))); // Offset for blue
+	return ((r << 16) | (g << 8) | b);
 }
+
 
 // void	calc_and_render_m(t_frac *frac)
 // {
@@ -117,7 +122,7 @@ int	calc_real_img(double cx, double cy)
   	cx real number
   */
 
-void my_mlx_pixel_put(t_frac *data, int x, int y, int color) 
+void update_adr(t_frac *data, int x, int y, int color) 
 {
     char *dst;
 
@@ -145,7 +150,7 @@ void	render_mandel(t_frac *fr)
 			cy = fr->top - fr->y * fr->y_scale;
 			i = calc_real_img(cx, cy);
 			color = get_color(i); 
-			my_mlx_pixel_put(fr, fr->x, fr->y, color);
+			update_adr(fr, fr->x, fr->y, color);
 			fr->x++;
 		}
 		fr->y++;
@@ -164,10 +169,28 @@ void	calc_and_render_m(t_frac *frac)
 	render_mandel(frac);
 }
 
-void	check_and_start_mandelbrot(char **argv)
+int	esc_exit(int key, t_frac *frac)
+{
+	(void)frac;
+	if (key == XK_Escape)
+	{
+		//free
+		exit(0);
+	}
+	return (0);
+}
+
+int	cross_exit(t_frac *frac)
+{
+	//free
+	(void)frac;
+	exit(1);
+	return (0);
+}
+
+void	check_argument(char **argv)
 {
 	int		len;
-	t_frac	*frac;
 
 	len = ft_strlen(argv[1]);
 	if (ft_strncmp("julia", argv[1], len) == 0 
@@ -176,6 +199,13 @@ void	check_and_start_mandelbrot(char **argv)
 		print_mess();
 		exit(1);
 	}
+}
+
+void	check_and_start_mandelbrot(char **argv)
+{
+	t_frac	*frac;
+
+	check_argument(argv);
 	frac = init_struct();
 	frac->w = mlx_new_window(frac->mlx, WIDTH, HEIGHT, "fractol");
 	if (!frac->w)
@@ -187,5 +217,8 @@ void	check_and_start_mandelbrot(char **argv)
 	frac->addrs = mlx_get_data_addr(frac->img, &frac->bits_per_pixel, &frac->size_line, &frac->endian);
 	calc_and_render_m(frac);
 	mlx_put_image_to_window(frac->mlx, frac->w, frac->img, 0, 0);
+	mlx_hook(frac->w, 17, 0, cross_exit, frac);
+	mlx_hook(frac->w, 0, (1L << 0), esc_exit, frac);
 	mlx_loop(frac->mlx);
+	mlx_do_sync(frac->mlx);
 }

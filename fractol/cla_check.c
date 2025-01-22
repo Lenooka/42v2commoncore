@@ -6,11 +6,12 @@
 /*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 14:02:45 by oltolmac          #+#    #+#             */
-/*   Updated: 2025/01/21 14:03:27 by oltolmac         ###   ########.fr       */
+/*   Updated: 2025/01/22 16:38:00 by oltolmac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_fractol.h"
+
 
 void	print_mess()
 {
@@ -32,13 +33,11 @@ void	print_mess()
 
 int	not_correct_name(char *s)
 {
-	int len;
 
-	len = ft_strlen(s);
-	if (ft_strncmp("julia", s, len) == 0 
-		|| ft_strncmp("Julia", s, len) == 0
-		|| ft_strncmp("mandelbrot", s, len) == 0 
-		|| ft_strncmp("Mandelbrot", s, len) == 0)
+	if (ft_strcmp("julia", s) == 0 
+		|| ft_strcmp("Julia", s) == 0
+		|| ft_strcmp("mandelbrot", s) == 0 
+		|| ft_strcmp("Mandelbrot", s) == 0)
 	{
 		return (0);
 	}
