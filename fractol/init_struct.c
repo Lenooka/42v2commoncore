@@ -6,7 +6,7 @@
 /*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 14:08:12 by oltolmac          #+#    #+#             */
-/*   Updated: 2025/01/21 19:40:14 by oltolmac         ###   ########.fr       */
+/*   Updated: 2025/01/26 17:12:39 by oltolmac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,9 @@ int	window_start(t_frac *frac)
 {
 	frac->mlx = mlx_init();
 	if (!frac->mlx)
+	{
 		return (0);	
+	}
 	return (1);
 }
 
@@ -28,12 +30,6 @@ t_frac	*init_struct()
 	if (!frac)
 	{	
 		ft_printerr("%sError!\nMalloc fail! in inut_struct!", KMAG);
-		exit(1);
-	}
-	if (!window_start(frac))
-	{
-		free(frac);
-		ft_printerr("%sError!\nMlx function fail!\n", KMAG);
 		exit(1);
 	}
 	return (frac);
