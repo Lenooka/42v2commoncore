@@ -1,10 +1,10 @@
 NAME = fractol
 CC = cc
-SRCS = main.c cla_check.c mandelbrot_start.c init_struct.c start_julia.c
+SRCS = main.c atoi_float.c exit_clear.c zoom_handle.c color_utils.c cla_check.c mandelbrot_start.c  start_julia.c
 CFLAGS = -Werror -Wall -Wextra -g 
 RM = rm -rf
 OBJ_DIR = obj
-OBJS = $(OBJ_DIR)/main.o $(OBJ_DIR)/cla_check.o $(OBJ_DIR)/mandelbrot_start.o $(OBJ_DIR)/init_struct.o $(OBJ_DIR)/start_julia.o
+OBJS = $(OBJ_DIR)/main.o $(OBJ_DIR)/cla_check.o $(OBJ_DIR)/mandelbrot_start.o $(OBJ_DIR)/start_julia.o $(OBJ_DIR)/atoi_float.o $(OBJ_DIR)/exit_clear.o $(OBJ_DIR)/zoom_handle.o $(OBJ_DIR)/color_utils.o
 MLX_FLAGS = -lmlx -lX11 -lXext -lm
 LIBFT_PATH = libftper/
 LIBFT_LIB = $(LIBFT_PATH)libft.a
