@@ -6,7 +6,7 @@
 /*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 17:25:53 by oltolmac          #+#    #+#             */
-/*   Updated: 2025/01/27 16:48:03 by oltolmac         ###   ########.fr       */
+/*   Updated: 2025/01/27 17:10:42 by oltolmac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void	init_j_constants(char **argv, t_frac *frac)
 {
 	frac->cxj = ft_atoif(argv[2]);
 	if (!(argv[2][0] == '0' && argv[2][1] == '\0'))
-	{
+	{	
 		if (frac->cxj == 0)
 		{
 			free(frac);
@@ -79,4 +79,6 @@ void	init_j_constants(char **argv, t_frac *frac)
 			exit(1);
 		}
 	}
+	free(frac);
+	exit(1);
 }
