@@ -6,7 +6,7 @@
 /*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 14:09:59 by oltolmac          #+#    #+#             */
-/*   Updated: 2025/01/27 15:59:20 by oltolmac         ###   ########.fr       */
+/*   Updated: 2025/01/27 16:52:32 by oltolmac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ void	calc_and_render_julia(t_frac *frac, double cx, double cy)
 
 void	check_and_start_julia(char **argv, t_frac *frac)
 {
+	check_argument_j(argv, frac);
 	init_j_constants(argv, frac);
 	frac->mlx = mlx_init();
 	if (!frac->mlx)

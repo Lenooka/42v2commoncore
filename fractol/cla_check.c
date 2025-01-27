@@ -6,11 +6,25 @@
 /*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 14:02:45 by oltolmac          #+#    #+#             */
-/*   Updated: 2025/01/27 15:50:17 by oltolmac         ###   ########.fr       */
+/*   Updated: 2025/01/27 16:51:53 by oltolmac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_fractol.h"
+
+void	check_argument_j(char **argv, t_frac *frac)
+{
+	int		len;
+
+	len = ft_strlen(argv[1]);
+	if (ft_strncmp("mandelbrot", argv[1], len) == 0
+		|| ft_strncmp("Mandelbrot", argv[1], len) == 0)
+	{
+		free(frac);
+		print_mess();
+		exit(1);
+	}
+}
 
 void	check_argument(char **argv, t_frac *frac)
 {

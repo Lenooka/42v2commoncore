@@ -6,7 +6,7 @@
 /*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 17:25:53 by oltolmac          #+#    #+#             */
-/*   Updated: 2025/01/27 16:01:44 by oltolmac         ###   ########.fr       */
+/*   Updated: 2025/01/27 16:48:03 by oltolmac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ double	after_dot(int i, char *nptr)
 
 	d = 1;
 	aft = 0.0;
-	while (nptr[i])
+	while (nptr[i] && nptr[i] >= '0' && nptr[i] <= '9')
 	{
 		d /= 10;
 		aft = aft + (nptr[i] - '0') * d;
@@ -27,12 +27,11 @@ double	after_dot(int i, char *nptr)
 	}
 	return (aft);
 }
-
 double	ft_atoif(char *nptr)
 {
 	int		sign;
 	int		res;
-	int		i;
+	int 	i;
 	double	aft;
 
 	i = 0;
@@ -57,9 +56,27 @@ double	ft_atoif(char *nptr)
 	return ((res + aft) * sign);
 }
 
+
 void	init_j_constants(char **argv, t_frac *frac)
 {
-	(void)argv;
 	frac->cxj = ft_atoif(argv[2]);
+	if (!(argv[2][0] == '0' && argv[2][1] == '\0'))
+	{
+		if (frac->cxj == 0)
+		{
+			free(frac);
+			print_mess();
+			exit(1);
+		}
+	}
 	frac->cyj = ft_atoif(argv[3]);
+	if (!(argv[3][0] == '0' && argv[3][1] == '\0'))
+	{
+		if (frac->cxj == 0)
+		{
+			free(frac);
+			print_mess();
+			exit(1);
+		}
+	}
 }

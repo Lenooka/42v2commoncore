@@ -6,7 +6,7 @@
 /*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 06:40:01 by oltolmac          #+#    #+#             */
-/*   Updated: 2025/01/27 15:58:09 by oltolmac         ###   ########.fr       */
+/*   Updated: 2025/01/27 16:51:25 by oltolmac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,5 +85,6 @@ void	check_and_start_julia(char **argv, t_frac *frac);
 void	ren_ch(t_frac *frac);
 void	update_borders(t_frac *frac, double zoom, int x, int y);
 int		mouse_zoom(int button, int x, int y, t_frac *frac);
+void	check_argument_j(char **argv, t_frac *frac);
 
 #endif
