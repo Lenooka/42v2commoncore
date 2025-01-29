@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   atoi_float.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: olena <olena@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 17:25:53 by oltolmac          #+#    #+#             */
-/*   Updated: 2025/01/29 18:45:40 by oltolmac         ###   ########.fr       */
+/*   Updated: 2025/01/29 20:59:12 by olena            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,39 @@ double	ft_atoif(char *nptr)
 	return ((res + aft) * sign);
 }
 
+void	valid_and_len(t_frac *frac, char *s)
+{
+	int	i;
+	int	l;
+
+	i = 0;
+	l = ft_slen(s);
+	if (l > 7 || (l > 6 && s[0] != '-') || l == 1 && (!ft_isdigit(s[0])))
+	{
+		free(frac);
+		print_mess();
+		exit(1);
+	}
+	if (s[i] == '+' || s[i] == '-')
+		i++;
+	while (ft_isdigit(s[i]))
+		i++;
+	if (s[i] == '.')
+		i++;
+	while (ft_isdigit(s[i]))
+		i++;
+	if (i != l)
+	{
+		free(frac);
+		print_mess();
+		exit(1);
+	}
+}
+
 void	init_j_constants(char **argv, t_frac *frac)
 {
+	valid_and_len(frac, argv[2]);
+	valid_and_len(frac, argv[3]);
 	frac->cxj = ft_atoif(argv[2]);
 	if ((argv[2][0] != '0') && ((argv[2][1] != '\0'))
 		&& frac->cxj == 0)
