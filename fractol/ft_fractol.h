@@ -6,7 +6,7 @@
 /*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 06:40:01 by oltolmac          #+#    #+#             */
-/*   Updated: 2025/01/27 16:51:25 by oltolmac         ###   ########.fr       */
+/*   Updated: 2025/01/29 18:46:08 by oltolmac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include <errno.h>
 # include <math.h>
 # include <unistd.h>
+# include <limits.h>
 # define KNRM  "\x1B[0m"
 # define KRED  "\x1B[31m"
 # define KGRN  "\x1B[32m"
