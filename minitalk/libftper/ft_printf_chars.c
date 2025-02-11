@@ -1,29 +1,44 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_minitalk.h                                      :+:      :+:    :+:   */
+/*   ft_printf_chars.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/31 14:22:36 by oltolmac          #+#    #+#             */
-/*   Updated: 2025/02/11 19:57:58 by oltolmac         ###   ########.fr       */
+/*   Created: 2024/09/16 15:16:03 by oltolmac          #+#    #+#             */
+/*   Updated: 2024/10/29 14:14:07 by oltolmac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_MINITALK_H
-# define FT_MINITALK_H
+#include "libft.h"
 
-# include <stdio.h>
-# include <stdlib.h>
-# include <signal.h>
-# include <unistd.h>
-# include "libftper/libft.h"
-# define KNRM  "\x1B[0m"
-# define KRED  "\x1B[31m"
-# define KGRN  "\x1B[32m"
-# define KYEL  "\x1B[33m"
-# define KBLU  "\x1B[34m"
-# define KMAG  "\x1B[35m"
-# define KCYN  "\x1B[36m"
-# define KWHT  "\x1B[37m"
-#endif
+int	ft_printf_char(int c)
+{
+	write(1, &c, 1);
+	return (1);
+}
+
+int	ft_printf_str(char *s)
+{
+	int	len;
+	int	c;
+
+	if (s == NULL)
+	{
+		write(1, "(null)", 6);
+		return (6);
+	}
+	c = ft_strlen(s);
+	len = write(1, s, c);
+	return (len);
+}
+
+int	ft_printf_percent(void)
+{
+	int		len;
+	char	c;
+
+	c = '%';
+	len = ft_printf_char(c);
+	return (len);
+}
