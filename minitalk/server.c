@@ -6,7 +6,7 @@
 /*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 14:22:08 by oltolmac          #+#    #+#             */
-/*   Updated: 2025/02/16 17:33:23 by oltolmac         ###   ########.fr       */
+/*   Updated: 2025/02/16 18:53:13 by oltolmac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,13 @@ void	functuin(int signum, siginfo_t *a, void *what)
 	(void) what;
 	(void) a;
 	if (signum == 10)
-		recive += 1 << num;
+		recive = recive + (1 << num);
 	num++;
 	if (num == 8)
 	{
 		if (recive == '\0')
 		{
-			kill(a->si_pid, SIGUSR2);
+			//kill(a->si_pid, SIGUSR2); need to handle handshake
 			printf("END\n");
 		}
 		else
