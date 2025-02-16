@@ -6,7 +6,7 @@
 /*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 14:22:00 by oltolmac          #+#    #+#             */
-/*   Updated: 2025/02/11 18:09:34 by oltolmac         ###   ########.fr       */
+/*   Updated: 2025/02/16 17:35:26 by oltolmac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ void	cryption_handle(unsigned char c, int pid)
 int	main(int argc, char **argv)
 {
 	int pid;
-	int	res;
 
 	if (argc == 3)
 	{
@@ -48,6 +47,9 @@ int	main(int argc, char **argv)
 			cryption_handle(argv[2][i], pid);
 			i++;
 		}
+		cryption_handle(argv[2][i], pid);
+
+
 	return (0);
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 06:40:01 by oltolmac          #+#    #+#             */
-/*   Updated: 2025/01/29 18:46:08 by oltolmac         ###   ########.fr       */
+/*   Updated: 2025/02/16 17:46:02 by oltolmac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ typedef struct s_frac
 	int		bp;
 	int		sl;
 	int		ed;
-	int		tg;
 	char	*addrs;
 	double	left;
 	double	right;

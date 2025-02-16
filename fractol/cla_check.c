@@ -6,7 +6,7 @@
 /*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 14:02:45 by oltolmac          #+#    #+#             */
-/*   Updated: 2025/01/27 16:51:53 by oltolmac         ###   ########.fr       */
+/*   Updated: 2025/01/30 14:32:18 by oltolmac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,9 @@ void	print_mess(void)
 	ft_printf("%s|     Available parameters      |\n", KYEL);
 	ft_printf("%s|-------------------------------|\n", KYEL);
 	ft_printf("%s| 1. Julia usage:               |\n", KGRN);
-	ft_printf("|   ./fracrol Julia 0.1 -0.07   |\n");
+	ft_printf("|   ./fracrol Julia 0.355 0.355 |\n");
 	ft_printf("|   ./fractol julia 0 0.8       |\n");
-	ft_printf("|   ./fractol julia -0.8 0.156  |\n");
+	ft_printf("|   ./fractol julia -0.4 0.6    |\n");
 	ft_printf("%s|-------------------------------|\n", KGRN);
 	ft_printf("%s| 2. Mandelbrot usage :         |\n", KBLU);
 	ft_printf("|   ./fracrol Mandelbrot        |\n");

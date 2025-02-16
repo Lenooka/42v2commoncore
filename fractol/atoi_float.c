@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   atoi_float.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: olena <olena@student.42.fr>                +#+  +:+       +#+        */
+/*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 17:25:53 by oltolmac          #+#    #+#             */
-/*   Updated: 2025/01/29 20:59:12 by olena            ###   ########.fr       */
+/*   Updated: 2025/01/30 14:25:09 by oltolmac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,8 @@ void	valid_and_len(t_frac *frac, char *s)
 	int	l;
 
 	i = 0;
-	l = ft_slen(s);
-	if (l > 7 || (l > 6 && s[0] != '-') || l == 1 && (!ft_isdigit(s[0])))
+	l = ft_strlen(s);
+	if (l > 8 || (l > 7 && s[0] != '-') || (l == 1 && (!ft_isdigit(s[0]))))
 	{
 		free(frac);
 		print_mess();

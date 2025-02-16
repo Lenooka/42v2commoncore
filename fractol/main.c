@@ -6,7 +6,7 @@
 /*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 06:39:48 by oltolmac          #+#    #+#             */
-/*   Updated: 2025/01/27 15:29:41 by oltolmac         ###   ########.fr       */
+/*   Updated: 2025/01/30 14:20:11 by oltolmac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +43,7 @@ int	main(int argc, char **argv)
 			check_and_start_julia(argv, frac);
 		if (argc == 2 && argv[1])
 			check_and_start_mandelbrot(argv, frac);
-		else
-		{
-			free(frac);
-			return (print_mess(), 1);
-		}
 	}
-	clear_funct(frac, 3);
-	return (0);
+	free(frac);
+	return (print_mess(), 1);
 }

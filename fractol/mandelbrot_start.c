@@ -6,7 +6,7 @@
 /*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 14:05:53 by oltolmac          #+#    #+#             */
-/*   Updated: 2025/01/27 15:58:17 by oltolmac         ###   ########.fr       */
+/*   Updated: 2025/02/13 20:07:11 by oltolmac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	calc_real_img(double cx, double cy)
 	real = 0;
 	img = 0;
 	i = 0;
-	while ((real * real + img * img < 4) && i < 100)
+	while ((real * real + img * img < 4) && i < 200)
 	{
 		temp_real = real * real - img * img + cx;
 		img = 2 * real * img + cy;

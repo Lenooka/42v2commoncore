@@ -6,7 +6,7 @@
 /*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 14:22:08 by oltolmac          #+#    #+#             */
-/*   Updated: 2025/02/11 18:20:15 by oltolmac         ###   ########.fr       */
+/*   Updated: 2025/02/16 17:33:23 by oltolmac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,29 @@
 #include <unistd.h>
 
 
-void	make_s(void)
-{
-	
-}
-
 void	functuin(int signum, siginfo_t *a, void *what)
 {
-	if (signum == 10)
-	{
-		
-	}
-	else if (signum == 12)
-	{	
+	static	char	recive = 0;
+	static	char	num = 0;
 
+	(void) what;
+	(void) a;
+	if (signum == 10)
+		recive += 1 << num;
+	num++;
+	if (num == 8)
+	{
+		if (recive == '\0')
+		{
+			kill(a->si_pid, SIGUSR2);
+			printf("END\n");
+		}
+		else
+		{
+			ft_putchar_fd(recive, 1);
+		num = 0;
+		recive = 0;
+		}
 	}
 }
 

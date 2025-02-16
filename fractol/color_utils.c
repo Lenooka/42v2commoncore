@@ -6,7 +6,7 @@
 /*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 17:25:10 by oltolmac          #+#    #+#             */
-/*   Updated: 2025/01/27 16:02:03 by oltolmac         ###   ########.fr       */
+/*   Updated: 2025/02/13 20:07:28 by oltolmac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	get_color(int iter)
 	int	g;
 	int	b;
 
-	if (iter == 100)
+	if (iter == 200)
 		return (0x000000);
 	r = (int)(127.5 * (1 + cos(iter * 0.1)));
 	g = (int)(100.5 * (1 + sin(iter * 0.1)));
