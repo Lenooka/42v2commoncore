@@ -6,22 +6,37 @@
 /*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 14:22:08 by oltolmac          #+#    #+#             */
-/*   Updated: 2025/02/17 17:33:26 by oltolmac         ###   ########.fr       */
+/*   Updated: 2025/02/17 19:15:52 by oltolmac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_minitalk.h"
 #include <unistd.h>
 
+char	*staic_alloc(char rec, int i)
+{
+	static	char str[2097152];
 
+	if (rec != '\0')
+	{
+		str[i] = rec;
+	}
+	return (str);
+}
+
+void	put(char *s, int len)
+{
+	write(1, s, len);
+}
 
 void	functuin(int signum, siginfo_t *a, void *what)
 {
 	static	char	recive = 0;
 	static	char	num = 0;
+	static	char	*str;
+	static int i = 0;
 
 	(void) what;
-	(void) a;
 	if (signum == 10)
 		recive = recive + (1 << num);
 	num++;
@@ -29,13 +44,15 @@ void	functuin(int signum, siginfo_t *a, void *what)
 	{
 		if (recive == '\0')
 		{
-			//print the str
+			// ft_putstr_fd(str, 1);
+			put(str, i);
+			i = 0;
 			kill(a->si_pid, SIGUSR2);
 		}
 		else
 		{
-			//static alloc to send whole string
-			ft_putchar_fd(recive, 1);
+			str = staic_alloc(recive, i);
+			i++;
 		}
 		num = 0;
 		recive = 0;
