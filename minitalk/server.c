@@ -6,12 +6,13 @@
 /*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 14:22:08 by oltolmac          #+#    #+#             */
-/*   Updated: 2025/02/16 18:53:13 by oltolmac         ###   ########.fr       */
+/*   Updated: 2025/02/17 17:33:26 by oltolmac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_minitalk.h"
 #include <unistd.h>
+
 
 
 void	functuin(int signum, siginfo_t *a, void *what)
@@ -28,16 +29,18 @@ void	functuin(int signum, siginfo_t *a, void *what)
 	{
 		if (recive == '\0')
 		{
-			//kill(a->si_pid, SIGUSR2); need to handle handshake
-			printf("END\n");
+			//print the str
+			kill(a->si_pid, SIGUSR2);
 		}
 		else
 		{
+			//static alloc to send whole string
 			ft_putchar_fd(recive, 1);
+		}
 		num = 0;
 		recive = 0;
-		}
 	}
+	kill(a->si_pid, SIGUSR1);
 }
 
 int	main()

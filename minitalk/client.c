@@ -6,11 +6,13 @@
 /*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 14:22:00 by oltolmac          #+#    #+#             */
-/*   Updated: 2025/02/16 17:35:26 by oltolmac         ###   ########.fr       */
+/*   Updated: 2025/02/17 17:31:44 by oltolmac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_minitalk.h"
+
+int	g_loh = 0;
 
 void	cryption_handle(unsigned char c, int pid)
 {
@@ -25,8 +27,35 @@ void	cryption_handle(unsigned char c, int pid)
 			kill(pid, SIGUSR2);
 		c = c >> 1;
 		b++;
-		usleep(100);
+		g_loh = 1;
+		while (g_loh)
+			pause();
 	}
+}
+
+void	functuin2(int signum, siginfo_t *a, void *what)
+{
+	(void) what;
+	(void) a;
+	if (signum == 10)
+	{
+		g_loh = 0;
+	}
+	if (signum == 12)
+	{
+		ft_printf("Message recieved\n");
+	}
+}
+
+void	new_function(void)
+{
+	struct sigaction sa;
+	
+	sa.sa_sigaction = functuin2;
+	sa.sa_flags = SA_RESTART | SA_SIGINFO;
+	sigemptyset(&(sa.sa_mask));
+	sigaction(SIGUSR1, &sa, NULL);
+	sigaction(SIGUSR2, &sa, NULL);
 }
 
 int	main(int argc, char **argv)
@@ -41,6 +70,7 @@ int	main(int argc, char **argv)
 			ft_printf("%s\nInvalid pid", KRED);
 			exit(1);
 		}
+		new_function();
 		int i = 0;
 		while (argv[2][i])
 		{
@@ -49,7 +79,7 @@ int	main(int argc, char **argv)
 		}
 		cryption_handle(argv[2][i], pid);
 
-
-	return (0);
+		return (0);
 	}
+	return (0);
 }
