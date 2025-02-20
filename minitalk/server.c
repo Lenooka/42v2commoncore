@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   server.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: olena <olena@student.42.fr>                +#+  +:+       +#+        */
+/*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 14:22:08 by oltolmac          #+#    #+#             */
-/*   Updated: 2025/02/20 00:56:03 by olena            ###   ########.fr       */
+/*   Updated: 2025/02/20 16:37:34 by oltolmac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,17 @@
 
 char	*staic_alloc(char rec, int res)
 {
-	static	char str[2097152];
+	static	char str[131072];
 	static	int i = 0;
 
 	if (res)
 	{
 		i = 0;
+		// ft_memset(str, 0, ft_strlen(str));
 		str[0] = '\0';
 		return (str);
 	}
-	if (i == 2097152)
+	if (i == 131072)
 	{
 		i = 0;
 		str[0] = '\0';
@@ -49,7 +50,7 @@ void	functuin(int signum, siginfo_t *info, void *cntx)
 	static	char	*str;
 
 	(void) cntx;
-	if (signum == 10)
+	if (signum == SIGUSR1)
 		 recive |= (1 << num);
 	num++;
 	if (num == 8)
@@ -57,6 +58,7 @@ void	functuin(int signum, siginfo_t *info, void *cntx)
 		if (recive == '\0')
 		{
 			ft_putstr_fd(str, 1);
+			//put(str, ft_strlen(str));
 			str = staic_alloc(0, 1);
 			kill(info->si_pid, SIGUSR2);
 		}
@@ -82,7 +84,7 @@ int	main()
 	sigaction(SIGUSR2, &sa, NULL);
 	while (1)
 	{
-		usleep(1);
+		sleep(1);
 	}	
 	return (0);
 }

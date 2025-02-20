@@ -6,7 +6,7 @@
 /*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 14:22:00 by oltolmac          #+#    #+#             */
-/*   Updated: 2025/02/17 19:14:52 by oltolmac         ###   ########.fr       */
+/*   Updated: 2025/02/20 16:24:54 by oltolmac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,11 @@ void	cryption_handle(unsigned char c, int pid)
 			kill(pid, SIGUSR1);
 		else
 			kill(pid, SIGUSR2);
-		c = c >> 1;
 		b++;
 		g_loh = 1;
 		while (g_loh)
-			pause();
+			sleep(1);
+		c = c >> 1;
 	}
 }
 
@@ -37,13 +37,14 @@ void	functuin2(int signum, siginfo_t *a, void *what)
 {
 	(void) what;
 	(void) a;
-	if (signum == 10)
+	if (signum == SIGUSR1)
 	{
 		g_loh = 0;
 	}
-	if (signum == 12)
+	if (signum == SIGUSR2)
 	{
 		ft_printf("Message recieved\n");
+		exit(1);
 	}
 }
 
