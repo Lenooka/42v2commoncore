@@ -3,24 +3,37 @@
 /*                                                        :::      ::::::::   */
 /*   server.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: olena <olena@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 14:22:08 by oltolmac          #+#    #+#             */
-/*   Updated: 2025/02/17 19:15:52 by oltolmac         ###   ########.fr       */
+/*   Updated: 2025/02/20 00:56:03 by olena            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_minitalk.h"
 #include <unistd.h>
 
-char	*staic_alloc(char rec, int i)
+char	*staic_alloc(char rec, int res)
 {
 	static	char str[2097152];
+	static	int i = 0;
 
-	if (rec != '\0')
+	if (res)
 	{
-		str[i] = rec;
+		i = 0;
+		str[0] = '\0';
+		return (str);
 	}
+	if (i == 2097152)
+	{
+		i = 0;
+		str[0] = '\0';
+		ft_putstr_fd("Error: message is too long\n", 1);
+		exit(1);
+	}
+	str[i] = rec;
+	i++;
+	str[i] = '\0';
 	return (str);
 }
 
@@ -29,41 +42,36 @@ void	put(char *s, int len)
 	write(1, s, len);
 }
 
-void	functuin(int signum, siginfo_t *a, void *what)
+void	functuin(int signum, siginfo_t *info, void *cntx)
 {
 	static	char	recive = 0;
 	static	char	num = 0;
 	static	char	*str;
-	static int i = 0;
 
-	(void) what;
+	(void) cntx;
 	if (signum == 10)
-		recive = recive + (1 << num);
+		 recive |= (1 << num);
 	num++;
 	if (num == 8)
 	{
 		if (recive == '\0')
 		{
-			// ft_putstr_fd(str, 1);
-			put(str, i);
-			i = 0;
-			kill(a->si_pid, SIGUSR2);
+			ft_putstr_fd(str, 1);
+			str = staic_alloc(0, 1);
+			kill(info->si_pid, SIGUSR2);
 		}
 		else
-		{
-			str = staic_alloc(recive, i);
-			i++;
-		}
+			str = staic_alloc(recive, 0);
 		num = 0;
 		recive = 0;
 	}
-	kill(a->si_pid, SIGUSR1);
+	kill(info->si_pid, SIGUSR1);
 }
 
 int	main()
 {
 	struct sigaction sa;
-	__pid_t pid;
+	pid_t pid;
 
 	pid = getpid();
 	ft_printf("%d\n", pid);
