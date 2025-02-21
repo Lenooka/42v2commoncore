@@ -6,7 +6,7 @@
 /*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 14:22:36 by oltolmac          #+#    #+#             */
-/*   Updated: 2025/02/17 18:20:59 by oltolmac         ###   ########.fr       */
+/*   Updated: 2025/02/21 17:41:55 by oltolmac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,5 +26,6 @@
 # define KMAG  "\x1B[35m"
 # define KCYN  "\x1B[36m"
 # define KWHT  "\x1B[37m"
-# define ARG_MAX_LEN 131071
+
+
 #endif
