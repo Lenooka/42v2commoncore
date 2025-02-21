@@ -6,13 +6,12 @@
 /*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 14:22:08 by oltolmac          #+#    #+#             */
-/*   Updated: 2025/02/21 14:41:55 by oltolmac         ###   ########.fr       */
+/*   Updated: 2025/02/21 17:12:45 by oltolmac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_minitalk.h"
 #include <unistd.h>
-
 
 char	*static_str_handle(char rec)
 {
@@ -22,8 +21,8 @@ char	*static_str_handle(char rec)
 	if (str == NULL)
 	{
 		str = ft_calloc(sizeof(char), 1);
-		if (!str)
-			return NULL;
+		if (str == NULL)
+			return (NULL);
 	}
 	if (rec == '\0')
 		return (str = NULL);
@@ -49,19 +48,19 @@ void	put(char *s, int len)
 
 void	functuin(int signum, siginfo_t *info, void *cntx)
 {
-	static	char	recive = 0;
-	static	char	num = 0;
-	static	char	*str;
+	static char	recive = 0;
+	static char	num = 0;
+	static char	*str;
 
 	(void) cntx;
 	if (signum == SIGUSR1)
-		 recive |= (1 << num);
+		recive |= (1 << num);
 	num++;
 	if (num == 8)
 	{
 		if (recive == '\0')
 		{
-			kill(info->si_pid, SIGUSR2);    
+			kill(info->si_pid, SIGUSR2);
 			ft_printf("%s\n", str);
 			free(str);
 			str = NULL;
@@ -73,10 +72,10 @@ void	functuin(int signum, siginfo_t *info, void *cntx)
 	kill(info->si_pid, SIGUSR1);
 }
 
-int	main()
+int	main(void)
 {
-	struct sigaction sa;
-	pid_t pid;
+	struct sigaction	sa;
+	pid_t				pid;
 
 	pid = getpid();
 	ft_printf("%d\n", pid);
@@ -88,6 +87,6 @@ int	main()
 	while (1)
 	{
 		sleep(1);
-	}	
+	}
 	return (0);
 }

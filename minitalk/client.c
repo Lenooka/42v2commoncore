@@ -6,7 +6,7 @@
 /*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 14:22:00 by oltolmac          #+#    #+#             */
-/*   Updated: 2025/02/21 14:43:40 by oltolmac         ###   ########.fr       */
+/*   Updated: 2025/02/21 17:09:43 by oltolmac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,44 +16,42 @@ int	g_sleep = 0;
 
 void	cryption_handle(unsigned char c, int pid)
 {
-	int	b;
+	int				bit;
 
-	b = 1;
-	while (b <= 8)
+	bit = 8;
+	while (bit--)
 	{
+		g_sleep = 1;
 		if (c & 1)
 			kill(pid, SIGUSR1);
 		else
 			kill(pid, SIGUSR2);
-		b++;
-		g_sleep = 1;
-		while (g_sleep)
+		while (g_sleep == 1)
 			sleep(1);
-		c = c >> 1;
+		c >>= 1;
 	}
 }
 
-void	handshake_handle(int signum, siginfo_t *a, void *what)
+void	handshake_handle(int signum, siginfo_t *info, void *cntx)
 {
-	(void) what;
-	(void) a;
+	(void) info;
+	(void) cntx;
 	if (signum == SIGUSR1)
 	{
 		g_sleep = 0;
 	}
 	if (signum == SIGUSR2)
 	{
-		ft_printf("Message recieved\n");
-		exit(1);
+		write(1, "Message received\n", 17);
 	}
 }
 
 void	clinet_signals_init(void)
 {
-	struct sigaction sa;
-	
+	struct sigaction	sa;
+
 	sa.sa_sigaction = handshake_handle;
-	sa.sa_flags = SA_RESTART | SA_SIGINFO;
+	sa.sa_flags = SA_SIGINFO | SA_RESTART;
 	sigemptyset(&(sa.sa_mask));
 	sigaction(SIGUSR1, &sa, NULL);
 	sigaction(SIGUSR2, &sa, NULL);
@@ -61,8 +59,10 @@ void	clinet_signals_init(void)
 
 int	main(int argc, char **argv)
 {
-	int pid;
+	int	pid;
+	int	i;
 
+	i = 0;
 	if (argc == 3)
 	{
 		pid = ft_atoi(argv[1]);
@@ -72,7 +72,6 @@ int	main(int argc, char **argv)
 			exit(1);
 		}
 		clinet_signals_init();
-		int i = 0;
 		while (argv[2][i])
 		{
 			cryption_handle(argv[2][i], pid);

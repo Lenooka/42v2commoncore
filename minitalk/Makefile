@@ -1,4 +1,5 @@
-NAME = minitalk
+SERVER = server
+CLIENT = client
 CC = cc
 CFLAGS = -Wall -Werror -Wextra -g -I$(LIBFT_DIR)
 RM = rm -rf
@@ -17,7 +18,7 @@ GREEN = \033[32m
 RED = \033[31m
 RESET = \033[0m
 
-all: $(NAME)
+all: $(CLIENT) $(SERVER)
 
 $(OBJ_DIR)/server.o: server.c | $(OBJ_DIR)
 	@$(CC) $(CFLAGS) -c server.c -o $(OBJ_DIR)/server.o
@@ -33,11 +34,12 @@ $(OBJ_DIR):
 $(LIBFT):
 	@make -C $(LIBFT_DIR) > /dev/null 2>&1
 
-$(NAME): $(OBJS_SERVER) $(OBJS_CLIENT) $(LIBFT)
+$(CLIENT) $(SERVER): $(OBJS_SERVER) $(OBJS_CLIENT) $(LIBFT)
 	@echo "$(GREEN)Linking... $(RESET)"
 	@$(CC) $(CFLAGS) -o server $(OBJS_SERVER) $(LIBFT)
 	@$(CC) $(CFLAGS) -o client $(OBJS_CLIENT) $(LIBFT)
 	@echo "$(GREEN)Compiled successfully!$(RESET)"
+
 
 clean:
 	@$(RM) $(OBJ_DIR)
