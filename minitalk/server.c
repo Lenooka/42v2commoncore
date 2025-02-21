@@ -6,35 +6,39 @@
 /*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 14:22:08 by oltolmac          #+#    #+#             */
-/*   Updated: 2025/02/20 16:37:34 by oltolmac         ###   ########.fr       */
+/*   Updated: 2025/02/21 14:41:55 by oltolmac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_minitalk.h"
 #include <unistd.h>
 
-char	*staic_alloc(char rec, int res)
-{
-	static	char str[131072];
-	static	int i = 0;
 
-	if (res)
+char	*static_str_handle(char rec)
+{
+	static char	*tmp;
+	static char	*str;
+
+	if (str == NULL)
 	{
-		i = 0;
-		// ft_memset(str, 0, ft_strlen(str));
-		str[0] = '\0';
-		return (str);
+		str = ft_calloc(sizeof(char), 1);
+		if (!str)
+			return NULL;
 	}
-	if (i == 131072)
+	if (rec == '\0')
+		return (str = NULL);
+	else
 	{
-		i = 0;
-		str[0] = '\0';
-		ft_putstr_fd("Error: message is too long\n", 1);
-		exit(1);
+		tmp = malloc(sizeof(char) * 2);
+		if (!tmp)
+			return (NULL);
+		tmp[0] = rec;
+		tmp[1] = '\0';
+		str = ft_strjoin(str, tmp);
+		free(tmp);
+		if (!str)
+			return (NULL);
 	}
-	str[i] = rec;
-	i++;
-	str[i] = '\0';
 	return (str);
 }
 
@@ -57,13 +61,12 @@ void	functuin(int signum, siginfo_t *info, void *cntx)
 	{
 		if (recive == '\0')
 		{
-			ft_putstr_fd(str, 1);
-			//put(str, ft_strlen(str));
-			str = staic_alloc(0, 1);
-			kill(info->si_pid, SIGUSR2);
+			kill(info->si_pid, SIGUSR2);    
+			ft_printf("%s\n", str);
+			free(str);
+			str = NULL;
 		}
-		else
-			str = staic_alloc(recive, 0);
+		str = static_str_handle(recive);
 		num = 0;
 		recive = 0;
 	}

@@ -6,13 +6,13 @@
 /*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 14:22:00 by oltolmac          #+#    #+#             */
-/*   Updated: 2025/02/20 16:24:54 by oltolmac         ###   ########.fr       */
+/*   Updated: 2025/02/21 14:43:40 by oltolmac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_minitalk.h"
 
-int	g_loh = 0;
+int	g_sleep = 0;
 
 void	cryption_handle(unsigned char c, int pid)
 {
@@ -26,20 +26,20 @@ void	cryption_handle(unsigned char c, int pid)
 		else
 			kill(pid, SIGUSR2);
 		b++;
-		g_loh = 1;
-		while (g_loh)
+		g_sleep = 1;
+		while (g_sleep)
 			sleep(1);
 		c = c >> 1;
 	}
 }
 
-void	functuin2(int signum, siginfo_t *a, void *what)
+void	handshake_handle(int signum, siginfo_t *a, void *what)
 {
 	(void) what;
 	(void) a;
 	if (signum == SIGUSR1)
 	{
-		g_loh = 0;
+		g_sleep = 0;
 	}
 	if (signum == SIGUSR2)
 	{
@@ -48,11 +48,11 @@ void	functuin2(int signum, siginfo_t *a, void *what)
 	}
 }
 
-void	new_function(void)
+void	clinet_signals_init(void)
 {
 	struct sigaction sa;
 	
-	sa.sa_sigaction = functuin2;
+	sa.sa_sigaction = handshake_handle;
 	sa.sa_flags = SA_RESTART | SA_SIGINFO;
 	sigemptyset(&(sa.sa_mask));
 	sigaction(SIGUSR1, &sa, NULL);
@@ -71,7 +71,7 @@ int	main(int argc, char **argv)
 			ft_printf("%s\nInvalid pid", KRED);
 			exit(1);
 		}
-		new_function();
+		clinet_signals_init();
 		int i = 0;
 		while (argv[2][i])
 		{
@@ -79,7 +79,6 @@ int	main(int argc, char **argv)
 			i++;
 		}
 		cryption_handle(argv[2][i], pid);
-
 		return (0);
 	}
 	return (0);
