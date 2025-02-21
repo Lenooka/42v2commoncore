@@ -6,7 +6,7 @@
 /*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 14:22:00 by oltolmac          #+#    #+#             */
-/*   Updated: 2025/02/21 17:09:43 by oltolmac         ###   ########.fr       */
+/*   Updated: 2025/02/21 17:21:12 by oltolmac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	g_sleep = 0;
 
 void	cryption_handle(unsigned char c, int pid)
 {
-	int				bit;
+	int	bit;
 
 	bit = 8;
 	while (bit--)
@@ -42,7 +42,7 @@ void	handshake_handle(int signum, siginfo_t *info, void *cntx)
 	}
 	if (signum == SIGUSR2)
 	{
-		write(1, "Message received\n", 17);
+		ft_putstr_fd("Received Message\n", 1);
 	}
 }
 
