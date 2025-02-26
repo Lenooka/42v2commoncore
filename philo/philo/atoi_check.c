@@ -6,7 +6,7 @@
 /*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 16:32:51 by oltolmac          #+#    #+#             */
-/*   Updated: 2025/02/25 17:19:30 by oltolmac         ###   ########.fr       */
+/*   Updated: 2025/02/26 13:36:39 by oltolmac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,19 +113,19 @@ int	check_atoi(char **argv)
 		value = ft_strtol(argv[i], &endptr);
 		if (ft_atoi(argv[1]) > 1000000)
 		{
-			return (printf("To many philosophers for my program!") && 1);
+			return (printf("To many philosophers for my program!"), 0);
 		}
 		if (*endptr != '\0')
 		{
 			printf("Error converting argument to integer: %s\n", argv[i]);
-			return (1);
+			return (0);
 		}
 		if (value > INT_MAX || value < INT_MIN)
 		{
 			printf("Integer overflow in argument: %s\n", argv[i]);
-			return (1);
+			return (0);
 		}
 		i++;
 	}
-	return (0);
+	return (1);
 }

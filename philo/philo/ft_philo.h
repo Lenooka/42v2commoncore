@@ -6,7 +6,7 @@
 /*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 15:21:20 by oltolmac          #+#    #+#             */
-/*   Updated: 2025/02/25 17:24:51 by oltolmac         ###   ########.fr       */
+/*   Updated: 2025/02/26 19:34:08 by oltolmac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,14 @@
 # define KCYN  "\x1B[36m"
 # define KWHT  "\x1B[37m"
 
+
+typedef	struct s_table
+{
+	t_philo	*philo;
+	pthread_t	philo;
+	mutex
+	
+} t_table;
 typedef	struct s_philo
 {
 	int	time_to_die;
@@ -39,6 +47,8 @@ typedef	struct s_philo
 	int	time_to_sleep;
 	int	time_to_eat;
 	int	num_of_meals;
+	t_table	*table;
+	
 } t_philo;
 
 int	check_atoi(char **argv);
