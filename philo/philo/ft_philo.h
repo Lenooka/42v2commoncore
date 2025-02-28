@@ -6,7 +6,7 @@
 /*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 15:21:20 by oltolmac          #+#    #+#             */
-/*   Updated: 2025/02/26 19:34:08 by oltolmac         ###   ########.fr       */
+/*   Updated: 2025/02/28 16:46:45 by oltolmac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,11 @@
 
 typedef	struct s_table
 {
-	t_philo	*philo;
-	pthread_t	philo;
-	mutex
+	pthread_t	philos;
+	int			indx;
+	pthread_mutex_t	*fork;
+	struct s_philo *philo;
+	
 	
 } t_table;
 typedef	struct s_philo

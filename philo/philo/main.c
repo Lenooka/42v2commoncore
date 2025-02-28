@@ -6,13 +6,13 @@
 /*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 15:07:12 by oltolmac          #+#    #+#             */
-/*   Updated: 2025/02/28 15:07:13 by oltolmac         ###   ########.fr       */
+/*   Updated: 2025/02/28 17:37:39 by oltolmac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_philo.h"
 
-int	check_meals(int argc, char **argv)
+int	check_meals(char **argv)
 {
 	if (ft_atoi(argv[5]) < 0)
 	{
@@ -30,7 +30,7 @@ void	checkfill_arguments(t_philo *phil, char **argv, int argc)
 
 	j = 1;
 	if (argc == 6)
-		check_meals(argc, argv);
+		check_meals(argv);
 	while (argv[j])
 	{
 		i = 0;
@@ -57,17 +57,21 @@ void	exit_just_mess(char *str)
 	exit(1);
 }
 
-void	set_up_table(t_philo *philo, t_table *table)
+t_table	*set_up_table(t_philo *philo, t_table *table)
 {
 	int	i;
 
 	i = 0;
+	(void)table;
+	table = malloc(sizeof(t_table) * philo->num_of_philo);
+	if (!table)
+		exit_just_mess("Malloc fail, set_up_table");
 	while (i < philo->num_of_philo)
 	{
-		table[i].fork
+		table[i].indx = i + 1;
 		i++;
 	}
-	
+	return (table);
 }
 
 	// 1 philo.num_of_philo);
@@ -83,6 +87,7 @@ int	main(int argc, char **argv)
 	if (argc != 5 && argc != 6)
 		exit_just_mess("Wrong amount of arguments");
 	checkfill_arguments(&philo, argv, argc);
-	set_up_table(&philo, philo.table);
+	philo.table = set_up_table(&philo, philo.table);
+	free(philo.table);
 	return (0);
 }
