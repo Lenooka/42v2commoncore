@@ -6,7 +6,7 @@
 /*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 15:07:12 by oltolmac          #+#    #+#             */
-/*   Updated: 2025/02/28 17:37:39 by oltolmac         ###   ########.fr       */
+/*   Updated: 2025/03/06 15:56:15 by oltolmac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,13 +62,13 @@ t_table	*set_up_table(t_philo *philo, t_table *table)
 	int	i;
 
 	i = 0;
-	(void)table;
 	table = malloc(sizeof(t_table) * philo->num_of_philo);
 	if (!table)
 		exit_just_mess("Malloc fail, set_up_table");
 	while (i < philo->num_of_philo)
 	{
 		table[i].indx = i + 1;
+		table[i].philo = &philo;
 		i++;
 	}
 	return (table);
