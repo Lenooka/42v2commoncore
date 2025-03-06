@@ -8,7 +8,7 @@
 # include <fcntl.h>
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 2
+#  define BUFFER_SIZE 3
 # endif
 
 /*
@@ -58,22 +58,59 @@ char	*get_next_line(int fd)
 	return (ret);
 }*/
 
-char    *get_next_line(int fd)
+/*char *get_next_line(int fd)
 {
-    char    *buf;
-    int     len = 0;
+    char *buf;
+    int len = 0;
 
-    if (fd < 0 || BUFFER_SIZE < 1)
-        return (NULL);
-    buf = malloc(BUFFER_SIZE + 1);
-    if (!buf)
-        return (NULL);
-    len = read(fd, buf, BUFFER_SIZE);
-    if (len < 1)
-        return (free(buf),  NULL);
-    buf[len] = '\0';
-    return (buf);
+    // Convert the first condition to a ternary operator
+    return (fd < 0 || BUFFER_SIZE < 1) ? NULL : 
+        (buf = malloc(BUFFER_SIZE + 1)) ? 
+        ((len = read(fd, buf, BUFFER_SIZE)) < 1 ? (free(buf), NULL) : 
+        (buf[len] = '\0', buf)) : NULL;
+}*/
+
+#include <stdlib.h>
+#include <unistd.h>
+
+#ifndef BUFFER_SIZE
+# define BUFFER_SIZE 42
+#endif
+
+char	*get_next_line(int fd)
+{
+	static char	buffer[BUFFER_SIZE];
+	static int	bytes_read = 0;
+	static int	index = 0;
+	char		*line;
+	int			i = 0;
+
+	if (fd < 0 || BUFFER_SIZE <= 0)
+		return (NULL);
+	line = malloc(10000); // Allocate a reasonable buffer size
+	if (!line)
+		return (NULL);
+	while (1)
+	{
+		if (index >= bytes_read)
+		{
+			bytes_read = read(fd, buffer, BUFFER_SIZE);
+			index = 0;
+			if (bytes_read <= 0)
+			{
+				free(line);
+				return (bytes_read == 0 && i > 0) ? line : NULL;
+			}
+		}
+		line[i++] = buffer[index++];
+		if (line[i - 1] == '\n')
+			break ;
+	}
+	line[i] = '\0';
+	return (line);
 }
+
+
 
 int		main(int argc, char **argv)
 {
