@@ -87,8 +87,7 @@ char	*get_next_line(int fd)
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-	line = malloc(10000); // Allocate a reasonable buffer size
-	if (!line)
+	if (!(line = malloc(10000)))
 		return (NULL);
 	while (1)
 	{
@@ -98,8 +97,12 @@ char	*get_next_line(int fd)
 			index = 0;
 			if (bytes_read <= 0)
 			{
-				free(line);
-				return (bytes_read == 0 && i > 0) ? line : NULL;
+				if (i == 0)
+				{
+					free(line);
+					return (NULL);
+				}
+				break ;
 			}
 		}
 		line[i++] = buffer[index++];
