@@ -112,22 +112,3 @@ char	*get_next_line(int fd)
 	line[i] = '\0';
 	return (line);
 }
-
-
-
-int		main(int argc, char **argv)
-{
-	int 	fd = 0;
-	char	*line;
-
-	if (argc > 1)
-		fd = open(argv[1], O_RDONLY);
-	line = get_next_line(fd);
-	while (line != NULL)
-	{
-		printf("line |%s", line);
-		free(line);
-		line = get_next_line(fd);
-	}
-	return (0);
-}
