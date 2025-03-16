@@ -1,10 +1,6 @@
 # include <stdarg.h>
 # include <unistd.h>
 
-
-
-
-
 size_t	ft_strlen(const char *s)
 {
 	size_t	i;
@@ -62,7 +58,7 @@ static int	ft_putnbr(int n, int fd)
 		len += write(fd, "-", 1);
 		n = -n;
 	}
-	if (n > 9)
+	if (n > 10)
 	{
 		len += ft_putnbr(n / 10, fd);
 		len += ft_putnbr(n % 10, fd);
