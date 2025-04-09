@@ -107,7 +107,7 @@ static int	ft_hex(unsigned int n, int x)
 				len += ft_printf_char((n - 10 + 'a'));
 			else if (x == 1)
 				len += ft_printf_char((n - 10 + 'A'));
-		}
+		} 
 	}
 	return (len);
 }
