@@ -1,10 +1,10 @@
 NAME = philo
 CC = cc
-SRC = main.c init_argc.c atoi_check.c
+SRC = main.c init_argc.c atoi_check.c set_table.c exit_message.c
 CFLAGS = -Wall -Wextra -Werror -g
 RM = rm -rf
 OBJ_D = obj
-OBJS = $(OBJ_D)/main.o $(OBJ_D)/init_arg.o $(OBJ_D)/atoi_check.o
+OBJS = $(OBJ_D)/main.o $(OBJ_D)/init_arg.o $(OBJ_D)/atoi_check.o $(OBJ_D)/set_table.o $(OBJ_D)/exit_message.o
 GREEN = \033[32m
 RED = \033[31m
 RESET = \033[0m

@@ -6,7 +6,7 @@
 /*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 15:07:12 by oltolmac          #+#    #+#             */
-/*   Updated: 2025/03/18 11:03:46 by oltolmac         ###   ########.fr       */
+/*   Updated: 2025/04/18 15:09:43 by oltolmac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,29 +50,6 @@ void	checkfill_arguments(t_philo *phil, char **argv, int argc)
 	fill_struct(phil, argv);
 }
 
-void	exit_just_mess(char *str)
-{
-	printf("%s%s\n", KRED, str);
-	printf("%s", KNRM);
-	exit(1);
-}
-
-t_table	*set_up_table(t_philo *philo, t_table *table)
-{
-	int	i;
-
-	i = 0;
-	table = malloc(sizeof(t_table) * philo->num_of_philo);
-	if (!table)
-		exit_just_mess("Malloc fail, set_up_table");
-	while (i < philo->num_of_philo)
-	{
-		table[i].indx = i + 1;
-		table[i].philo = &philo;
-		i++;
-	}
-	return (table);
-}
 
 	// 1 philo.num_of_philo);
 	// 2 philo.time_to_die);
@@ -85,7 +62,7 @@ int	main(int argc, char **argv)
 	t_philo	philo;
 
 	if (argc != 5 && argc != 6)
-		exit_just_mess("Wrong amount of arguments");
+		exit_just_mess("Wrong amount of arguments!");
 	checkfill_arguments(&philo, argv, argc);
 	philo.table = set_up_table(&philo, philo.table);
 	free(philo.table);

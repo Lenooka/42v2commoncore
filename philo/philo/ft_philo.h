@@ -6,7 +6,7 @@
 /*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 15:21:20 by oltolmac          #+#    #+#             */
-/*   Updated: 2025/02/28 16:46:45 by oltolmac         ###   ########.fr       */
+/*   Updated: 2025/04/18 15:04:26 by oltolmac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,8 @@ typedef	struct s_philo
 int	check_atoi(char **argv);
 int	ft_atoi(const char *str);
 int	fill_struct(t_philo *data, char **s);
+t_table	*set_up_table(t_philo *philo, t_table *table);
+void	exit_just_mess(char *str);
 
 
 
