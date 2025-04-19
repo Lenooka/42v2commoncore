@@ -6,7 +6,7 @@
 /*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 15:21:20 by oltolmac          #+#    #+#             */
-/*   Updated: 2025/04/18 15:04:26 by oltolmac         ###   ########.fr       */
+/*   Updated: 2025/04/19 13:14:46 by oltolmac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,30 +35,30 @@
 
 typedef	struct s_table
 {
-	pthread_t	philos;
-	int			indx;
-	pthread_mutex_t	*fork;
-	struct s_philo *philo;
-	
+	int					meals;
+	pthread_t			philos;
+	int					indx;
+	t_philo				*philo;
+	pthread_mutex_t		*rightf;
+	pthread_mutex_t		*leftf;
 	
 } t_table;
 typedef	struct s_philo
 {
-	int	time_to_die;
-	int	num_of_philo;
-	int	time_to_sleep;
-	int	time_to_eat;
-	int	num_of_meals;
-	t_table	*table;
+	int				time_to_die;
+	int				num_of_philo;
+	int				time_to_sleep;
+	int				time_to_eat;
+	int				num_of_meals;
+	pthread_mutex_t	*fork;
+	t_table			*table;
 	
 } t_philo;
 
-int	check_atoi(char **argv);
-int	ft_atoi(const char *str);
-int	fill_struct(t_philo *data, char **s);
+int		check_atoi(char **argv);
+int		ft_atoi(const char *str);
+int		fill_struct(t_philo *data, char **s);
 t_table	*set_up_table(t_philo *philo, t_table *table);
 void	exit_just_mess(char *str);
-
-
 
 #endif
