@@ -6,7 +6,7 @@
 /*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/18 14:55:21 by oltolmac          #+#    #+#             */
-/*   Updated: 2025/04/19 15:51:44 by oltolmac         ###   ########.fr       */
+/*   Updated: 2025/06/05 17:12:33 by oltolmac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ t_table	*set_up_table(t_philo *philo, t_table *table)
 		table[i].indx = i + 1;
 		table[i].philo = philo;
 		table[i].meals = 0;
-		table[i].rightf = &philo->fork;
-		table[i].leftf = //division here?0
+		table[i].leftf = &philo->fork;
+		table[i].rightf = &philo->fork[(i + 1) % philo->num_of_philo]; 
 		
 		
 		i++;
