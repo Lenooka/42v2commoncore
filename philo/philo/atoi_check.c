@@ -6,7 +6,7 @@
 /*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 16:32:51 by oltolmac          #+#    #+#             */
-/*   Updated: 2025/02/26 13:36:39 by oltolmac         ###   ########.fr       */
+/*   Updated: 2025/06/27 17:22:58 by oltolmac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,12 +117,12 @@ int	check_atoi(char **argv)
 		}
 		if (*endptr != '\0')
 		{
-			printf("Error converting argument to integer: %s\n", argv[i]);
+			printf("%sError converting argument to int: %s\n", KRED, argv[i]);
 			return (0);
 		}
 		if (value > INT_MAX || value < INT_MIN)
 		{
-			printf("Integer overflow in argument: %s\n", argv[i]);
+			printf("%sInteger overflow in argument: %s\n", KRED, argv[i]);
 			return (0);
 		}
 		i++;

@@ -6,7 +6,7 @@
 /*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 15:07:12 by oltolmac          #+#    #+#             */
-/*   Updated: 2025/04/18 15:09:43 by oltolmac         ###   ########.fr       */
+/*   Updated: 2025/06/27 17:23:09 by oltolmac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,11 @@ int	check_meals(char **argv)
 {
 	if (ft_atoi(argv[5]) < 0)
 	{
+		printf("%s", KRED);
 		printf("Philosophers can't eat absence of meals!\n");
+		printf("%s", KNRM);
 		printf("Ammount of meals : %s\n", argv[5]);
-		return (1);
+		exit(1);
 	}
 	return (0);
 }
@@ -38,7 +40,8 @@ void	checkfill_arguments(t_philo *phil, char **argv, int argc)
 		{
 			if (argv[j][i] < '0' || argv[j][i] > '9')
 			{
-				printf("Invalid argument : %s\n", argv[j]);
+				printf("%sInvalid argument : %s\n", KRED, argv[j]);
+				printf("%s", KNRM);
 				exit(1);	
 			}
 			i++;

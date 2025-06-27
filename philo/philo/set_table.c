@@ -6,7 +6,7 @@
 /*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/18 14:55:21 by oltolmac          #+#    #+#             */
-/*   Updated: 2025/06/05 17:12:33 by oltolmac         ###   ########.fr       */
+/*   Updated: 2025/06/27 17:02:42 by oltolmac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,13 @@ t_table	*set_up_table(t_philo *philo, t_table *table)
 	philo->fork = malloc(sizeof(pthread_mutex_t) * philo->num_of_philo);
 	if (!philo->fork)
 		exit_free(philo, table, "Malloc fork fail, set_up_table");
+	philo->start_t = get_current_time(0);
 	while (i < philo->num_of_philo)
 	{
 		table[i].indx = i + 1;
 		table[i].philo = philo;
 		table[i].meals = 0;
-		table[i].leftf = &philo->fork;
+		table[i].leftf = &philo->fork[i];
 		table[i].rightf = &philo->fork[(i + 1) % philo->num_of_philo]; 
 		
 		

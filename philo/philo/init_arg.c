@@ -6,17 +6,29 @@
 /*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 16:34:58 by oltolmac          #+#    #+#             */
-/*   Updated: 2025/04/18 14:55:50 by oltolmac         ###   ########.fr       */
+/*   Updated: 2025/06/27 17:11:08 by oltolmac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_philo.h"
 
+u_int64_t	get_current_time(u_int64_t relative)
+{
+	struct timeval	now;
+
+	if (gettimeofday(&now, NULL) == -1)
+	{
+		printf("Error: gettimeofday\n");
+		exit(1);
+	}
+	return ((now.tv_sec * (u_int64_t)1000) + (now.tv_usec / 1000) - relative);
+}
+
 int	error_arguments(char *s, char *mess)
 {
-	printf("Invalid argument [%s]!", s);
-	printf("%s%s!\n", mess, KRED);
-	printf("%s\n", KNRM);
+	printf("Invalid argument [%s]!\n", s);
+	printf("%s%s!\n", KRED, mess);
+	printf("%s", KNRM);
 	exit(1);
 	return (1);
 }

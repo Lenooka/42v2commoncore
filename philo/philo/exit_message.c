@@ -6,7 +6,7 @@
 /*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/18 14:58:10 by oltolmac          #+#    #+#             */
-/*   Updated: 2025/04/19 13:09:01 by oltolmac         ###   ########.fr       */
+/*   Updated: 2025/06/27 17:03:38 by oltolmac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ void	exit_free(t_philo *philo, t_table *table, char *mess)
 {
 	free(philo->fork);
 	free(philo);
+	(void)table;
 	ft_puterror_endl(mess, 2);
 	exit(1);
 }
