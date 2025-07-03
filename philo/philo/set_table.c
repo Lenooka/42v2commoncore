@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_table.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: olena <olena@student.42.fr>                +#+  +:+       +#+        */
+/*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/18 14:55:21 by oltolmac          #+#    #+#             */
-/*   Updated: 2025/06/27 18:27:50 by olena            ###   ########.fr       */
+/*   Updated: 2025/07/03 18:01:46 by oltolmac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,11 +35,14 @@ t_table	*set_up_table(t_philo *philo, t_table *table)
 	philo->ph_thread = malloc(sizeof(pthread_t) * philo->num_of_philo);
 	if (!philo->ph_thread)
 		exit_free(philo, table, "Malloc ph_thread fail, set_up_table");
+	philo->fork = malloc(sizeof(pthread_t) * philo->num_of_philo);
+	if (!philo->fork)
+		exit_free(philo, table, "Malloc fork fail, set_up_table");
 	init_mutex_forks(philo);
 	philo->end = 0;
 	table = malloc(sizeof(t_table) * philo->num_of_philo);
 	if (!table)
-		exit_just_mess("Malloc table fail, set_up_table");
+		exit_free(philo, table, "Malloc table fail, set_up_table");
 	philo->fork = malloc(sizeof(pthread_mutex_t) * philo->num_of_philo);
 	if (!philo->fork)
 		exit_free(philo, table, "Malloc fork fail, set_up_table");
@@ -53,6 +56,7 @@ t_table	*set_up_table(t_philo *philo, t_table *table)
 		table[i].philo = philo;
 		table[i].all_eaten = 0;
 		table[i].num_ph = philo->num_of_philo;
+		table[i].start_time = philo->start_t;
 		table[i].leftf = &philo->fork[i];
 		table[i].rightf = &philo->fork[(i + 1) % philo->num_of_philo]; 
 		if (pthread_mutex_init(&table[i].eat, NULL) != 0)

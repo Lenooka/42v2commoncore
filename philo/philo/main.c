@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: olena <olena@student.42.fr>                +#+  +:+       +#+        */
+/*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 15:07:12 by oltolmac          #+#    #+#             */
-/*   Updated: 2025/06/27 19:05:31 by olena            ###   ########.fr       */
+/*   Updated: 2025/07/03 18:07:41 by oltolmac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,14 +55,70 @@ void	checkfill_arguments(t_philo *phil, char **argv, int argc)
 
 int	not_dead(t_philo *philo)
 {
-	pthread_mutex_lock(&philo->death);
+	pthread_mutex_lock(philo->death);
 	if (philo->end)
 	{
-		pthread_mutex_unlock(&philo->death);
+		pthread_mutex_unlock(philo->death);
 		return (0);
 	}
-	pthread_mutex_unlock(&philo->death);
+	pthread_mutex_unlock(philo->death);
 	return (1);
+}
+
+void	untake_forks(t_table *inst)
+{
+	if (inst->indx % 2)
+	{
+		pthread_mutex_unlock(inst->leftf);
+		pthread_mutex_unlock(inst->rightf);
+	}
+	else
+	{
+		pthread_mutex_unlock(inst->rightf);
+		pthread_mutex_unlock(inst->leftf);
+	}
+}
+
+void	take_forks(t_table *inst)
+{
+	if (inst->indx % 2)
+	{
+		pthread_mutex_lock(inst->leftf);
+		mess_out(inst, "has taken a fork");
+		pthread_mutex_lock(inst->rightf);
+		mess_out(inst, "has taken a fork");
+	}
+	else
+	{
+		pthread_mutex_lock(inst->rightf);
+		mess_out(inst, "has taken a fork");
+		pthread_mutex_lock(inst->leftf);
+		mess_out(inst, "has taken a fork");		
+	}
+}
+
+void	forks_action(t_table *inst, int take)
+{
+	if (take == 0)
+		take_forks(inst);
+	else
+		untake_forks(inst);
+}
+
+int	eat_action(t_table *inst)
+{
+	forks_action(inst, 0);
+	mess_out(inst, "is eating");
+	inst->last_eat = get_current_time(inst->start_time);
+	if (!not_dead(inst->philo))
+	{
+		forks_action(inst, 0);
+		return (1);
+	}
+	usleep(inst->philo->time_to_eat);
+	forks_action(inst, 1);
+	return (0);
+	
 }
 
 void	limited_meals(t_table *inst)
@@ -74,11 +130,51 @@ void	limited_meals(t_table *inst)
 		if (meal_counter(inst) && !not_dead(inst->philo))
 			break ;
 		mess_out(inst, "is sleeping");
-		time_action(inst->philo->time_to_sleep, inst->philo->start_t);
+		time_action(inst->philo->time_to_sleep);
 		mess_out(inst, "is thinking");
 		if ((inst->num_ph % 2) && not_dead(inst->philo))
 			pass_time(inst->philo->time_to_eat * 2 - inst->philo->time_to_sleep);
 	}
+}
+
+char	*choose_color(int philo_i)
+{
+	if (philo_i % 4)
+		return (KCYN);
+	if (philo_i % 3)
+		return (KBLU);
+	if (philo_i % 2)
+		return (KRED);
+}
+void	mess_out(t_table *inst, char *mess)
+{
+	u_int64_t time;
+	char	*color;
+
+	get_current_time(inst->philo->start_t);
+	pthread_mutex_lock(inst->philo->write);
+	color = choose_color(inst->indx);
+	printf("%s[%lldu] philosopher N°%d %s\n", color, time, inst->indx, mess);
+	pthread_mutex_unlock(inst->philo->write);
+}
+void	one_philo_handler(t_table *table)
+{
+	pthread_mutex_lock(table->leftf);
+	mess_out(table, "has taken a fork");
+	pthread_mutex_unlock(table->leftf);
+	return (NULL);
+}
+
+int	meal_count(t_table *inst)
+{
+	pthread_mutex_lock(&inst->meals_mx);
+	inst->all_eaten++;
+	pthread_mutex_unlock(&inst->meals_mx);
+}
+
+void	time_action(u_int64_t t)
+{
+	usleep(t);
 }
 
 void	ft_feast(void *ph)
@@ -90,7 +186,7 @@ void	ft_feast(void *ph)
 		return (one_philo_handler(inst));
 	if (inst->indx % 2 == 0) //prevent deadlock and race condition
 		usleep(50);
-	if (inst->philo->num_of_meals < 0)
+	if (inst->philo->num_of_meals == -1)
 	{
 		while (not_dead(inst->philo))
 		{
@@ -99,10 +195,10 @@ void	ft_feast(void *ph)
 		if (meal_counter(inst) && !not_dead(inst->philo))
 			break ;
 		mess_out(inst, "is sleeping");
-		time_action(inst->philo->time_to_sleep, inst->philo->start_t);
+		time_action(inst->philo->time_to_sleep);
 		mess_out(inst, "is thinking");
 		if ((inst->num_ph % 2) && not_dead(inst->philo))
-			pass_time(inst->philo->time_to_eat * 2 - inst->philo->time_to_sleep);
+			time_action(inst->philo->time_to_eat * 2 - inst->philo->time_to_sleep);
 		}
 	}
 	else
