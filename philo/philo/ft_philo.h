@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_philo.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: olena <olena@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 15:21:20 by oltolmac          #+#    #+#             */
-/*   Updated: 2025/06/27 17:07:08 by oltolmac         ###   ########.fr       */
+/*   Updated: 2025/06/27 18:22:13 by olena            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,16 @@
 
 typedef	struct s_table
 {
-	int					meals;
-	pthread_t			philos;
 	int					indx;
+	int					num_ph;
 	struct s_philo				*philo;
 	pthread_mutex_t		*rightf;
 	pthread_mutex_t		*leftf;
+	pthread_mutex_t		eat;
+	pthread_mutex_t		meals_mx;
+	int					all_eaten;
+	u_int64_t			last_eat;
+	
 	
 } t_table;
 typedef	struct s_philo
@@ -50,6 +54,12 @@ typedef	struct s_philo
 	int				time_to_sleep;
 	int				time_to_eat;
 	int				num_of_meals;
+	int				end;
+	pthread_mutex_t		*write;
+	pthread_mutex_t		*death;
+	pthread_t			*ph_thread;
+	pthread_t			mon_death;
+	pthread_t			mon_meals;
 	pthread_mutex_t	*fork;
 	u_int64_t		start_t;
 	t_table			*table;
