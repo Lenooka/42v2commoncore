@@ -6,7 +6,7 @@
 /*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 15:07:12 by oltolmac          #+#    #+#             */
-/*   Updated: 2025/07/03 18:07:41 by oltolmac         ###   ########.fr       */
+/*   Updated: 2025/07/04 20:23:19 by oltolmac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,16 +145,17 @@ char	*choose_color(int philo_i)
 		return (KBLU);
 	if (philo_i % 2)
 		return (KRED);
+	return (KGRN);
 }
 void	mess_out(t_table *inst, char *mess)
 {
 	u_int64_t time;
 	char	*color;
 
-	get_current_time(inst->philo->start_t);
+	time = get_current_time(inst->philo->start_t);
 	pthread_mutex_lock(inst->philo->write);
 	color = choose_color(inst->indx);
-	printf("%s[%lldu] philosopher N°%d %s\n", color, time, inst->indx, mess);
+	printf("%s[%ldu] philosopher N°%d %s\n", color, time, inst->indx, mess);
 	pthread_mutex_unlock(inst->philo->write);
 }
 void	one_philo_handler(t_table *table)
@@ -203,7 +204,6 @@ void	ft_feast(void *ph)
 	}
 	else
 		limited_meals(inst);
-	return (NULL);
 }
 
 

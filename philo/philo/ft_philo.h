@@ -6,7 +6,7 @@
 /*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 15:21:20 by oltolmac          #+#    #+#             */
-/*   Updated: 2025/07/03 16:32:57 by oltolmac         ###   ########.fr       */
+/*   Updated: 2025/07/04 15:14:19 by oltolmac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,5 +76,8 @@ u_int64_t	get_current_time(u_int64_t relative);
 int	ft_strlen(char *s);
 int		ft_atoi(const char *str);
 void	ft_puterror_endl(char *s, int fd);
+
+//print
+void	mess_out(t_table *inst, char *mess);
 
 #endif
