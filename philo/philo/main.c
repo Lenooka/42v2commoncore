@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: olena <olena@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 15:07:12 by oltolmac          #+#    #+#             */
-/*   Updated: 2025/07/05 21:22:54 by oltolmac         ###   ########.fr       */
+/*   Updated: 2025/07/06 01:09:57 by olena            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,6 +171,8 @@ void	limited_meals(t_table *inst)
 		if (eat_action(inst) == -1)
 			break ;
 		meal_counter(inst);
+		if (food_count(inst) >= inst->philo->num_of_meals)
+			return ;
 		if (not_dead(inst->philo) == 1)
 			break ;
 		mess_out(inst, "is sleeping", 3);
@@ -204,7 +206,7 @@ void	mess_out(t_table *inst, char *mess, int c)
 	time = get_current_time(inst->philo->start_t);
 	pthread_mutex_lock(&inst->philo->write);
 	color = choose_color(c);
-	printf("%s[%lu] philosopher %d %s\n", color, time, inst->indx, mess);
+	printf("%s[%llu] philosopher %d %s\n", color, time, inst->indx, mess);
 	printf("%s", KNRM);
 	pthread_mutex_unlock(&inst->philo->write);
 }
