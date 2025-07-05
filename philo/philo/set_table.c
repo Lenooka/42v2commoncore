@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_table.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: olena <olena@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/18 14:55:21 by oltolmac          #+#    #+#             */
-/*   Updated: 2025/07/05 17:43:41 by oltolmac         ###   ########.fr       */
+/*   Updated: 2025/07/05 18:08:30 by olena            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ t_table	*set_up_table(t_philo *philo, t_table *table)
 		exit_free(philo, table, "Mutex write init fail, set_up_table");
 	if (pthread_mutex_init(&philo->death, NULL) != 0)
 		exit_free(philo, table, "Mutex death init fail, set_up_table");
+	init_mutex_forks(philo);
 	while (i < philo->num_of_philo)
 	{
 		table[i].indx = i + 1;
@@ -63,8 +64,8 @@ t_table	*set_up_table(t_philo *philo, t_table *table)
 		if (pthread_mutex_init(&table[i].meals_mx, NULL) != 0)
 			exit_free(philo, table, "Mutex meals_mx init fail, set_up_table");
 		table[i].last_eat = get_current_time(0);
+		table[i].start_time = get_current_time(0);
 			i++;
 	}
-	init_mutex_forks(philo);
 	return (table);
 }

@@ -3,14 +3,34 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: olena <olena@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 15:07:12 by oltolmac          #+#    #+#             */
-/*   Updated: 2025/07/05 17:43:03 by oltolmac         ###   ########.fr       */
+/*   Updated: 2025/07/05 18:33:56 by olena            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_philo.h"
+
+int	food_count(t_table *inst)
+{
+	int	count;
+
+	pthread_mutex_lock(&inst->meals_mx);
+	count = inst->all_eaten;
+	pthread_mutex_unlock(&inst->meals_mx);
+	return (count);
+}
+
+u_int64_t	last_meal_time(t_table *philo)
+{
+	u_int64_t	time;
+
+	pthread_mutex_lock(&philo->eat);
+	time = philo->last_eat;
+	pthread_mutex_unlock(&philo->eat);
+	return (time);
+}
 
 void	time_action(u_int64_t t)
 {
@@ -61,13 +81,13 @@ void	checkfill_arguments(t_philo *phil, char **argv, int argc)
 int	not_dead(t_philo *philo)
 {
 	pthread_mutex_lock(&philo->death);
-	if (philo->end)
+	if (philo->end == 1)
 	{
 		pthread_mutex_unlock(&philo->death);
-		return (0);
+		return (1);
 	}
 	pthread_mutex_unlock(&philo->death);
-	return (1);
+	return (0);
 }
 
 void	untake_forks(t_table *inst)
@@ -110,30 +130,31 @@ void	forks_action(t_table *inst, int take)
 		untake_forks(inst);
 }
 
+void	pass_time(u_int64_t time)
+{
+	u_int64_t	start_time;
+
+	start_time = get_current_time(0);
+	while (get_current_time(start_time) < time)
+		usleep(500);
+}
+
 int	eat_action(t_table *inst)
 {
 	forks_action(inst, 0);
 	mess_out(inst, "is eating");
-	inst->last_eat = get_current_time(inst->start_time);
-	if (!not_dead(inst->philo))
+	pthread_mutex_lock(&inst->eat);
+	inst->last_eat = get_current_time(0);
+	pthread_mutex_unlock(&inst->eat);
+	if (not_dead(inst->philo) == 1)
 	{
 		forks_action(inst, 0);
-		return (1);
+		return (-1);
 	}
-	usleep(inst->philo->time_to_eat);
+	pass_time(inst->philo->time_to_eat);
 	forks_action(inst, 1);
 	return (0);
 	
-}
-
-int	food_count(t_table *inst)
-{
-	int	count;
-
-	pthread_mutex_lock(&inst->meals_mx);
-	count = inst->all_eaten;
-	pthread_mutex_unlock(&inst->meals_mx);
-	return (count);
 }
 
 void	meal_counter(t_table *inst)
@@ -145,31 +166,36 @@ void	meal_counter(t_table *inst)
 
 void	limited_meals(t_table *inst)
 {
-	while (food_count(inst) < inst->philo->num_of_meals && not_dead(inst->philo))
+	while (food_count(inst) < inst->philo->num_of_meals && not_dead(inst->philo) == 0)
 	{
 		if (eat_action(inst) == -1)
 			break ;
 		meal_counter(inst);
-		if (!not_dead(inst->philo))
+		if (not_dead(inst->philo) == 1)
 			break ;
 		mess_out(inst, "is sleeping");
-		time_action(inst->philo->time_to_sleep);
+		pass_time(inst->philo->time_to_sleep);
 		mess_out(inst, "is thinking");
-		if ((inst->num_ph % 2) && not_dead(inst->philo))
-			time_action(inst->philo->time_to_eat * 2 - inst->philo->time_to_sleep);
+		if ((inst->num_ph % 2) && not_dead(inst->philo) == 0)
+			pass_time(inst->philo->time_to_eat * 2 - inst->philo->time_to_sleep);
 	}
 }
 
 char	*choose_color(int philo_i)
 {
-	if (philo_i % 4)
-		return (KCYN);
-	if (philo_i % 3)
-		return (KBLU);
-	if (philo_i % 2)
-		return (KRED);
-	return (KGRN);
+char	*colors[7];
+
+colors[0] = KRED;
+colors[1] = KGRN;
+colors[2] = KYEL;
+colors[3] = KBLU;
+colors[4] = KMAG;
+colors[5] = KCYN;
+colors[6] = KWHT;
+
+	return (colors[philo_i % 6]);
 }
+
 void	mess_out(t_table *inst, char *mess)
 {
 	u_int64_t time;
@@ -178,7 +204,7 @@ void	mess_out(t_table *inst, char *mess)
 	time = get_current_time(inst->philo->start_t);
 	pthread_mutex_lock(&inst->philo->write);
 	color = choose_color(inst->indx);
-	printf("%s[%lu] philosopher %d %s\n", color, time, inst->indx, mess);
+	printf("%s[%llu] philosopher %d %s\n", color, time, inst->indx, mess);
 	pthread_mutex_unlock(&inst->philo->write);
 }
 void	*one_philo_handler(t_table *table)
@@ -208,17 +234,17 @@ void	*ft_feast(void *ph)
 		usleep(50);
 	if (inst->philo->num_of_meals == -1)
 	{
-		while (not_dead(inst->philo))
+		while (not_dead(inst->philo) == 0)
 		{
 		if (eat_action(inst) == -1)
 			break ;
 		meal_counter(inst);
-		if (!not_dead(inst->philo))
+		if (not_dead(inst->philo) == 1)
 			break ;
 		mess_out(inst, "is sleeping");
 		time_action(inst->philo->time_to_sleep);
 		mess_out(inst, "is thinking");
-		if ((inst->num_ph % 2) && not_dead(inst->philo))
+		if ((inst->num_ph % 2) && not_dead(inst->philo) == 0)
 			time_action(inst->philo->time_to_eat * 2 - inst->philo->time_to_sleep);
 		}
 	}
@@ -235,18 +261,18 @@ void	*monitor_death(void *ph)
 
 	philo = (t_philo *)ph;
 	table = philo->table;
-	while (not_dead(philo))
+	while (not_dead(philo) != 1)
 	{
 		i = 0;
 		while (i < philo->num_of_philo)
 		{
-			if (get_current_time(philo->start_t) - table[i].last_eat > (unsigned long long)philo->time_to_die)
+			if (get_current_time((last_meal_time(&table[i]))) > (u_int64_t)philo->time_to_die)
 			{
 				pthread_mutex_lock(&philo->death);
 				philo->end = 1;
 				pthread_mutex_unlock(&philo->death);
 				mess_out(&table[i], "died");
-				return (NULL);
+				exit(1);
 			}
 			i++;
 		}
@@ -263,7 +289,7 @@ void	*monitor_meals(void *ph)
 
 	philo = (t_philo *)ph;
 	table = philo->table;
-	while (not_dead(philo))
+	while (not_dead(philo) == 0)
 	{
 		i = 0;
 		while (i < philo->num_of_philo)
@@ -273,7 +299,7 @@ void	*monitor_meals(void *ph)
 				pthread_mutex_lock(&philo->death);
 				philo->end = 1;
 				pthread_mutex_unlock(&philo->death);
-				return (NULL);
+				exit(0);
 			}
 			i++;
 		}
@@ -288,6 +314,13 @@ int	start_feast(t_philo *philo, t_table *table)
 
 	i = 0;
 	philo->start_t = get_current_time(0);
+	while (i < philo->num_of_philo)
+	{
+		table[i].start_time = philo->start_t;
+		table[i].last_eat = philo->start_t;
+		i++;
+	}
+	i = 0;
 	while (i < philo->num_of_philo)
 	{
 		table[i].last_eat = philo->start_t;
