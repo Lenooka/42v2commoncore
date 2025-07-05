@@ -6,7 +6,7 @@
 /*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 15:21:20 by oltolmac          #+#    #+#             */
-/*   Updated: 2025/07/05 17:35:26 by oltolmac         ###   ########.fr       */
+/*   Updated: 2025/07/05 20:38:25 by oltolmac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ typedef	struct s_philo
 	int				end;
 	pthread_mutex_t		write;
 	pthread_mutex_t		death;
+	pthread_mutex_t		sim;
 	pthread_t			*ph_thread;
 	pthread_t			mon_death;
 	pthread_t			mon_meals;
@@ -78,6 +79,6 @@ int		ft_atoi(const char *str);
 void	ft_puterror_endl(char *s, int fd);
 
 //print
-void	mess_out(t_table *inst, char *mess);
+void	mess_out(t_table *inst, char *mess, int c);
 
 #endif

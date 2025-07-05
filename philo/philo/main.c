@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: olena <olena@student.42.fr>                +#+  +:+       +#+        */
+/*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 15:07:12 by oltolmac          #+#    #+#             */
-/*   Updated: 2025/07/05 18:33:56 by olena            ###   ########.fr       */
+/*   Updated: 2025/07/05 21:22:54 by oltolmac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,16 +109,16 @@ void	take_forks(t_table *inst)
 	if (inst->indx % 2)
 	{
 		pthread_mutex_lock(inst->leftf);
-		mess_out(inst, "has taken a fork");
+		mess_out(inst, "has taken a fork", 1);
 		pthread_mutex_lock(inst->rightf);
-		mess_out(inst, "has taken a fork");
+		mess_out(inst, "has taken a fork", 1);
 	}
 	else
 	{
 		pthread_mutex_lock(inst->rightf);
-		mess_out(inst, "has taken a fork");
+		mess_out(inst, "has taken a fork", 1);
 		pthread_mutex_lock(inst->leftf);
-		mess_out(inst, "has taken a fork");		
+		mess_out(inst, "has taken a fork", 1);		
 	}
 }
 
@@ -142,7 +142,6 @@ void	pass_time(u_int64_t time)
 int	eat_action(t_table *inst)
 {
 	forks_action(inst, 0);
-	mess_out(inst, "is eating");
 	pthread_mutex_lock(&inst->eat);
 	inst->last_eat = get_current_time(0);
 	pthread_mutex_unlock(&inst->eat);
@@ -151,6 +150,7 @@ int	eat_action(t_table *inst)
 		forks_action(inst, 0);
 		return (-1);
 	}
+	mess_out(inst, "is eating", 2);
 	pass_time(inst->philo->time_to_eat);
 	forks_action(inst, 1);
 	return (0);
@@ -173,44 +173,45 @@ void	limited_meals(t_table *inst)
 		meal_counter(inst);
 		if (not_dead(inst->philo) == 1)
 			break ;
-		mess_out(inst, "is sleeping");
+		mess_out(inst, "is sleeping", 3);
 		pass_time(inst->philo->time_to_sleep);
-		mess_out(inst, "is thinking");
+		mess_out(inst, "is thinking", 4);
 		if ((inst->num_ph % 2) && not_dead(inst->philo) == 0)
 			pass_time(inst->philo->time_to_eat * 2 - inst->philo->time_to_sleep);
 	}
 }
 
-char	*choose_color(int philo_i)
+char	*choose_color(int i)
 {
-char	*colors[7];
-
-colors[0] = KRED;
-colors[1] = KGRN;
-colors[2] = KYEL;
-colors[3] = KBLU;
-colors[4] = KMAG;
-colors[5] = KCYN;
-colors[6] = KWHT;
-
-	return (colors[philo_i % 6]);
+	if (i == 1)
+		return (KRED);
+	if (i == 2)
+		return (KYEL);
+	if (i == 3)
+		return (KGRN);
+	if (i == 4)
+		return (KCYN);
+	if (i == 5)
+		return (KMAG);
+	return (KCYN);
 }
 
-void	mess_out(t_table *inst, char *mess)
+void	mess_out(t_table *inst, char *mess, int c)
 {
 	u_int64_t time;
 	char	*color;
 
 	time = get_current_time(inst->philo->start_t);
 	pthread_mutex_lock(&inst->philo->write);
-	color = choose_color(inst->indx);
-	printf("%s[%llu] philosopher %d %s\n", color, time, inst->indx, mess);
+	color = choose_color(c);
+	printf("%s[%lu] philosopher %d %s\n", color, time, inst->indx, mess);
+	printf("%s", KNRM);
 	pthread_mutex_unlock(&inst->philo->write);
 }
 void	*one_philo_handler(t_table *table)
 {
 	pthread_mutex_lock(table->leftf);
-	mess_out(table, "has taken a fork");
+	mess_out(table, "has taken a fork", 1);
 	pthread_mutex_unlock(table->leftf);
 	return (NULL);
 }
@@ -231,21 +232,20 @@ void	*ft_feast(void *ph)
 	if (inst->num_ph == 1)
 		return (one_philo_handler(inst));
 	if (inst->indx % 2 == 0) //prevent deadlock and race condition
-		usleep(50);
+		usleep(1000);
 	if (inst->philo->num_of_meals == -1)
 	{
 		while (not_dead(inst->philo) == 0)
 		{
-		if (eat_action(inst) == -1)
-			break ;
-		meal_counter(inst);
-		if (not_dead(inst->philo) == 1)
-			break ;
-		mess_out(inst, "is sleeping");
-		time_action(inst->philo->time_to_sleep);
-		mess_out(inst, "is thinking");
-		if ((inst->num_ph % 2) && not_dead(inst->philo) == 0)
-			time_action(inst->philo->time_to_eat * 2 - inst->philo->time_to_sleep);
+			if (eat_action(inst) == -1)
+				break ;
+			if (not_dead(inst->philo) == 1)
+				break ;
+			mess_out(inst, "is sleeping", 3);
+			pass_time(inst->philo->time_to_sleep);
+			mess_out(inst, "is thinking", 4);
+			if ((inst->num_ph % 2) && not_dead(inst->philo) == 0)
+				pass_time(inst->philo->time_to_eat * 2 - inst->philo->time_to_sleep);
 		}
 	}
 	else
@@ -271,7 +271,7 @@ void	*monitor_death(void *ph)
 				pthread_mutex_lock(&philo->death);
 				philo->end = 1;
 				pthread_mutex_unlock(&philo->death);
-				mess_out(&table[i], "died");
+				mess_out(&table[i], "died", 5);
 				exit(1);
 			}
 			i++;
@@ -289,19 +289,25 @@ void	*monitor_meals(void *ph)
 
 	philo = (t_philo *)ph;
 	table = philo->table;
+	if (philo->num_of_meals == -1)
+		return (NULL);
 	while (not_dead(philo) == 0)
 	{
 		i = 0;
 		while (i < philo->num_of_philo)
 		{
-			if (table[i].all_eaten >= philo->num_of_meals && philo->num_of_meals > 0)
+			if (food_count(&table[i]) < philo->num_of_meals)
 			{
-				pthread_mutex_lock(&philo->death);
-				philo->end = 1;
-				pthread_mutex_unlock(&philo->death);
-				exit(0);
+				break ;
 			}
 			i++;
+		}
+		if (i == philo->num_of_philo)
+		{
+			pthread_mutex_lock(&philo->death);
+			philo->end = 1;
+			pthread_mutex_unlock(&philo->death);
+			exit(0);
 		}
 		usleep(100);
 	}
@@ -336,9 +342,7 @@ int	start_feast(t_philo *philo, t_table *table)
 		i++;
 	}
 	if (pthread_create(&philo->mon_death, NULL, &monitor_death, (void *)philo) != 0
-		|| pthread_create(&philo->mon_meals, NULL, &monitor_meals, (void *)philo) != 0
-		|| (philo->num_of_meals > 0 && philo->num_of_philo > 1
-			&& pthread_create(&philo->mon_meals, NULL, &monitor_meals, (void *)philo) != 0))
+			&& pthread_create(&philo->mon_meals, NULL, &monitor_meals, (void *)philo) != 0)
 	{
 		exit_free(philo, table, "Error in pthread_create for monitor_death");
 	}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_table.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: olena <olena@student.42.fr>                +#+  +:+       +#+        */
+/*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/18 14:55:21 by oltolmac          #+#    #+#             */
-/*   Updated: 2025/07/05 18:08:30 by olena            ###   ########.fr       */
+/*   Updated: 2025/07/05 20:38:59 by oltolmac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ t_table	*set_up_table(t_philo *philo, t_table *table)
 	if (!philo->fork)
 		exit_free(philo, table, "Malloc fork fail, set_up_table");
 	if (pthread_mutex_init(&philo->write, NULL) != 0)
+		exit_free(philo, table, "Mutex write init fail, set_up_table");
+	if (pthread_mutex_init(&philo->sim, NULL) != 0)
 		exit_free(philo, table, "Mutex write init fail, set_up_table");
 	if (pthread_mutex_init(&philo->death, NULL) != 0)
 		exit_free(philo, table, "Mutex death init fail, set_up_table");
