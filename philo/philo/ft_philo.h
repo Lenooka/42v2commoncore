@@ -6,7 +6,7 @@
 /*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 15:21:20 by oltolmac          #+#    #+#             */
-/*   Updated: 2025/07/04 15:14:19 by oltolmac         ###   ########.fr       */
+/*   Updated: 2025/07/05 17:35:26 by oltolmac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,8 @@ typedef	struct s_philo
 	int				time_to_eat;
 	int				num_of_meals;
 	int				end;
-	pthread_mutex_t		*write;
-	pthread_mutex_t		*death;
+	pthread_mutex_t		write;
+	pthread_mutex_t		death;
 	pthread_t			*ph_thread;
 	pthread_t			mon_death;
 	pthread_t			mon_meals;

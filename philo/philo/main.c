@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: olena <olena@student.42.fr>                +#+  +:+       +#+        */
+/*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 15:07:12 by oltolmac          #+#    #+#             */
-/*   Updated: 2025/07/05 16:11:10 by olena            ###   ########.fr       */
+/*   Updated: 2025/07/05 17:43:03 by oltolmac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,13 +60,13 @@ void	checkfill_arguments(t_philo *phil, char **argv, int argc)
 
 int	not_dead(t_philo *philo)
 {
-	pthread_mutex_lock(philo->death);
+	pthread_mutex_lock(&philo->death);
 	if (philo->end)
 	{
-		pthread_mutex_unlock(philo->death);
+		pthread_mutex_unlock(&philo->death);
 		return (0);
 	}
-	pthread_mutex_unlock(philo->death);
+	pthread_mutex_unlock(&philo->death);
 	return (1);
 }
 
@@ -176,10 +176,10 @@ void	mess_out(t_table *inst, char *mess)
 	char	*color;
 
 	time = get_current_time(inst->philo->start_t);
-	pthread_mutex_lock(inst->philo->write);
+	pthread_mutex_lock(&inst->philo->write);
 	color = choose_color(inst->indx);
-	printf("%s[%llu] philosopher N°%d %s\n", color, time, inst->indx, mess);
-	pthread_mutex_unlock(inst->philo->write);
+	printf("%s[%lu] philosopher %d %s\n", color, time, inst->indx, mess);
+	pthread_mutex_unlock(&inst->philo->write);
 }
 void	*one_philo_handler(t_table *table)
 {
@@ -240,11 +240,11 @@ void	*monitor_death(void *ph)
 		i = 0;
 		while (i < philo->num_of_philo)
 		{
-			if (get_current_time(table[i].start_time) - table[i].last_eat > (unsigned long long)philo->time_to_die)
+			if (get_current_time(philo->start_t) - table[i].last_eat > (unsigned long long)philo->time_to_die)
 			{
-				pthread_mutex_lock(philo->death);
+				pthread_mutex_lock(&philo->death);
 				philo->end = 1;
-				pthread_mutex_unlock(philo->death);
+				pthread_mutex_unlock(&philo->death);
 				mess_out(&table[i], "died");
 				return (NULL);
 			}
@@ -270,9 +270,9 @@ void	*monitor_meals(void *ph)
 		{
 			if (table[i].all_eaten >= philo->num_of_meals && philo->num_of_meals > 0)
 			{
-				pthread_mutex_lock(philo->death);
+				pthread_mutex_lock(&philo->death);
 				philo->end = 1;
-				pthread_mutex_unlock(philo->death);
+				pthread_mutex_unlock(&philo->death);
 				return (NULL);
 			}
 			i++;
