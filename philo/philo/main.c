@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: olena <olena@student.42.fr>                +#+  +:+       +#+        */
+/*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 15:07:12 by oltolmac          #+#    #+#             */
-/*   Updated: 2025/07/06 01:09:57 by olena            ###   ########.fr       */
+/*   Updated: 2025/07/06 16:34:12 by oltolmac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -206,7 +206,7 @@ void	mess_out(t_table *inst, char *mess, int c)
 	time = get_current_time(inst->philo->start_t);
 	pthread_mutex_lock(&inst->philo->write);
 	color = choose_color(c);
-	printf("%s[%llu] philosopher %d %s\n", color, time, inst->indx, mess);
+	printf("%s%lu %d %s\n", color, time, inst->indx, mess);
 	printf("%s", KNRM);
 	pthread_mutex_unlock(&inst->philo->write);
 }
@@ -215,6 +215,7 @@ void	*one_philo_handler(t_table *table)
 	pthread_mutex_lock(table->leftf);
 	mess_out(table, "has taken a fork", 1);
 	pthread_mutex_unlock(table->leftf);
+	mess_out(table, "died", 5);
 	return (NULL);
 }
 
@@ -223,6 +224,7 @@ int	meal_count(t_table *inst)
 	pthread_mutex_lock(&inst->meals_mx);
 	inst->all_eaten++;
 	pthread_mutex_unlock(&inst->meals_mx);
+	
 	return (0);
 }
 
