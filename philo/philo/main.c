@@ -6,7 +6,7 @@
 /*   By: olena <olena@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 15:07:12 by oltolmac          #+#    #+#             */
-/*   Updated: 2025/07/06 01:09:57 by olena            ###   ########.fr       */
+/*   Updated: 2025/07/08 16:55:13 by olena            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,7 +136,7 @@ void	pass_time(u_int64_t time)
 
 	start_time = get_current_time(0);
 	while (get_current_time(start_time) < time)
-		usleep(500);
+		usleep(1000);
 }
 
 int	eat_action(t_table *inst)
@@ -178,10 +178,20 @@ void	limited_meals(t_table *inst)
 		mess_out(inst, "is sleeping", 3);
 		pass_time(inst->philo->time_to_sleep);
 		mess_out(inst, "is thinking", 4);
-		if ((inst->num_ph % 2) && not_dead(inst->philo) == 0)
-			pass_time(inst->philo->time_to_eat * 2 - inst->philo->time_to_sleep);
+		// if ((inst->num_ph % 2) && not_dead(inst->philo) == 0)
+			// pass_time(inst->philo->time_to_eat * 2 - inst->philo->time_to_sleep);
+					u_int64_t buffer = 5;
+u_int64_t safe_think = inst->philo->time_to_die
+	- (get_current_time(0) - last_meal_time(inst))
+	- inst->philo->time_to_eat
+	- buffer;
+
+if ((int)safe_think > 0)
+	pass_time(safe_think);
+
 	}
-}
+	}
+
 
 char	*choose_color(int i)
 {
@@ -215,6 +225,10 @@ void	*one_philo_handler(t_table *table)
 	pthread_mutex_lock(table->leftf);
 	mess_out(table, "has taken a fork", 1);
 	pthread_mutex_unlock(table->leftf);
+	pthread_mutex_lock(&table->philo->death);
+	table->philo->end = 1;
+	pthread_mutex_unlock(&table->philo->death);
+	mess_out(table, "died", 5);
 	return (NULL);
 }
 
@@ -234,7 +248,7 @@ void	*ft_feast(void *ph)
 	if (inst->num_ph == 1)
 		return (one_philo_handler(inst));
 	if (inst->indx % 2 == 0) //prevent deadlock and race condition
-		usleep(1000);
+		usleep(10000);
 	if (inst->philo->num_of_meals == -1)
 	{
 		while (not_dead(inst->philo) == 0)
@@ -245,9 +259,24 @@ void	*ft_feast(void *ph)
 				break ;
 			mess_out(inst, "is sleeping", 3);
 			pass_time(inst->philo->time_to_sleep);
+			//		if ((inst->num_ph % 2) && not_dead(inst->philo) == 0)
+		//	pass_time(inst->philo->time_to_eat * 2 - inst->philo->time_to_sleep);
+// 			u_int64_t time_since_meal = get_current_time(0) - last_meal_time(inst);
+// if (time_since_meal + inst->philo->time_to_eat < (u_int64_t)inst->philo->time_to_die)
+// {
+// 	mess_out(inst, "is thinking", 4);
+// 	if ((inst->num_ph % 2) && not_dead(inst->philo) == 0)
+// 		pass_time(inst->philo->time_to_eat * 2 - inst->philo->time_to_sleep);
+// }
+			u_int64_t buffer = 5;
+			u_int64_t safe_think = inst->philo->time_to_die
+				- (get_current_time(0) - last_meal_time(inst))
+				- inst->philo->time_to_eat
+				- buffer;
+
+			if ((int)safe_think > 0)
+				pass_time(safe_think);
 			mess_out(inst, "is thinking", 4);
-			if ((inst->num_ph % 2) && not_dead(inst->philo) == 0)
-				pass_time(inst->philo->time_to_eat * 2 - inst->philo->time_to_sleep);
 		}
 	}
 	else
