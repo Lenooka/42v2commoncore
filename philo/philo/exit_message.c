@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit_message.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: olena <olena@student.42.fr>                +#+  +:+       +#+        */
+/*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/18 14:58:10 by oltolmac          #+#    #+#             */
-/*   Updated: 2025/07/05 17:47:08 by olena            ###   ########.fr       */
+/*   Updated: 2025/07/09 18:19:04 by oltolmac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,12 @@ void	ft_puterror_endl(char *s, int fd)
 
 void	exit_free(t_philo *philo, t_table *table, char *mess)
 {
-	free(philo->fork);
-	free(philo);
-	(void)table;
-	// if (&philo->write)
-	// 	pthread_mutex_destroy(&philo->write);
-	// if (&philo->death)
-	// 	pthread_mutex_destroy(&philo->death);
+	if (philo->ph_thread)
+		free(philo->ph_thread);
+	if (philo->fork)
+		free(philo->fork);
+	if (table)
+		free(table);
 	ft_puterror_endl(mess, 2);
 	exit(1);
 }

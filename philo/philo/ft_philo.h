@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_philo.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: olena <olena@student.42.fr>                +#+  +:+       +#+        */
+/*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 15:21:20 by oltolmac          #+#    #+#             */
-/*   Updated: 2025/07/08 16:49:00 by olena            ###   ########.fr       */
+/*   Updated: 2025/07/09 14:48:22 by oltolmac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,15 +70,37 @@ typedef	struct s_philo
 int		check_atoi(char **argv);
 void	exit_free(t_philo *philo, t_table *table, char *mess);
 int		fill_struct(t_philo *data, char **s);
-t_table	*set_up_table(t_philo *philo, t_table *table);
+t_table	*set_up_table(t_philo *philo, t_table *table, int i);
 void	exit_just_mess(char *str);
 u_int64_t	get_current_time(u_int64_t relative);
+int	check_meals(char **argv);
+void	checkfill_arguments(t_philo *phil, char **argv, int argc);
 
+//monitor
+void	*monitor_meals(void *ph);
+void	*monitor_death(void *ph);
+
+//feast
+int	start_feast(t_philo *philo, t_table *table);
+void	*one_philo_handler(t_table *table);
+void	*ft_feast(void *ph);
+
+//action
+void	ft_think(t_table *inst);
+void	pass_time(u_int64_t time);
+int	food_count(t_table *inst);
+u_int64_t	last_meal_time(t_table *philo);
+void	meal_counter(t_table *inst);
+void	limited_meals(t_table *inst);
+int	eat_action(t_table *inst);
+void	forks_action(t_table *inst, int take);
 //UTILS
 int	ft_strlen(char *s);
 int		ft_atoi(const char *str);
 void	ft_puterror_endl(char *s, int fd);
-
+void	pass_time(u_int64_t time);
+void	wait_for_creation(t_philo *philo);
+int	not_dead(t_philo *philo);
 //print
 void	mess_out(t_table *inst, char *mess, int c);
 
