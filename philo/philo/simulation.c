@@ -6,7 +6,7 @@
 /*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/09 14:32:18 by oltolmac          #+#    #+#             */
-/*   Updated: 2025/07/11 14:20:44 by oltolmac         ###   ########.fr       */
+/*   Updated: 2025/07/11 17:26:48 by oltolmac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,15 +47,15 @@ void	*ft_feast(void *ph)
 	if (inst->num_ph == 1)
 		return (one_philo_handler(inst));
 	if (inst->indx % 2 == 0) //prevent deadlock and race condition
-		usleep(10000);
+		usleep(50);
 	if (inst->philo->num_of_meals == -1)
 	{
 		while (not_dead(inst->philo) == 0)
 		{
 			if (eat_action(inst) == -1)
 				break ;
-			// if (not_dead(inst->philo) == 1)
-			// 	break ;
+			if (not_dead(inst->philo) == 1)
+				break ;
 			mess_out(inst, "is sleeping", 3);
 			pass_time(inst->philo->time_to_sleep);
 			ft_think(inst);

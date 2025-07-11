@@ -6,7 +6,7 @@
 /*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/09 13:40:59 by oltolmac          #+#    #+#             */
-/*   Updated: 2025/07/11 14:21:31 by oltolmac         ###   ########.fr       */
+/*   Updated: 2025/07/11 17:25:06 by oltolmac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,8 @@ void	limited_meals(t_table *inst)
 		mess_out(inst, "is sleeping", 3);
 		pass_time(inst->philo->time_to_sleep);
 		mess_out(inst, "is thinking", 4);
+		if (not_dead(inst->philo) == 1)
+			break ;
 		ft_think(inst);
 	}
 }

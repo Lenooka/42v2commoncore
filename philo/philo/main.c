@@ -6,7 +6,7 @@
 /*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 15:07:12 by oltolmac          #+#    #+#             */
-/*   Updated: 2025/07/11 13:41:29 by oltolmac         ###   ########.fr       */
+/*   Updated: 2025/07/11 15:38:18 by oltolmac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,8 @@ int	main(int argc, char **argv)
 		exit_just_mess("Wrong amount of arguments!");
 	checkfill_arguments(&philo, argv, argc);
 	philo.table = set_up_table(&philo, philo.table, 0);
-	if (start_feast(&philo, philo.table) == -1)
-	{
-		full_exit(&philo, philo.table, "Error in start_feast");
-	}
-
+	start_feast(&philo, philo.table);
+	full_exit(&philo, philo.table, NULL);
 	return (0);
 }
  

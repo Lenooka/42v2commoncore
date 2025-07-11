@@ -6,7 +6,7 @@
 /*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/18 14:58:10 by oltolmac          #+#    #+#             */
-/*   Updated: 2025/07/11 14:22:21 by oltolmac         ###   ########.fr       */
+/*   Updated: 2025/07/11 15:48:51 by oltolmac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ void    free_table(t_table *table, t_philo *philo)
     while (i < philo->num_of_philo)
     {
         pthread_mutex_destroy(&table[i].eat);
+        pthread_mutex_destroy(&philo->fork[i]);
         pthread_mutex_destroy(&table[i].meals_mx);
         i++;
     }
@@ -46,19 +47,20 @@ void    free_table(t_table *table, t_philo *philo)
 
 void    full_exit(t_philo *philo, t_table *table, char *mess)
 {
+	if (table)
+		free_table(table, philo);
     if (philo->ph_thread)
-        free(philo->ph_thread);
+		free(philo->ph_thread);
     if (philo->fork)
-        free(philo->fork);
-    if (table)
-        free_table(table, philo);
-    pthread_mutex_destroy(&philo->write);
-   // pthread_mutex_destroy(&philo->death);
-    pthread_mutex_destroy(&philo->sim);
-    ft_puterror_endl(mess, 2);
+    {
+		free(philo->fork);
+	}
+	pthread_mutex_destroy(&philo->write);
+	pthread_mutex_destroy(&philo->death);
+	pthread_mutex_destroy(&philo->sim);
+	ft_puterror_endl(mess, 2);
     exit(0);
 }
-
 
 void	exit_free(t_philo *philo, t_table *table, char *mess)
 {
