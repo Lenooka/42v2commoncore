@@ -6,7 +6,7 @@
 /*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/18 14:55:21 by oltolmac          #+#    #+#             */
-/*   Updated: 2025/07/09 17:07:13 by oltolmac         ###   ########.fr       */
+/*   Updated: 2025/07/11 14:23:05 by oltolmac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	set_mutex(t_philo *philo, t_table *table)
 	if (pthread_mutex_init(&philo->death, NULL) != 0)
 	{
 		pthread_mutex_destroy(&philo->write);
-		pthread_mutex_destroy(&philo->death);
+		pthread_mutex_destroy(&philo->sim);
 		exit_free(philo, table, "Mutex death init fail, set_up_table");
 	}
 	philo->fork = malloc(sizeof(pthread_mutex_t) * philo->num_of_philo);

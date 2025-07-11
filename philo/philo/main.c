@@ -6,7 +6,7 @@
 /*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 15:07:12 by oltolmac          #+#    #+#             */
-/*   Updated: 2025/07/09 18:23:40 by oltolmac         ###   ########.fr       */
+/*   Updated: 2025/07/11 13:41:29 by oltolmac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,9 @@ int	main(int argc, char **argv)
 	philo.table = set_up_table(&philo, philo.table, 0);
 	if (start_feast(&philo, philo.table) == -1)
 	{
-		exit_free(&philo, philo.table, "Error in start_feast");
+		full_exit(&philo, philo.table, "Error in start_feast");
 	}
+
 	return (0);
 }
  

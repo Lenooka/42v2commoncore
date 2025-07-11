@@ -6,7 +6,7 @@
 /*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/09 14:32:18 by oltolmac          #+#    #+#             */
-/*   Updated: 2025/07/09 14:44:35 by oltolmac         ###   ########.fr       */
+/*   Updated: 2025/07/11 14:20:44 by oltolmac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,8 @@ void	*ft_feast(void *ph)
 		{
 			if (eat_action(inst) == -1)
 				break ;
-			if (not_dead(inst->philo) == 1)
-				break ;
+			// if (not_dead(inst->philo) == 1)
+			// 	break ;
 			mess_out(inst, "is sleeping", 3);
 			pass_time(inst->philo->time_to_sleep);
 			ft_think(inst);

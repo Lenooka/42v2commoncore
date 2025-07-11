@@ -6,7 +6,7 @@
 /*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 15:21:20 by oltolmac          #+#    #+#             */
-/*   Updated: 2025/07/09 14:48:22 by oltolmac         ###   ########.fr       */
+/*   Updated: 2025/07/11 13:39:36 by oltolmac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ void	exit_just_mess(char *str);
 u_int64_t	get_current_time(u_int64_t relative);
 int	check_meals(char **argv);
 void	checkfill_arguments(t_philo *phil, char **argv, int argc);
+void    full_exit(t_philo *philo, t_table *table, char *mess);
 
 //monitor
 void	*monitor_meals(void *ph);

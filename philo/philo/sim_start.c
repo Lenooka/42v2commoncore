@@ -6,7 +6,7 @@
 /*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/09 14:31:41 by oltolmac          #+#    #+#             */
-/*   Updated: 2025/07/09 18:30:46 by oltolmac         ###   ########.fr       */
+/*   Updated: 2025/07/11 14:27:26 by oltolmac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,23 +27,6 @@ void	join_threads(t_philo *philo, t_table *table)
 	}
 }
 
-void	time_and_wexit(t_philo *philo, t_table *table, char *s)
-{
-	int i;
-
-	i = 0;
-	pthread_mutex_destroy(&philo->write);
-	pthread_mutex_destroy(&philo->death);
-	pthread_mutex_destroy(&philo->sim);
-	(void)table;
-	// while (i <= philo->num_of_philo)
-	// {
-	// 	pthread_mutex_destroy(&table[i].eat);
-	// 	pthread_mutex_destroy(&table[i].meals_mx);
-	// 	i++;
-	// }
-	exit_free(philo, NULL, s);
-}
 
 void	time_and_wait_init(t_philo *philo, t_table *table)
 {
@@ -58,7 +41,6 @@ void	time_and_wait_init(t_philo *philo, t_table *table)
 		table[i].last_eat = philo->start_t;
 		i++;
 	}
-	pthread_mutex_lock(&philo->sim);
 }
 
 void	free_back(t_philo *philo, int i)
@@ -71,6 +53,14 @@ void	free_back(t_philo *philo, int i)
 	}
 }
 
+void	sho(t_philo *philo)
+{
+	pthread_mutex_lock(&philo->sim);
+	philo->start = 1;
+	pthread_mutex_unlock(&philo->sim);	
+	
+}
+
 int	start_feast(t_philo *philo, t_table *table)
 {
 	int	i;
@@ -81,16 +71,15 @@ int	start_feast(t_philo *philo, t_table *table)
 	{
 		if (pthread_create(&philo->ph_thread[i], NULL, &ft_feast, &table[i]) != 0)
 		{
-			exit_free(philo, table, "Error in pthread_create");
+			full_exit(philo, table, "Error in pthread_create");
 		}
 		i++;
 	}
-	philo->start = 1;
-	pthread_mutex_unlock(&philo->sim);	
+	sho(philo);
 	if (pthread_create(&philo->mon_death, NULL, &monitor_death, (void *)philo) != 0
-			&& pthread_create(&philo->mon_meals, NULL, &monitor_meals, (void *)philo) != 0)
+		&& pthread_create(&philo->mon_meals, NULL, &monitor_meals, (void *)philo) != 0)
 	{
-		exit_free(philo, table, "Error in pthread_create for monitor_death");
+		full_exit(philo, table, "Error in pthread_create for monitor_death");
 	}
 	join_threads(philo, table);
 	return (0);
