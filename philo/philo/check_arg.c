@@ -6,7 +6,7 @@
 /*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/09 14:29:10 by oltolmac          #+#    #+#             */
-/*   Updated: 2025/07/09 14:29:21 by oltolmac         ###   ########.fr       */
+/*   Updated: 2025/07/11 18:49:09 by oltolmac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	checkfill_arguments(t_philo *phil, char **argv, int argc)
 			{
 				printf("%sInvalid argument : %s\n", KRED, argv[j]);
 				printf("%s", KNRM);
-				exit(1);	
+				exit(1);
 			}
 			i++;
 		}

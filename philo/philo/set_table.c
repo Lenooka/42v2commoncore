@@ -6,7 +6,7 @@
 /*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/18 14:55:21 by oltolmac          #+#    #+#             */
-/*   Updated: 2025/07/11 18:13:43 by oltolmac         ###   ########.fr       */
+/*   Updated: 2025/07/11 20:16:33 by oltolmac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,25 +21,6 @@ void	destroy_back(t_philo *philo, int i)
 	{
 		pthread_mutex_destroy(&philo->fork[a]);
 		a++;
-	}
-}
-
-void	init_mutex_forks(t_philo *philo)
-{
-	int	i;
-
-	i = 0;
-	while (i < philo->num_of_philo)
-	{
-		if (pthread_mutex_init(&philo->fork[i], NULL) != 0)
-		{
-			pthread_mutex_destroy(&philo->write);
-			pthread_mutex_destroy(&philo->death);
-			pthread_mutex_destroy(&philo->sim);
-			destroy_back(philo, i);
-			exit_free(philo, NULL, "Mutex fork init fail, init_mutex_forks");
-		}
-		i++;
 	}
 }
 
@@ -71,7 +52,6 @@ void	set_mutex(t_philo *philo, t_table *table)
 	init_mutex_forks(philo);
 }
 
-
 void	exit_one(t_philo *philo, t_table *table, char *s)
 {
 	free(table);
@@ -90,32 +70,34 @@ void	exit_loop(t_philo *philo, t_table *table, char *s, int i)
 		pthread_mutex_destroy(&table[i].meals_mx);
 		i--;
 	}
-	exit_free(philo, NULL, s);
+	exit_free(philo, table, s);
 }
 
-t_table	*set_up_table(t_philo *philo, t_table *table, int i)
+t_table	*set_up_table(t_philo *philo, int i)
 {
-	table = malloc(sizeof(t_table) * philo->num_of_philo);
-	if (!table)
+	philo->table = malloc(sizeof(t_table) * philo->num_of_philo);
+	if (!philo->table)
 		exit_just_mess("Malloc table fail, set_up_table");
-	philo->ph_thread = malloc(sizeof(pthread_t) * philo->num_of_philo);
-	if (!philo->ph_thread)
-		exit_one(philo, table, "Malloc ph_thread fail, set_up_table");
-	set_mutex(philo, table);
+	philo->ph = malloc(sizeof(pthread_t) * philo->num_of_philo);
+	if (!philo->ph)
+		exit_one(philo, philo->table, "Malloc ph_thread fail, set_up_table");
+	set_mutex(philo, philo->table);
 	while (i < philo->num_of_philo)
 	{
-		table[i].indx = i + 1;
-		table[i].philo = philo;
-		table[i].done_eating = 0;
-		table[i].all_eaten = 0;
-		table[i].num_ph = philo->num_of_philo;
-		table[i].leftf = &philo->fork[i];
-		table[i].rightf = &philo->fork[(i + 1) % philo->num_of_philo]; 
-		if (pthread_mutex_init(&table[i].eat, NULL) != 0)
-			exit_loop(philo, table, "Mutex eat init fail, set_up_table", i);
-		if (pthread_mutex_init(&table[i].meals_mx, NULL) != 0)
-			exit_loop(philo, table, "Mutex eat init fail, set_up_table", i);
+		philo->table[i].indx = i + 1;
+		philo->table[i].philo = philo;
+		philo->table[i].done_eating = 0;
+		philo->table[i].all_eaten = 0;
+		philo->table[i].num_ph = philo->num_of_philo;
+		philo->table[i].leftf = &philo->fork[i];
+		philo->table[i].rightf = &philo->fork[(i + 1) % philo->num_of_philo];
+		if (pthread_mutex_init(&philo->table[i].eat, NULL) != 0)
+			exit_loop(philo, philo->table, "Mutex eat init fail", i);
+		if (pthread_mutex_init(&philo->table[i].meals_mx, NULL) != 0)
+			exit_loop(philo, philo->table, "Mutex meals init fail", i);
+		if (pthread_mutex_init(&philo->table[i].done, NULL) != 0)
+			exit_loop(philo, philo->table, "Mutex done init fail", i);
 		i++;
 	}
-	return (table);
+	return (philo->table);
 }

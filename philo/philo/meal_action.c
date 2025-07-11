@@ -6,7 +6,7 @@
 /*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/09 13:40:59 by oltolmac          #+#    #+#             */
-/*   Updated: 2025/07/11 18:15:59 by oltolmac         ###   ########.fr       */
+/*   Updated: 2025/07/11 20:05:38 by oltolmac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ void	meal_counter(t_table *inst)
 	pthread_mutex_unlock(&inst->meals_mx);
 }
 
-
 int	eat_action(t_table *inst)
 {
 	if (not_dead(inst->philo) == 1)
@@ -61,26 +60,27 @@ int	eat_action(t_table *inst)
 	pass_time(inst->philo->time_to_eat);
 	forks_action(inst, 1);
 	return (0);
-	
 }
 
 void	limited_meals(t_table *inst)
 {
-	while (food_count(inst) < inst->philo->num_of_meals && not_dead(inst->philo) == 0)
+	while (food_count(inst) < inst->philo->num_of_meals
+		&& not_dead(inst->philo) == 0)
 	{
 		if (eat_action(inst) == -1)
 			break ;
 		meal_counter(inst);
 		if (food_count(inst) >= inst->philo->num_of_meals)
 		{
+			pthread_mutex_lock(&inst->done);
 			inst->done_eating = 1;
+			pthread_mutex_unlock(&inst->done);
 			return ;
 		}
 		if (not_dead(inst->philo) == 1)
 			break ;
 		mess_out(inst, "is sleeping", 3);
 		pass_time(inst->philo->time_to_sleep);
-		mess_out(inst, "is thinking", 4);
 		if (not_dead(inst->philo) == 1)
 			break ;
 		ft_think(inst);

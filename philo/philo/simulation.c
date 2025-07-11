@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   simulation.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: olena <olena@student.42.fr>                +#+  +:+       +#+        */
+/*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/09 14:32:18 by oltolmac          #+#    #+#             */
-/*   Updated: 2025/07/11 17:59:49 by olena            ###   ########.fr       */
+/*   Updated: 2025/07/11 19:50:40 by oltolmac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,29 +24,16 @@ void	*one_philo_handler(t_table *table)
 	return (NULL);
 }
 
-
-//		if ((inst->num_ph % 2) && not_dead(inst->philo) == 0)
-//	pass_time(inst->philo->time_to_eat * 2 - inst->philo->time_to_sleep);
-// 			u_int64_t time_since_meal = get_current_time(0) - last_meal_time(inst);
-// if (time_since_meal + inst->philo->time_to_eat < (u_int64_t)inst->philo->time_to_die)
-// {
-// 	mess_out(inst, "is thinking", 4);
-// 	if ((inst->num_ph % 2) && not_dead(inst->philo) == 0)
-// 		pass_time(inst->philo->time_to_eat * 2 - inst->philo->time_to_sleep);
-// }
-
-
-
-
 void	*ft_feast(void *ph)
 {
 	t_table	*inst;
 
 	inst = (t_table *)ph;
-	wait_for_creation(inst->philo);
+	if (wait_for_creation(inst->philo) == 2)
+		return (NULL);
 	if (inst->num_ph == 1)
 		return (one_philo_handler(inst));
-	if (inst->indx % 2 == 0) //prevent deadlock and race condition
+	if (inst->indx % 2 == 0)
 		usleep(50);
 	if (inst->philo->num_of_meals == -1)
 	{

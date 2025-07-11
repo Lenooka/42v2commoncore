@@ -6,11 +6,26 @@
 /*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 16:34:58 by oltolmac          #+#    #+#             */
-/*   Updated: 2025/07/09 14:44:57 by oltolmac         ###   ########.fr       */
+/*   Updated: 2025/07/11 18:53:52 by oltolmac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_philo.h"
+
+int	ft_strlen(char *s)
+{
+	int	i;
+
+	if (!s)
+		return (0);
+	i = 0;
+	while (*s)
+	{
+		i++;
+		s++;
+	}
+	return (i);
+}
 
 u_int64_t	get_current_time(u_int64_t relative)
 {

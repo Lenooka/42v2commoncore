@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_philo.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: olena <olena@student.42.fr>                +#+  +:+       +#+        */
+/*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 15:21:20 by oltolmac          #+#    #+#             */
-/*   Updated: 2025/07/11 17:49:53 by olena            ###   ########.fr       */
+/*   Updated: 2025/07/11 20:14:58 by oltolmac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,78 +32,81 @@
 # define KCYN  "\x1B[36m"
 # define KWHT  "\x1B[37m"
 
-
-typedef	struct s_table
+typedef struct s_table
 {
 	int					indx;
 	int					num_ph;
-	struct s_philo				*philo;
+	struct s_philo		*philo;
 	pthread_mutex_t		*rightf;
 	pthread_mutex_t		*leftf;
 	pthread_mutex_t		eat;
 	pthread_mutex_t		meals_mx;
+	pthread_mutex_t		done;
 	int					all_eaten;
 	u_int64_t			last_eat;
-	u_int64_t		start_time;
-	int done_eating;
-} t_table;
-typedef	struct s_philo
+	u_int64_t			start_time;
+	int					done_eating;
+}	t_table;
+typedef struct s_philo
 {
-	int				time_to_die;
-	int				num_of_philo;
-	int				time_to_sleep;
-	int				time_to_eat;
-	int				num_of_meals;
-	int				end;
-	int				start;
+	int					time_to_die;
+	int					num_of_philo;
+	int					time_to_sleep;
+	int					time_to_eat;
+	int					num_of_meals;
+	int					end;
+	int					start;
 	pthread_mutex_t		write;
 	pthread_mutex_t		death;
 	pthread_mutex_t		sim;
-	pthread_t			*ph_thread;
+	pthread_t			*ph;
 	pthread_t			mon_death;
 	pthread_t			mon_meals;
-	pthread_mutex_t	*fork;
-	u_int64_t		start_t;
-	t_table			*table;
-	
-} t_philo;
+	pthread_mutex_t		*fork;
+	u_int64_t			start_t;
+	t_table				*table;
+}	t_philo;
 
-int		check_atoi(char **argv);
-void	exit_free(t_philo *philo, t_table *table, char *mess);
-int		fill_struct(t_philo *data, char **s);
-t_table	*set_up_table(t_philo *philo, t_table *table, int i);
-void	exit_just_mess(char *str);
+int			check_atoi(char **argv);
+void		exit_free(t_philo *philo, t_table *table, char *mess);
+int			fill_struct(t_philo *data, char **s);
+t_table		*set_up_table(t_philo *philo, int i);
+void		exit_just_mess(char *str);
 u_int64_t	get_current_time(u_int64_t relative);
-int	check_meals(char **argv);
-void	checkfill_arguments(t_philo *phil, char **argv, int argc);
-void    full_exit(t_philo *philo, t_table *table, char *mess);
+int			check_meals(char **argv);
+void		checkfill_arguments(t_philo *phil, char **argv, int argc);
+void		full_exit(t_philo *philo, t_table *table, char *mess);
+void		init_mutex_forks(t_philo *philo);
+void		destroy_back(t_philo *philo, int i);
+void		free_table(t_table *table, t_philo *philo);
+int			done_eat_check(t_table *inst);
 
 //monitor
-void	*monitor_meals(void *ph);
-void	*monitor_death(void *ph);
+void		*mm(void *ph);
+void		*md(void *ph);
 
 //feast
-int	start_feast(t_philo *philo, t_table *table);
-void	*one_philo_handler(t_table *table);
-void	*ft_feast(void *ph);
+int			start_feast(t_philo *philo, t_table *table);
+void		*one_philo_handler(t_table *table);
+void		*ft_feast(void *ph);
 
 //action
-void	ft_think(t_table *inst);
-void	pass_time(u_int64_t time);
-int	food_count(t_table *inst);
+int			ft_think(t_table *inst);
+void		pass_time(u_int64_t time);
+int			food_count(t_table *inst);
 u_int64_t	last_meal_time(t_table *philo);
-void	meal_counter(t_table *inst);
-void	limited_meals(t_table *inst);
-int	eat_action(t_table *inst);
-void	forks_action(t_table *inst, int take);
+void		meal_counter(t_table *inst);
+void		limited_meals(t_table *inst);
+int			eat_action(t_table *inst);
+void		forks_action(t_table *inst, int take);
 //UTILS
-int	ft_strlen(char *s);
-int		ft_atoi(const char *str);
-void	ft_puterror_endl(char *s, int fd);
-void	pass_time(u_int64_t time);
-void	wait_for_creation(t_philo *philo);
-int	not_dead(t_philo *philo);
+int			ft_strlen(char *s);
+int			ft_atoi(const char *str);
+void		ft_puterror_endl(char *s, int fd);
+void		pass_time(u_int64_t time);
+int			wait_for_creation(t_philo *philo);
+int			not_dead(t_philo *philo);
 //print
-void	mess_out(t_table *inst, char *mess, int c);
+void		mess_out(t_table *inst, char *mess, int c);
 
 #endif

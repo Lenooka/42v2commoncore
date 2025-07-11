@@ -6,7 +6,7 @@
 /*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/18 14:58:10 by oltolmac          #+#    #+#             */
-/*   Updated: 2025/07/11 15:48:51 by oltolmac         ###   ########.fr       */
+/*   Updated: 2025/07/11 19:46:42 by oltolmac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	ft_puterror_endl(char *s, int fd)
 {
-	char *red;
-	char *nrm;
+	char	*red;
+	char	*nrm;
 
 	red = KRED;
 	nrm = KNRM;
@@ -25,70 +25,52 @@ void	ft_puterror_endl(char *s, int fd)
 	write(fd, s, ft_strlen(s));
 	write(fd, "\n", 1);
 	write(fd, nrm, ft_strlen(nrm));
-
 }
 
-void    free_table(t_table *table, t_philo *philo)
+void	free_table(t_table *table, t_philo *philo)
 {
-    int    i = 0;
+	int	i;
 
-    if (!table)
-        return;
-
-    while (i < philo->num_of_philo)
-    {
-        pthread_mutex_destroy(&table[i].eat);
-        pthread_mutex_destroy(&philo->fork[i]);
-        pthread_mutex_destroy(&table[i].meals_mx);
-        i++;
-    }
-    free(table);
+	i = 0;
+	if (!table)
+		return ;
+	while (i < philo->num_of_philo)
+	{
+		pthread_mutex_destroy(&philo->table[i].eat);
+		pthread_mutex_destroy(&philo->fork[i]);
+		pthread_mutex_destroy(&philo->table[i].meals_mx);
+		i++;
+	}
+	free(philo->table);
 }
 
-void    full_exit(t_philo *philo, t_table *table, char *mess)
+void	full_exit(t_philo *philo, t_table *table, char *mess)
 {
 	if (table)
 		free_table(table, philo);
-    if (philo->ph_thread)
-		free(philo->ph_thread);
-    if (philo->fork)
-    {
+	if (philo->ph)
+		free(philo->ph);
+	if (philo->fork)
+	{
 		free(philo->fork);
 	}
 	pthread_mutex_destroy(&philo->write);
 	pthread_mutex_destroy(&philo->death);
 	pthread_mutex_destroy(&philo->sim);
 	ft_puterror_endl(mess, 2);
-    exit(0);
+	exit(0);
 }
 
 void	exit_free(t_philo *philo, t_table *table, char *mess)
 {
-	if (philo->ph_thread)
-		free(philo->ph_thread);
+	free(table);
+	if (philo->ph)
+		free(philo->ph);
 	if (philo->fork)
 		free(philo->fork);
-	if (table)
-		free(table);
 	ft_puterror_endl(mess, 2);
 	exit(1);
 }
-
-int	ft_strlen(char *s)
-{
-	int i;
-
-	if (!s)
-		return (0);
-	i = 0;
-	while(*s)
-	{
-		i++;
-		s++;
-	}
-	return (i);
-}
-
 
 void	exit_just_mess(char *str)
 {

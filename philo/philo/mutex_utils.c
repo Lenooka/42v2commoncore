@@ -6,11 +6,40 @@
 /*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/09 14:29:59 by oltolmac          #+#    #+#             */
-/*   Updated: 2025/07/09 18:52:54 by oltolmac         ###   ########.fr       */
+/*   Updated: 2025/07/11 20:15:36 by oltolmac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_philo.h"
+
+int	done_eat_check(t_table *inst)
+{
+	int	a;
+
+	pthread_mutex_lock(&inst->done);
+	a = inst->done_eating;
+	pthread_mutex_unlock(&inst->done);
+	return (a);
+}
+
+void	init_mutex_forks(t_philo *philo)
+{
+	int	i;
+
+	i = 0;
+	while (i < philo->num_of_philo)
+	{
+		if (pthread_mutex_init(&philo->fork[i], NULL) != 0)
+		{
+			pthread_mutex_destroy(&philo->write);
+			pthread_mutex_destroy(&philo->death);
+			pthread_mutex_destroy(&philo->sim);
+			destroy_back(philo, i);
+			exit_free(philo, philo->table, "Mutex fork init fail, init_forks");
+		}
+		i++;
+	}
+}
 
 int	not_dead(t_philo *philo)
 {
@@ -22,13 +51,16 @@ int	not_dead(t_philo *philo)
 	return (r);
 }
 
-void	wait_for_creation(t_philo *philo)
+int	wait_for_creation(t_philo *philo)
 {
 	pthread_mutex_lock(&philo->sim);
 	while (1)
 	{
 		if (philo->start == 1)
 			break ;
+		if (philo->start == 2)
+			return (2);
 	}
 	pthread_mutex_unlock(&philo->sim);
+	return (0);
 }

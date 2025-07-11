@@ -6,7 +6,7 @@
 /*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/09 14:26:50 by oltolmac          #+#    #+#             */
-/*   Updated: 2025/07/11 18:15:14 by oltolmac         ###   ########.fr       */
+/*   Updated: 2025/07/11 18:56:19 by oltolmac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,24 @@ void	untake_forks(t_table *inst)
 	}
 }
 
+void	uneven_handle(t_table *inst)
+{
+	pthread_mutex_lock(inst->rightf);
+	if (not_dead(inst->philo) == 1)
+	{
+		pthread_mutex_unlock(inst->rightf);
+		return ;
+	}
+	mess_out(inst, "has taken a fork", 1);
+	pthread_mutex_lock(inst->leftf);
+	if (not_dead(inst->philo) == 1)
+	{
+		untake_forks(inst);
+		return ;
+	}
+	mess_out(inst, "has taken a fork", 1);
+}
+
 void	take_forks(t_table *inst)
 {
 	if (inst->indx % 2)
@@ -33,34 +51,21 @@ void	take_forks(t_table *inst)
 		pthread_mutex_lock(inst->leftf);
 		if (not_dead(inst->philo) == 1)
 		{
-			untake_forks(inst);
+			pthread_mutex_unlock(inst->leftf);
 			return ;
 		}
 		mess_out(inst, "has taken a fork", 1);
+		pthread_mutex_lock(inst->rightf);
 		if (not_dead(inst->philo) == 1)
 		{
 			untake_forks(inst);
 			return ;
 		}
-		pthread_mutex_lock(inst->rightf);
 		mess_out(inst, "has taken a fork", 1);
 	}
 	else
 	{
-		pthread_mutex_lock(inst->rightf);
-		if (not_dead(inst->philo) == 1)
-		{
-			// untake_forks(inst);
-			return ;
-		}
-		mess_out(inst, "has taken a fork", 1);
-		if (not_dead(inst->philo) == 1)		
-		{
-			// untake_forks(inst);
-			return ;
-		}
-		pthread_mutex_lock(inst->leftf);
-		mess_out(inst, "has taken a fork", 1);		
+		uneven_handle(inst);
 	}
 }
 
