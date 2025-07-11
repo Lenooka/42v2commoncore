@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_table.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: olena <olena@student.42.fr>                +#+  +:+       +#+        */
+/*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/18 14:55:21 by oltolmac          #+#    #+#             */
-/*   Updated: 2025/07/11 17:51:46 by olena            ###   ########.fr       */
+/*   Updated: 2025/07/11 18:13:43 by oltolmac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,7 @@ t_table	*set_up_table(t_philo *philo, t_table *table, int i)
 	{
 		table[i].indx = i + 1;
 		table[i].philo = philo;
+		table[i].done_eating = 0;
 		table[i].all_eaten = 0;
 		table[i].num_ph = philo->num_of_philo;
 		table[i].leftf = &philo->fork[i];

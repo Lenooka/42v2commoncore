@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   forks_action.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: olena <olena@student.42.fr>                +#+  +:+       +#+        */
+/*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/09 14:26:50 by oltolmac          #+#    #+#             */
-/*   Updated: 2025/07/11 17:39:28 by olena            ###   ########.fr       */
+/*   Updated: 2025/07/11 18:15:14 by oltolmac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,16 @@ void	take_forks(t_table *inst)
 	{
 		pthread_mutex_lock(inst->leftf);
 		if (not_dead(inst->philo) == 1)
+		{
+			untake_forks(inst);
 			return ;
+		}
 		mess_out(inst, "has taken a fork", 1);
 		if (not_dead(inst->philo) == 1)
+		{
+			untake_forks(inst);
 			return ;
+		}
 		pthread_mutex_lock(inst->rightf);
 		mess_out(inst, "has taken a fork", 1);
 	}
@@ -43,10 +49,16 @@ void	take_forks(t_table *inst)
 	{
 		pthread_mutex_lock(inst->rightf);
 		if (not_dead(inst->philo) == 1)
+		{
+			// untake_forks(inst);
 			return ;
+		}
 		mess_out(inst, "has taken a fork", 1);
-		if (not_dead(inst->philo) == 1)
+		if (not_dead(inst->philo) == 1)		
+		{
+			// untake_forks(inst);
 			return ;
+		}
 		pthread_mutex_lock(inst->leftf);
 		mess_out(inst, "has taken a fork", 1);		
 	}

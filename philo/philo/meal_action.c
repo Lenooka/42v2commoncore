@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   meal_action.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: olena <olena@student.42.fr>                +#+  +:+       +#+        */
+/*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/09 13:40:59 by oltolmac          #+#    #+#             */
-/*   Updated: 2025/07/11 17:50:22 by olena            ###   ########.fr       */
+/*   Updated: 2025/07/11 18:15:59 by oltolmac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ int	eat_action(t_table *inst)
 	if (not_dead(inst->philo) == 1)
 		return (-1);
 	forks_action(inst, 0);
+	if (not_dead(inst->philo) == 1)
+		return (-1);
 	pthread_mutex_lock(&inst->eat);
 	if (not_dead(inst->philo) == 1)
 		return (-1);

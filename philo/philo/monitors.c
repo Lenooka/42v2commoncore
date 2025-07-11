@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   monitors.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: olena <olena@student.42.fr>                +#+  +:+       +#+        */
+/*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/09 14:28:01 by oltolmac          #+#    #+#             */
-/*   Updated: 2025/07/11 17:52:53 by olena            ###   ########.fr       */
+/*   Updated: 2025/07/11 18:19:39 by oltolmac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,14 +33,15 @@ int	are_we_done(t_philo *data)
 
 void	*monitor_meals(void *ph)
 {
-	t_philo	*philo = (t_philo *)ph;
-	t_table	*table = philo->table;
+	t_philo	*philo;
+	t_table	*table;
 	int		i;
 	int		all_done;
 
+	philo = (t_philo *)ph;
+	table = philo->table;
 	if (philo->num_of_meals == -1)
 		return (NULL);
-
 	while (not_dead(philo) == 0)
 	{
 		all_done = 1;
@@ -56,7 +57,7 @@ void	*monitor_meals(void *ph)
 		}
 		if (all_done)
 		{
-			to_die_force(philo); // sets philo->end = 1 safely
+			to_die_force(philo);
 			return (NULL);
 		}
 		usleep(1000);
