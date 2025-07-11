@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_philo.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: olena <olena@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 15:21:20 by oltolmac          #+#    #+#             */
-/*   Updated: 2025/07/11 15:36:23 by oltolmac         ###   ########.fr       */
+/*   Updated: 2025/07/11 17:49:53 by olena            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ typedef	struct s_table
 	int					all_eaten;
 	u_int64_t			last_eat;
 	u_int64_t		start_time;
+	int done_eating;
 } t_table;
 typedef	struct s_philo
 {

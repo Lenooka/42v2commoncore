@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   monitors.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: olena <olena@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/09 14:28:01 by oltolmac          #+#    #+#             */
-/*   Updated: 2025/07/11 17:25:18 by oltolmac         ###   ########.fr       */
+/*   Updated: 2025/07/11 17:52:53 by olena            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,59 +33,74 @@ int	are_we_done(t_philo *data)
 
 void	*monitor_meals(void *ph)
 {
-	t_philo	*philo;
-	t_table	*table;
+	t_philo	*philo = (t_philo *)ph;
+	t_table	*table = philo->table;
 	int		i;
+	int		all_done;
 
-	philo = (t_philo *)ph;
-	table = philo->table;
 	if (philo->num_of_meals == -1)
 		return (NULL);
+
 	while (not_dead(philo) == 0)
 	{
+		all_done = 1;
 		i = 0;
 		while (i < philo->num_of_philo)
 		{
-			if (food_count(&table[i]) < philo->num_of_meals)
-				break ;
-			i++;
-			if (i == philo->num_of_philo)
+			if (table[i].done_eating == 0)
 			{
-				to_die_force(philo);
-				return (NULL);
-
+				all_done = 0;
+				break;
 			}
-			usleep(1000);
+			i++;
 		}
+		if (all_done)
+		{
+			to_die_force(philo); // sets philo->end = 1 safely
+			return (NULL);
+		}
+		usleep(1000);
 	}
 	return (NULL);
 }
 
 
+
+
 void	*monitor_death(void *ph)
 {
-	t_philo	*philo;
-	t_table	*table;
+	t_philo	*philo = (t_philo *)ph;
+	t_table	*table = philo->table;
 	int		i;
 
-	philo = (t_philo *)ph;
-	table = philo->table;
-	while (not_dead(philo) != 1)
+	while (1)
+	{
+		if (not_dead(philo) == 1)
+			return (NULL);
+		i = 0;
+		while (i < philo->num_of_philo)
 		{
-			i = 0;
-			while (i < philo->num_of_philo)
+			// Skip this philosopher if they've eaten enough
+if (philo->num_of_meals != -1 && table[i].done_eating == 1)
+{
+	i++;
+	continue;
+}
+			if (get_current_time(last_meal_time(&table[i])) > (u_int64_t)philo->time_to_die)
 			{
-				if (get_current_time((last_meal_time(&table[i]))) > (u_int64_t)philo->time_to_die)
+				pthread_mutex_lock(&philo->death);
+				if (philo->end == 0)
 				{
-					pthread_mutex_lock(&philo->death);
 					philo->end = 1;
 					pthread_mutex_unlock(&philo->death);
 					mess_out(&table[i], "died", 5);
-					return NULL;// full_exit(philo, table, NULL);
 				}
-				i++;
+				else
+					pthread_mutex_unlock(&philo->death);
+				return (NULL);
 			}
+			i++;
+		}
 		usleep(1000);
 	}
-	return (NULL);
 }

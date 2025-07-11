@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   action_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: olena <olena@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/09 14:31:10 by oltolmac          #+#    #+#             */
-/*   Updated: 2025/07/09 17:49:04 by oltolmac         ###   ########.fr       */
+/*   Updated: 2025/07/11 17:31:19 by olena            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,17 +58,17 @@ void	mess_out(t_table *inst, char *mess, int c)
 	time = get_current_time(inst->philo->start_t);
 	pthread_mutex_lock(&inst->philo->write);
 	if (c == 1)
-		printf("%s%lu %d %s\n", KRED, time, inst->indx, mess);
+		printf("%s%llu %d %s\n", KRED, time, inst->indx, mess);
 	else if (c == 2)
-		printf("%s%lu %d %s\n", KYEL, time, inst->indx, mess);
+		printf("%s%llu %d %s\n", KYEL, time, inst->indx, mess);
 	else if (c == 3)
-		printf("%s%lu %d %s\n", KGRN, time, inst->indx, mess);
+		printf("%s%llu %d %s\n", KGRN, time, inst->indx, mess);
 	else if (c == 4)
-		printf("%s%lu %d %s\n", KCYN, time, inst->indx, mess);
+		printf("%s%llu %d %s\n", KCYN, time, inst->indx, mess);
 	else if (c == 5)
-		printf("%s%lu %d %s\n", KMAG, time, inst->indx, mess);
+		printf("%s%llu %d %s\n", KMAG, time, inst->indx, mess);
 	else
-		printf("%s%lu %d %s\n", KRED, time, inst->indx, mess);	
+		printf("%s%llu %d %s\n", KRED, time, inst->indx, mess);	
 	printf("%s", KNRM);
 	pthread_mutex_unlock(&inst->philo->write);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   forks_action.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: olena <olena@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/09 14:26:50 by oltolmac          #+#    #+#             */
-/*   Updated: 2025/07/09 14:27:09 by oltolmac         ###   ########.fr       */
+/*   Updated: 2025/07/11 17:39:28 by olena            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,14 +31,22 @@ void	take_forks(t_table *inst)
 	if (inst->indx % 2)
 	{
 		pthread_mutex_lock(inst->leftf);
+		if (not_dead(inst->philo) == 1)
+			return ;
 		mess_out(inst, "has taken a fork", 1);
+		if (not_dead(inst->philo) == 1)
+			return ;
 		pthread_mutex_lock(inst->rightf);
 		mess_out(inst, "has taken a fork", 1);
 	}
 	else
 	{
 		pthread_mutex_lock(inst->rightf);
+		if (not_dead(inst->philo) == 1)
+			return ;
 		mess_out(inst, "has taken a fork", 1);
+		if (not_dead(inst->philo) == 1)
+			return ;
 		pthread_mutex_lock(inst->leftf);
 		mess_out(inst, "has taken a fork", 1);		
 	}

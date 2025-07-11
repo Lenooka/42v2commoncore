@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   meal_action.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: olena <olena@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/09 13:40:59 by oltolmac          #+#    #+#             */
-/*   Updated: 2025/07/11 17:25:06 by oltolmac         ###   ########.fr       */
+/*   Updated: 2025/07/11 17:50:22 by olena            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,12 @@ void	meal_counter(t_table *inst)
 
 int	eat_action(t_table *inst)
 {
+	if (not_dead(inst->philo) == 1)
+		return (-1);
 	forks_action(inst, 0);
 	pthread_mutex_lock(&inst->eat);
+	if (not_dead(inst->philo) == 1)
+		return (-1);
 	inst->last_eat = get_current_time(0);
 	pthread_mutex_unlock(&inst->eat);
 	if (not_dead(inst->philo) == 1)
@@ -66,7 +70,10 @@ void	limited_meals(t_table *inst)
 			break ;
 		meal_counter(inst);
 		if (food_count(inst) >= inst->philo->num_of_meals)
+		{
+			inst->done_eating = 1;
 			return ;
+		}
 		if (not_dead(inst->philo) == 1)
 			break ;
 		mess_out(inst, "is sleeping", 3);
