@@ -6,7 +6,7 @@
 /*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/09 14:29:10 by oltolmac          #+#    #+#             */
-/*   Updated: 2025/07/11 18:49:09 by oltolmac         ###   ########.fr       */
+/*   Updated: 2025/07/12 14:22:00 by oltolmac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,17 +20,18 @@ int	check_meals(char **argv)
 		printf("Philosophers can't eat absence of meals!\n");
 		printf("%s", KNRM);
 		printf("Ammount of meals : %s\n", argv[5]);
-		exit(1);
+		return (1);
 	}
 	return (0);
 }
 
-void	checkfill_arguments(t_philo *phil, char **argv, int argc)
+int	checkfill_arguments(t_philo *phil, char **argv, int argc)
 {
 	int	i;
 	int	j;
 
 	j = 1;
+	(void)phil;
 	if (argc == 6)
 		check_meals(argv);
 	while (argv[j])
@@ -42,13 +43,13 @@ void	checkfill_arguments(t_philo *phil, char **argv, int argc)
 			{
 				printf("%sInvalid argument : %s\n", KRED, argv[j]);
 				printf("%s", KNRM);
-				exit(1);
+				return (1);
 			}
 			i++;
 		}
 		j++;
 	}
 	if (!check_atoi(argv))
-		exit(1);
-	fill_struct(phil, argv);
+		return (1);
+	return (0);
 }

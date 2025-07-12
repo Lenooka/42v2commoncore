@@ -6,7 +6,7 @@
 /*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/09 14:31:41 by oltolmac          #+#    #+#             */
-/*   Updated: 2025/07/11 20:18:25 by oltolmac         ###   ########.fr       */
+/*   Updated: 2025/07/12 14:17:18 by oltolmac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ int	start_feast(t_philo *philo, t_table *table)
 		if (pthread_create(&philo->ph[i], NULL, &ft_feast, &table[i]) != 0)
 		{
 			handle_threads_fail(philo, table, i);
+			return (1);
 		}
 		i++;
 	}
@@ -77,6 +78,7 @@ int	start_feast(t_philo *philo, t_table *table)
 		|| pthread_create(&philo->mon_meals, NULL, &mm, (void *)philo) != 0)
 	{
 		full_exit(philo, table, "Error in pthread_create for monitor_death");
+		return (1);
 	}
 	join_threads(philo, table);
 	return (0);

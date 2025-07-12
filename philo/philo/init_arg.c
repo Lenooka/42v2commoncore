@@ -6,7 +6,7 @@
 /*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 16:34:58 by oltolmac          #+#    #+#             */
-/*   Updated: 2025/07/11 18:53:52 by oltolmac         ###   ########.fr       */
+/*   Updated: 2025/07/12 14:18:45 by oltolmac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,7 @@ u_int64_t	get_current_time(u_int64_t relative)
 {
 	struct timeval	now;
 
-	if (gettimeofday(&now, NULL) == -1)
-	{
-		printf("Error: gettimeofday\n");
-		exit(1);
-	}
+	gettimeofday(&now, NULL);
 	return ((now.tv_sec * (u_int64_t)1000) + (now.tv_usec / 1000) - relative);
 }
 
@@ -44,7 +40,6 @@ int	error_arguments(char *s, char *mess)
 	printf("Invalid argument [%s]!\n", s);
 	printf("%s%s!\n", KRED, mess);
 	printf("%s", KNRM);
-	exit(1);
 	return (1);
 }
 

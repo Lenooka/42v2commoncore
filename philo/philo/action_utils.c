@@ -6,7 +6,7 @@
 /*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/09 14:31:10 by oltolmac          #+#    #+#             */
-/*   Updated: 2025/07/11 18:48:35 by oltolmac         ###   ########.fr       */
+/*   Updated: 2025/07/12 13:55:25 by oltolmac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ int	ft_think(t_table *inst)
 	u_int64_t	think_time;
 
 	buffer = 5;
+	if (not_dead(inst->philo) == 1)
+		return (0);
 	think_time = inst->philo->time_to_die
 		- (get_current_time(0) - last_meal_time(inst))
 		- inst->philo->time_to_eat

@@ -6,7 +6,7 @@
 /*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 15:21:20 by oltolmac          #+#    #+#             */
-/*   Updated: 2025/07/11 20:14:58 by oltolmac         ###   ########.fr       */
+/*   Updated: 2025/07/12 14:24:38 by oltolmac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,18 +68,21 @@ typedef struct s_philo
 }	t_philo;
 
 int			check_atoi(char **argv);
-void		exit_free(t_philo *philo, t_table *table, char *mess);
+int			exit_free(t_philo *philo, t_table *table, char *mess);
 int			fill_struct(t_philo *data, char **s);
-t_table		*set_up_table(t_philo *philo, int i);
-void		exit_just_mess(char *str);
+int			set_up_table(t_philo *philo, int i);
+int			exit_just_mess(char *str);
 u_int64_t	get_current_time(u_int64_t relative);
 int			check_meals(char **argv);
-void		checkfill_arguments(t_philo *phil, char **argv, int argc);
+int			checkfill_arguments(t_philo *phil, char **argv, int argc);
 void		full_exit(t_philo *philo, t_table *table, char *mess);
-void		init_mutex_forks(t_philo *philo);
+int			init_mutex_forks(t_philo *philo);
 void		destroy_back(t_philo *philo, int i);
 void		free_table(t_table *table, t_philo *philo);
 int			done_eat_check(t_table *inst);
+int			set_mutex_cut(t_philo *philo);
+int			exit_one(t_philo *philo, t_table *table, char *s);
+int			set_mutex(t_philo *philo, t_table *table);
 
 //monitor
 void		*mm(void *ph);

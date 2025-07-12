@@ -6,7 +6,7 @@
 /*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/09 14:32:18 by oltolmac          #+#    #+#             */
-/*   Updated: 2025/07/11 19:50:40 by oltolmac         ###   ########.fr       */
+/*   Updated: 2025/07/12 14:00:09 by oltolmac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,14 @@ void	*one_philo_handler(t_table *table)
 	pthread_mutex_unlock(&table->philo->death);
 	mess_out(table, "died", 5);
 	return (NULL);
+}
+
+void	ft_sleep(t_table *inst)
+{
+	mess_out(inst, "is sleeping", 3);
+	pass_time(inst->philo->time_to_sleep);
+	if (not_dead(inst->philo) == 1)
+		return ;
 }
 
 void	*ft_feast(void *ph)
@@ -43,8 +51,7 @@ void	*ft_feast(void *ph)
 				break ;
 			if (not_dead(inst->philo) == 1)
 				break ;
-			mess_out(inst, "is sleeping", 3);
-			pass_time(inst->philo->time_to_sleep);
+			ft_sleep(inst);
 			ft_think(inst);
 		}
 	}

@@ -6,7 +6,7 @@
 /*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/18 14:58:10 by oltolmac          #+#    #+#             */
-/*   Updated: 2025/07/11 19:46:42 by oltolmac         ###   ########.fr       */
+/*   Updated: 2025/07/12 14:11:29 by oltolmac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,10 +58,9 @@ void	full_exit(t_philo *philo, t_table *table, char *mess)
 	pthread_mutex_destroy(&philo->death);
 	pthread_mutex_destroy(&philo->sim);
 	ft_puterror_endl(mess, 2);
-	exit(0);
 }
 
-void	exit_free(t_philo *philo, t_table *table, char *mess)
+int	exit_free(t_philo *philo, t_table *table, char *mess)
 {
 	free(table);
 	if (philo->ph)
@@ -69,11 +68,11 @@ void	exit_free(t_philo *philo, t_table *table, char *mess)
 	if (philo->fork)
 		free(philo->fork);
 	ft_puterror_endl(mess, 2);
-	exit(1);
+	return (1);
 }
 
-void	exit_just_mess(char *str)
+int	exit_just_mess(char *str)
 {
 	ft_puterror_endl(str, 2);
-	exit(1);
+	return (1);
 }
