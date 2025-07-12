@@ -6,7 +6,7 @@
 /*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 15:07:12 by oltolmac          #+#    #+#             */
-/*   Updated: 2025/07/12 14:19:31 by oltolmac         ###   ########.fr       */
+/*   Updated: 2025/07/12 14:36:58 by oltolmac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,8 @@ int	main(int argc, char **argv)
 		return (0);
 	if (fill_struct(&philo, argv) == 1)
 		return (0);
-	set_up_table(&philo, 0);
+	if (set_up_table(&philo, 0) == 1)
+		return (0);
 	if (start_feast(&philo, philo.table) == 1)
 		return (0);
 	full_exit(&philo, philo.table, NULL);

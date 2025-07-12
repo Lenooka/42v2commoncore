@@ -6,13 +6,13 @@
 /*   By: oltolmac <oltolmac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/09 14:31:41 by oltolmac          #+#    #+#             */
-/*   Updated: 2025/07/12 14:17:18 by oltolmac         ###   ########.fr       */
+/*   Updated: 2025/07/12 14:35:21 by oltolmac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_philo.h"
 
-void	join_threads(t_philo *philo, t_table *table)
+int	join_threads(t_philo *philo, t_table *table)
 {
 	int	i;
 
@@ -24,9 +24,11 @@ void	join_threads(t_philo *philo, t_table *table)
 		if (pthread_join(philo->ph[i], NULL) != 0)
 		{
 			exit_free(philo, table, "Error in pthread_join");
+			return (1);
 		}
 		i++;
 	}
+	return (0);
 }
 
 void	time_and_wait_init(t_philo *philo, t_table *table)
@@ -80,6 +82,7 @@ int	start_feast(t_philo *philo, t_table *table)
 		full_exit(philo, table, "Error in pthread_create for monitor_death");
 		return (1);
 	}
-	join_threads(philo, table);
+	if (join_threads(philo, table) == 1)
+		return (1);
 	return (0);
 }
