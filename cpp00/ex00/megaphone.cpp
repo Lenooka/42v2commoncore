@@ -9,21 +9,19 @@ int	main(int argc, char **argv)
 		for (int i = 1; i < argc; ++i)
 		{
 			std::string str = argv[i];
-			for (char &c : str)
+			char c = str[i];
+    	   	if (isascii(c) == 0)
 			{
-    	   		if (isascii(c) == 0)
-				{
-					std::cout << "Non ascii characters is not allowed!" << '\n';
-					return 1;
-				}
+				std::cout << "Non ascii characters is not allowed!" << '\n';
+				return 1;
 			}
 		}
 		for (int i = 1; i < argc; ++i)
 		{
 			std::string str = argv[i];
-			for (char &c : str)
+			for (int a = 0; argv[i][a]; ++a)
 			{
-    	   		c = std::toupper(static_cast<unsigned char>(c));
+    	   		str[a] = std::toupper(static_cast<unsigned char>(str[a]));
    		 	}
 			std::cout << str;
 			if (i == argc - 1)

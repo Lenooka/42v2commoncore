@@ -1,10 +1,10 @@
-NAME = megaphone
+NAME = phonebook
 CC = c++ 
-SRC = megaphone.cpp
+SRC = main.cpp phonebook.cpp
 CFLAGS = -Wall -Wextra -Werror -std=c++98
 RM = rm -rf
 OBJ_D = obj
-OBJS = $(OBJ_D)/megaphone.o
+OBJS = $(OBJ_D)/phonebook.o
 GREEN = \033[32m
 RED = \033[31m
 RESET = \033[0m
