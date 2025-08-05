@@ -1,7 +1,7 @@
-NAME = phonebook
+NAME = Phonebook
 CC = c++ 
 SRC = main.cpp
-CFLAGS = -Wall -Wextra -Werror -std=c++98
+CFLAGS = -g -Wall -Wextra -Werror -std=c++98
 RM = rm -rf
 OBJ_D = obj
 OBJS = $(OBJ_D)/main.o
